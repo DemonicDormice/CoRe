@@ -1,0 +1,1 @@
+Folder for all document drafts. Final documentation will be written into the wiki.
