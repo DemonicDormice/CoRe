@@ -1,0 +1,6 @@
+c:\users\jan\documents\visual studio 2015\Projects\CoRe_Server\CoRe_Server\bin\Debug\CoRe_Server.exe.config
+C:\Users\Jan\documents\visual studio 2015\Projects\CoRe_Server\CoRe_Server\bin\Debug\CoRe_Server.exe
+C:\Users\Jan\documents\visual studio 2015\Projects\CoRe_Server\CoRe_Server\bin\Debug\CoRe_Server.pdb
+C:\Users\Jan\documents\visual studio 2015\Projects\CoRe_Server\CoRe_Server\obj\Debug\CoRe_Server.csprojResolveAssemblyReference.cache
+C:\Users\Jan\documents\visual studio 2015\Projects\CoRe_Server\CoRe_Server\obj\Debug\CoRe_Server.exe
+C:\Users\Jan\documents\visual studio 2015\Projects\CoRe_Server\CoRe_Server\obj\Debug\CoRe_Server.pdb
