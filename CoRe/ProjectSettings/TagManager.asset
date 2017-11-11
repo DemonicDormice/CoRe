@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CommandPrompt
   - NetworkManager
+  - InfoBox
   layers:
   - Default
   - TransparentFX
