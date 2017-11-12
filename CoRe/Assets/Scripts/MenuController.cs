@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour {
 
@@ -9,6 +10,13 @@ public class MenuController : MonoBehaviour {
 	[Header("Menu GameObjects")]
 	public GameObject loginMenu;
 	public GameObject registerMenu;
+	public InputField regusername;
+	public InputField regemail;
+	public InputField regpassword2;
+	public InputField regpassword1;
+	public InputField email;
+	public InputField password;
+	public Text infoText;
 
 	public Menu _menu;
 
@@ -41,4 +49,27 @@ public class MenuController : MonoBehaviour {
 	public void ChangeMenu(int menu){
 		_menu = (Menu)menu;
 	}
+
+	public void Login(){
+		if (email.text == "" || password.text == "") {
+			toggleInfoBox ("Insert e-Mail and password, please.");
+		}
+	}
+
+	public void Register(){
+
+	}
+
+	public void toggleInfoBox(string msg){
+		GameObject infoBox = GameObject.FindGameObjectWithTag ("InfoBox") as GameObject;
+
+		if (infoBox.activeSelf) {
+			infoBox.SetActive (false);
+		} else {
+			infoText.text = msg;
+			infoBox.SetActive (true);
+		}
+
+	}
+
 }
