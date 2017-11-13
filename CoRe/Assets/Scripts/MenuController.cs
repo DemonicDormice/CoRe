@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
 
 public class MenuController : MonoBehaviour {
 
@@ -30,7 +32,11 @@ public class MenuController : MonoBehaviour {
 		instance = this;
 		_menu = Menu.Login;
 	}
-	
+
+	void Start(){
+		DontDestroyOnLoad (gameObject);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		switch (_menu) {
@@ -57,6 +63,28 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void Register(){
+		//check InputFields
+		if (regpassword1.text == regpassword2.text || regpassword1.text.Length >= 8) {
+			if(regemail.text != ""){
+				if(regusername.text != ""){
+			//generate a sha512 hash of the password
+			byte[] pwdBytes = Encoding.UTF8.GetBytes(regpassword1.text);
+			SHA512 shaM = new SHA512Managed ();
+			string pwdHash = shaM.ComputeHash(pwdBytes);
+
+			Network.instance.registerplayer (regemail, );
+				} else {
+					regusername.colors.normalColor = Color.red;
+				}
+			} else{
+				regemail.colors.normalColor = Color.red;
+			}
+		} else {
+			regpassword1.colors.normalColor = Color.red; 
+			regpassword2.colors.normalColor = Color.red; 
+			toggleInfoBox ("The passwords are not correct! Please check them and try again. \n You have to use at least 8 Characters.");
+		}
+
 
 	}
 

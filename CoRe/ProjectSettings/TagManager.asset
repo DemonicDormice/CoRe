@@ -7,6 +7,7 @@ TagManager:
   - CommandPrompt
   - NetworkManager
   - InfoBox
+  - MenuController
   layers:
   - Default
   - TransparentFX
