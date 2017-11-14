@@ -13,7 +13,7 @@ public class Network : MonoBehaviour {
 	private MenuController menuCtrl; 
 
 	[Header("Network Settings")]
-	public string serverAdress = "127.0.0.1";
+	public string serverAdress = "http://localhost/";
 	public bool isConnected;
 
 	protected Network(){}
@@ -27,7 +27,7 @@ public class Network : MonoBehaviour {
 	void Start () {
 		DontDestroyOnLoad (gameObject);
 		cmd = GameObject.FindGameObjectWithTag("CommandPrompt").GetComponent<CommandPrompt>();
-		menuCtrl = GameObject.FindGameObjectWithTag ("MenuController").GetComponents<MenuController>();
+		menuCtrl = GameObject.FindGameObjectWithTag ("MenuController").GetComponent<MenuController>();
 	}
 
 	public void getPlayerData(string email, string password){
@@ -43,9 +43,11 @@ public class Network : MonoBehaviour {
 	}
 
 	IEnumerator register(string email, string username, string password, Dictionary<string, string> attributes){
-		List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-		formData.Add (new MultipartFormDataSection("username="+username+"&email="+email+"&password="+password) );
-		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/playermanager/register.php", formData);
+		WWWForm formData = new WWWForm();
+		formData.AddField ("email",email);
+		formData.AddField ("username",username);
+		formData.AddField ("p", password);
+		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/core/playermanager/register.php", formData);
 		cmd.writeLine ("Starting registration...");
 		yield return www.SendWebRequest();
 

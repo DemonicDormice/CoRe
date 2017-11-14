@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
 
-public class MenuController : MonoBehaviour {
+public class MenuController : MonoBehaviour
+{
 
 	public static MenuController instance;
 
-	[Header("Menu GameObjects")]
+	[Header ("Menu GameObjects")]
 	public GameObject loginMenu;
 	public GameObject registerMenu;
 	public InputField regusername;
@@ -19,26 +20,31 @@ public class MenuController : MonoBehaviour {
 	public InputField email;
 	public InputField password;
 	public Text infoText;
+	public GameObject infoBox;
 
 	public Menu _menu;
 
-	public enum Menu{
+	public enum Menu
+	{
 		Login = 1,
 		Register
 	}
 
 	// Use this for initialization
-	void Awake () {
+	void Awake ()
+	{
 		instance = this;
 		_menu = Menu.Login;
 	}
 
-	void Start(){
+	void Start ()
+	{
 		DontDestroyOnLoad (gameObject);
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		switch (_menu) {
 		case Menu.Login:
 			loginMenu.SetActive (true);
@@ -52,45 +58,55 @@ public class MenuController : MonoBehaviour {
 		}
 	}
 
-	public void ChangeMenu(int menu){
+	public void ChangeMenu (int menu)
+	{
 		_menu = (Menu)menu;
 	}
 
-	public void Login(){
+	public void Login ()
+	{
 		if (email.text == "" || password.text == "") {
 			toggleInfoBox ("Insert e-Mail and password, please.");
 		}
 	}
 
-	public void Register(){
+	public void Register ()
+	{
+		ColorBlock cbRed = regusername.colors;
+		cbRed.normalColor = Color.red;
+		ColorBlock cbNormal = regusername.colors;
+
 		//check InputFields
 		if (regpassword1.text == regpassword2.text || regpassword1.text.Length >= 8) {
-			if(regemail.text != ""){
-				if(regusername.text != ""){
-			//generate a sha512 hash of the password
-			byte[] pwdBytes = Encoding.UTF8.GetBytes(regpassword1.text);
-			SHA512 shaM = new SHA512Managed ();
-			string pwdHash = shaM.ComputeHash(pwdBytes);
+			if (regemail.text != "") {
+				if (regusername.text != "") {
+					//generate a sha512 hash of the password
+					byte[] pwdBytes = Encoding.UTF8.GetBytes (regpassword1.text);
+					SHA512 shaM = new SHA512Managed ();
+					string pwdHash = Encoding.UTF8.GetString(shaM.ComputeHash (pwdBytes));
 
-			Network.instance.registerplayer (regemail, );
+					Network.instance.registerplayer (regemail.text, regusername.text, pwdHash, null);
+					regusername.colors = cbNormal;
 				} else {
-					regusername.colors.normalColor = Color.red;
+					regusername.colors = cbRed;
 				}
-			} else{
-				regemail.colors.normalColor = Color.red;
+				regemail.colors = cbNormal;
+			} else {
+				regemail.colors = cbRed;
 			}
+			regpassword1.colors = cbNormal;
+			regpassword2.colors = cbNormal;
 		} else {
-			regpassword1.colors.normalColor = Color.red; 
-			regpassword2.colors.normalColor = Color.red; 
+			regpassword1.colors = cbRed;
+			regpassword2.colors = cbRed;
 			toggleInfoBox ("The passwords are not correct! Please check them and try again. \n You have to use at least 8 Characters.");
 		}
 
 
 	}
 
-	public void toggleInfoBox(string msg){
-		GameObject infoBox = GameObject.FindGameObjectWithTag ("InfoBox") as GameObject;
-
+	public void toggleInfoBox (string msg)
+	{
 		if (infoBox.activeSelf) {
 			infoBox.SetActive (false);
 		} else {
