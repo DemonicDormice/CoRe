@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 public class MenuController : MonoBehaviour
 {
@@ -67,6 +68,8 @@ public class MenuController : MonoBehaviour
 	{
 		if (email.text == "" || password.text == "") {
 			toggleInfoBox ("Insert e-Mail and password, please.");
+		} else {
+			
 		}
 	}
 
@@ -83,9 +86,10 @@ public class MenuController : MonoBehaviour
 					//generate a sha512 hash of the password
 					byte[] pwdBytes = Encoding.UTF8.GetBytes (regpassword1.text);
 					SHA512 shaM = new SHA512Managed ();
-					string pwdHash = Encoding.UTF8.GetString(shaM.ComputeHash (pwdBytes));
+					string pwdHash = (new SoapHexBinary(shaM.ComputeHash (pwdBytes))).ToString();
+					shaM.Clear ();
 
-					Network.instance.registerplayer (regemail.text, regusername.text, pwdHash, null);
+					Network.instance.registeruser (regemail.text, regusername.text, pwdHash, null);
 					regusername.colors = cbNormal;
 				} else {
 					regusername.colors = cbRed;

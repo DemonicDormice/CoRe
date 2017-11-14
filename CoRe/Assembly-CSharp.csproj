@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\DataController.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\IntroController.cs" />
+     <Compile Include="Assets\Scripts\JSONMessage.cs" />
      <Compile Include="Assets\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scripts\Network.cs" />
  <Reference Include="UnityEngine.UI">

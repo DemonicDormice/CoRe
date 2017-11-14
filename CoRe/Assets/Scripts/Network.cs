@@ -38,7 +38,7 @@ public class Network : MonoBehaviour {
 	 *Calls the function for registration of new users
 	 *
 	 */
-	public void registerplayer(string email, string username, string password, Dictionary<string, string> attributes){
+	public void registeruser(string email, string username, string password, Dictionary<string, string> attributes){
 		StartCoroutine(register(email, username, password, attributes));
 	}
 
@@ -54,7 +54,9 @@ public class Network : MonoBehaviour {
 		if (www.isNetworkError || www.isHttpError) {
 			cmd.writeLine (www.error);
 		} else {
-			menuCtrl.toggleInfoBox(www.downloadHandler.text);
+
+			JSONMessage response = JsonUtility.FromJson<JSONMessage> (www.downloadHandler.text);
+			menuCtrl.toggleInfoBox(response.msg);
 			menuCtrl._menu = MenuController.Menu.Login;
 		}
 	}
