@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IntroController : MonoBehaviour {
-	public GameObject commandPromptPanel;
 
 	// Use this for initialization
 	void Start () {
@@ -12,8 +11,6 @@ public class IntroController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.F1)) {
-			commandPromptPanel.SetActive (!commandPromptPanel.activeSelf);
-		}
+
 	}
 }

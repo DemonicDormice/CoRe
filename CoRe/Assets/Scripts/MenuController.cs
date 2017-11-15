@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -28,7 +29,8 @@ public class MenuController : MonoBehaviour
 	public enum Menu
 	{
 		Login = 1,
-		Register
+		Register,
+		None
 	}
 
 	// Use this for initialization
@@ -56,6 +58,11 @@ public class MenuController : MonoBehaviour
 			loginMenu.SetActive (false);
 			registerMenu.SetActive (true);
 			break;
+
+		case Menu.None:
+			loginMenu.SetActive (false);
+			registerMenu.SetActive (false);
+			break;
 		}
 	}
 
@@ -69,7 +76,20 @@ public class MenuController : MonoBehaviour
 		if (email.text == "" || password.text == "") {
 			toggleInfoBox ("Insert e-Mail and password, please.");
 		} else {
-			
+			//generate sha512 hash of password
+			string pwdHash = cryptPassword(password.text);
+			JSONMessage response = Network.instance.getPlayerData (email.text, pwdHash);
+			if (response.http_status < 400) {
+				_menu = MenuController.Menu.None;
+
+				bool hasPlayer = DataController.instance.createUser (response.data);
+
+				if (hasPlayer) {
+					SceneManager.LoadScene ("PlayerScene");
+				} else {
+					SceneManager.LoadScene ("PlayerCreationScene");
+				}
+			}
 		}
 	}
 
@@ -84,12 +104,13 @@ public class MenuController : MonoBehaviour
 			if (regemail.text != "") {
 				if (regusername.text != "") {
 					//generate a sha512 hash of the password
-					byte[] pwdBytes = Encoding.UTF8.GetBytes (regpassword1.text);
-					SHA512 shaM = new SHA512Managed ();
-					string pwdHash = (new SoapHexBinary(shaM.ComputeHash (pwdBytes))).ToString();
-					shaM.Clear ();
+					string pwdHash = cryptPassword(regpassword1.text);
+					JSONMessage response = Network.instance.registeruser (regemail.text, regusername.text, pwdHash, null);
+					toggleInfoBox(response.msg);
+					if (response.http_status < 400) {
+						_menu = MenuController.Menu.Login;
+					}
 
-					Network.instance.registeruser (regemail.text, regusername.text, pwdHash, null);
 					regusername.colors = cbNormal;
 				} else {
 					regusername.colors = cbRed;
@@ -118,6 +139,18 @@ public class MenuController : MonoBehaviour
 			infoBox.SetActive (true);
 		}
 
+	}
+
+	/**
+	 * Takes a string and generates a sha512 hex hash
+	 * 
+	 */
+	private string cryptPassword(string pwd){
+		byte[] pwdBytes = Encoding.UTF8.GetBytes (pwd);
+		SHA512 shaM = new SHA512Managed ();
+		string pwdHash = (new SoapHexBinary(shaM.ComputeHash (pwdBytes))).ToString();
+		shaM.Clear ();
+		return pwdHash;
 	}
 
 }

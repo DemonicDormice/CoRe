@@ -2,7 +2,7 @@
 include_once '../includes/db_connect.php';
 include_once '../includes/psl-config.php';
  
-$error_msg = "";
+$msg = "";
 $msgcode = 0;
  
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
@@ -10,14 +10,14 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_msg .= 'The email address you entered is not valid';
+        $msg .= 'The email address you entered is not valid';
 		$msgcode = 420;
     }
  
     $password = filter_input(INPUT_POST, 'p', FILTER_SANITIZE_STRING);
     if (strlen($password) != 128) {
         // hashed password needs to be 128 chars long
-        $error_msg .= 'Invalid password configuration.';
+        $msg .= 'Invalid password configuration.';
 		$msgcode = 420;
     }
   
@@ -31,11 +31,11 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
  
         if ($stmt->num_rows == 1) {
             // user with same e-mail already exists
-            $error_msg .= 'A user with this email address already exists.';
+            $msg .= 'A user with this email address already exists.';
 			$msgcode = 420;
         }
     } else {
-        $error_msg .= 'Database error';
+        $msg .= 'Database error';
 		$msgcode = 500;
     }
 	
@@ -49,15 +49,15 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
  
         if ($stmt->num_rows == 1) {
             // user with same e-mail already exists
-            $error_msg .= 'A user with the same name already exists.';
+            $msg .= 'A user with the same name already exists.';
 			$msgcode = 420;
         }
     } else {
-        $error_msg .= 'Database error';
+        $msg .= 'Database error';
 		$msgcode = 500;
     }
  
-    if (empty($error_msg)) {
+    if (empty($msg)) {
         // creates random salt
         $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
  
@@ -68,10 +68,10 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         if ($insert_stmt = $mysqli->prepare("INSERT INTO users (username, email, password, salt) VALUES (?, ?, ?, ?)")) {
             $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
             if (! $insert_stmt->execute()) {
-                $error_msg .= "Error: Registration not successful!";
+                $msg .= "Error: Registration not successful!";
 				$msgcode = 500;
             } else {
-				 $error_msg .= "Registration successful! \nPlease confirm the email verification.";
+				 $msg .= "Registration successful! \nPlease confirm the email verification.";
 				$msgcode = 201;
 				//TODO
 				//send email verfication
@@ -79,9 +79,9 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         }	
     }
 } else {
-	 $error_msg .= "Wrong parameters! \n";
+	 $msg .= "Invalid request. Wrong parameters! \n";
 	$msgcode = 420;
 }
-$post_data = array('http_status' => $msgcode, 'msg' => $error_msg);
+$post_data = array('http_status' => $msgcode, 'msg' => $msg, 'data' => '');
 echo json_encode($post_data, JSON_FORCE_OBJECT);
 ?>

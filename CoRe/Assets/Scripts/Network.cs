@@ -10,11 +10,11 @@ public class Network : MonoBehaviour {
 	
 	public static Network instance;
 	private CommandPrompt cmd;
-	private MenuController menuCtrl; 
 
 	[Header("Network Settings")]
 	public string serverAdress = "http://localhost/";
 	public bool isConnected;
+
 
 	protected Network(){}
 
@@ -27,37 +27,56 @@ public class Network : MonoBehaviour {
 	void Start () {
 		DontDestroyOnLoad (gameObject);
 		cmd = GameObject.FindGameObjectWithTag("CommandPrompt").GetComponent<CommandPrompt>();
-		menuCtrl = GameObject.FindGameObjectWithTag ("MenuController").GetComponent<MenuController>();
 	}
 
-	public void getPlayerData(string email, string password){
+	/**
+	 * Get the player data from server. If player do not exist change to player configuration Mode to create a new one.
+	 */
+	public JSONMessage getPlayerData(string email, string password){
+		JSONMessage response = null;
+		WWWForm formData = new WWWForm();
+		formData.AddField ("email",email);
+		formData.AddField ("p", password);
+		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/core/playermanager/getplayerdata.php", formData);
+		cmd.writeLine ("Requesting playerdata from server...");
+		www.SendWebRequest();
 
+		WaitForSeconds w;
+		while (!www.isDone)
+			w = new WaitForSeconds (0.1f);
+
+		if (www.isNetworkError || www.isHttpError) {
+			cmd.writeLine (www.error);
+		} else {
+			response = JsonUtility.FromJson<JSONMessage> (www.downloadHandler.text);
+		}
+		return response;
 	}
 
 	/**
 	 *Calls the function for registration of new users
 	 *
 	 */
-	public void registeruser(string email, string username, string password, Dictionary<string, string> attributes){
-		StartCoroutine(register(email, username, password, attributes));
-	}
-
-	IEnumerator register(string email, string username, string password, Dictionary<string, string> attributes){
+	public JSONMessage registeruser(string email, string username, string password, Dictionary<string, string> attributes){
+		JSONMessage response = null;
 		WWWForm formData = new WWWForm();
 		formData.AddField ("email",email);
 		formData.AddField ("username",username);
 		formData.AddField ("p", password);
 		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/core/playermanager/register.php", formData);
 		cmd.writeLine ("Starting registration...");
-		yield return www.SendWebRequest();
+		www.SendWebRequest();
+
+		WaitForSeconds w;
+		while (!www.isDone)
+			w = new WaitForSeconds (0.1f);
 
 		if (www.isNetworkError || www.isHttpError) {
 			cmd.writeLine (www.error);
 		} else {
-
-			JSONMessage response = JsonUtility.FromJson<JSONMessage> (www.downloadHandler.text);
-			menuCtrl.toggleInfoBox(response.msg);
-			menuCtrl._menu = MenuController.Menu.Login;
+			response = JsonUtility.FromJson<JSONMessage> (www.downloadHandler.text);
 		}
+		return response;
 	}
+
 }

@@ -8,6 +8,7 @@ public class CommandPrompt : MonoBehaviour {
 	public Text input;
 	public Text output;
 	public ScrollRect outputScroll;
+	public GameObject commandPromptPanel;
 
 	private List<GameObject> listeners = new List<GameObject> ();
 
@@ -19,6 +20,9 @@ public class CommandPrompt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown (KeyCode.F1)) {
+			commandPromptPanel.SetActive (!commandPromptPanel.activeSelf);
+		}
 		outputScroll.verticalNormalizedPosition = 1;
 	}
 

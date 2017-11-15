@@ -25,7 +25,7 @@ function sec_session_start() {
 
 function login($email, $password, $mysqli){
     if ($stmt = $mysqli->prepare("SELECT id, username, password, salt 
-        FROM members
+        FROM users
        WHERE email = ?
         LIMIT 1")) {
         $stmt->bind_param('s', $email); 
@@ -58,7 +58,7 @@ function login($email, $password, $mysqli){
                 } else {
                     // password incorrect save attempt to db
                     $now = time();
-                    $mysqli->query("INSERT INTO login_attempts(user_id, time)
+                    $mysqli->query("INSERT INTO login_attempts(users_id, time)
                                     VALUES ('$user_id', '$now')");
                     return false;
                 }

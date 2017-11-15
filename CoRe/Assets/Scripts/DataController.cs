@@ -19,12 +19,13 @@ public class DataController : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
-	public User getPlayerData(string email, string password){
-		if (userData != null) {
-
+	public bool createUser(string jsondata){
+		userData = JsonUtility.FromJson<User> (jsondata);
+		if (userData.player.playername == null) {
+			return false;
 		} else {
-
+			return true;
 		}
-		return null;
 	}
+		
 }
