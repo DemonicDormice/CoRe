@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour
 	[Header ("Menu GameObjects")]
 	public GameObject loginMenu;
 	public GameObject registerMenu;
+	public GameObject playerCreationMenu;
 	public InputField regusername;
 	public InputField regemail;
 	public InputField regpassword2;
@@ -30,6 +31,7 @@ public class MenuController : MonoBehaviour
 	{
 		Login = 1,
 		Register,
+		PlayerCreation,
 		None
 	}
 
@@ -51,15 +53,24 @@ public class MenuController : MonoBehaviour
 		switch (_menu) {
 		case Menu.Login:
 			loginMenu.SetActive (true);
+			playerCreationMenu.SetActive (false);
 			registerMenu.SetActive (false);
 			break;
 
 		case Menu.Register:
 			loginMenu.SetActive (false);
+			playerCreationMenu.SetActive (false);
 			registerMenu.SetActive (true);
 			break;
 
+		case Menu.PlayerCreation:
+			playerCreationMenu.SetActive (true);
+			loginMenu.SetActive (false);
+			registerMenu.SetActive (false);
+			break;
+
 		case Menu.None:
+			playerCreationMenu.SetActive (false);
 			loginMenu.SetActive (false);
 			registerMenu.SetActive (false);
 			break;
@@ -80,14 +91,14 @@ public class MenuController : MonoBehaviour
 			string pwdHash = cryptPassword(password.text);
 			JSONMessage response = Network.instance.getPlayerData (email.text, pwdHash);
 			if (response.http_status < 400) {
-				_menu = MenuController.Menu.None;
+				_menu = Menu.None;
 
 				bool hasPlayer = DataController.instance.createUser (response.data);
 
 				if (hasPlayer) {
 					SceneManager.LoadScene ("PlayerScene");
 				} else {
-					SceneManager.LoadScene ("PlayerCreationScene");
+					_menu = Menu.PlayerCreation;
 				}
 			}
 		}
@@ -108,7 +119,7 @@ public class MenuController : MonoBehaviour
 					JSONMessage response = Network.instance.registeruser (regemail.text, regusername.text, pwdHash, null);
 					toggleInfoBox(response.msg);
 					if (response.http_status < 400) {
-						_menu = MenuController.Menu.Login;
+						_menu = Menu.Login;
 					}
 
 					regusername.colors = cbNormal;
@@ -126,8 +137,6 @@ public class MenuController : MonoBehaviour
 			regpassword2.colors = cbRed;
 			toggleInfoBox ("The passwords are not correct! Please check them and try again. \n You have to use at least 8 Characters.");
 		}
-
-
 	}
 
 	public void toggleInfoBox (string msg)

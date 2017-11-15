@@ -57,7 +57,7 @@ public class Network : MonoBehaviour {
 	 *Calls the function for registration of new users
 	 *
 	 */
-	public JSONMessage registeruser(string email, string username, string password, Dictionary<string, string> attributes){
+	public JSONMessage registeruser(string email, string username, string password){
 		JSONMessage response = null;
 		WWWForm formData = new WWWForm();
 		formData.AddField ("email",email);
@@ -65,6 +65,34 @@ public class Network : MonoBehaviour {
 		formData.AddField ("p", password);
 		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/core/playermanager/register.php", formData);
 		cmd.writeLine ("Starting registration...");
+		www.SendWebRequest();
+
+		WaitForSeconds w;
+		while (!www.isDone)
+			w = new WaitForSeconds (0.1f);
+
+		if (www.isNetworkError || www.isHttpError) {
+			cmd.writeLine (www.error);
+		} else {
+			response = JsonUtility.FromJson<JSONMessage> (www.downloadHandler.text);
+		}
+		return response;
+	}
+
+	/**
+	 * Call this function to change the player data on the server.
+	 * 
+	 * 
+	 */
+	public JSONMessage changePlayerData(string email, string password, string playername, Attitude attitude){
+		JSONMessage response = null;
+		WWWForm formData = new WWWForm();
+		formData.AddField ("email",email);
+		formData.AddField ("p", password);
+		formData.AddField ("playername", playername);
+		formData.AddField ("attitude", (int)attitude);
+		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/core/playermanager/changeplayerdata.php", formData);
+		cmd.writeLine ("Changing player data on Server...");
 		www.SendWebRequest();
 
 		WaitForSeconds w;
