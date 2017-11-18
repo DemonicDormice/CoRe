@@ -100,6 +100,8 @@ public class MenuController : MonoBehaviour
 				} else {
 					_menu = Menu.PlayerCreation;
 				}
+			} else {
+				toggleInfoBox (response.msg);
 			}
 		}
 	}
@@ -116,7 +118,7 @@ public class MenuController : MonoBehaviour
 				if (regusername.text != "") {
 					//generate a sha512 hash of the password
 					string pwdHash = cryptPassword(regpassword1.text);
-					JSONMessage response = Network.instance.registeruser (regemail.text, regusername.text, pwdHash, null);
+					JSONMessage response = Network.instance.registeruser (regemail.text, regusername.text, pwdHash);
 					toggleInfoBox(response.msg);
 					if (response.http_status < 400) {
 						_menu = Menu.Login;

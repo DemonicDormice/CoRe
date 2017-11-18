@@ -8,7 +8,11 @@ public class PlayerCreationMenuController : MonoBehaviour {
 	public InputField playernameField;
 	public Toggle demonTgl;
 	public Toggle angleTgl;
-	ColorBlock cbNormal = playernameField.colors;
+	ColorBlock cbNormal;
+
+	void Start(){
+		cbNormal = playernameField.colors;
+	}
 
 	public void submitPlayerData(){
 		ColorBlock cbRed = playernameField.colors;
