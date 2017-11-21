@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
 	public GameObject loginMenu;
 	public GameObject registerMenu;
 	public GameObject playerCreationMenu;
+	public GameObject soulforgeMenu;
 	public InputField regusername;
 	public InputField regemail;
 	public InputField regpassword2;
@@ -32,6 +33,7 @@ public class MenuController : MonoBehaviour
 		Login = 1,
 		Register,
 		PlayerCreation,
+		Soulforge,
 		None
 	}
 
@@ -55,11 +57,13 @@ public class MenuController : MonoBehaviour
 			loginMenu.SetActive (true);
 			playerCreationMenu.SetActive (false);
 			registerMenu.SetActive (false);
+			soulforgeMenu.SetActive (false);
 			break;
 
 		case Menu.Register:
 			loginMenu.SetActive (false);
 			playerCreationMenu.SetActive (false);
+			soulforgeMenu.SetActive (false);
 			registerMenu.SetActive (true);
 			break;
 
@@ -67,12 +71,21 @@ public class MenuController : MonoBehaviour
 			playerCreationMenu.SetActive (true);
 			loginMenu.SetActive (false);
 			registerMenu.SetActive (false);
+			soulforgeMenu.SetActive (false);
+			break;
+
+		case Menu.Soulforge:
+			playerCreationMenu.SetActive (false);
+			loginMenu.SetActive (false);
+			registerMenu.SetActive (false);
+			soulforgeMenu.SetActive (true);
 			break;
 
 		case Menu.None:
 			playerCreationMenu.SetActive (false);
 			loginMenu.SetActive (false);
 			registerMenu.SetActive (false);
+			soulforgeMenu.SetActive (false);
 			break;
 		}
 	}
@@ -93,7 +106,8 @@ public class MenuController : MonoBehaviour
 			if (response.http_status < 400) {
 				_menu = Menu.None;
 
-				bool hasPlayer = DataController.instance.createUser (response.data);
+				//bool hasPlayer = DataController.instance.createUser (response.data);
+				bool hasPlayer = true;
 
 				if (hasPlayer) {
 					SceneManager.LoadScene ("PlayerScene");

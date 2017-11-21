@@ -7,7 +7,7 @@ public class PlayerCreationMenuController : MonoBehaviour {
 
 	public InputField playernameField;
 	public Toggle demonTgl;
-	public Toggle angleTgl;
+	public Toggle angelTgl;
 	ColorBlock cbNormal;
 
 	void Start(){
@@ -33,7 +33,7 @@ public class PlayerCreationMenuController : MonoBehaviour {
 	public void backButtonClicked(){
 		playernameField.text = "";
 		playernameField.colors = cbNormal;
-		angleTgl.isOn = true;
+		angelTgl.isOn = true;
 		MenuController.instance._menu = MenuController.Menu.None;
 	}
 }

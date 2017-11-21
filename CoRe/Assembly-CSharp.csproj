@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CharakterController.cs" />
      <Compile Include="Assets\Scripts\CommandPrompt.cs" />
      <Compile Include="Assets\Scripts\Data\JSONMessage.cs" />
      <Compile Include="Assets\Scripts\Data\Player.cs" />
@@ -60,6 +61,7 @@
      <Compile Include="Assets\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scripts\Network.cs" />
      <Compile Include="Assets\Scripts\PlayerCreationMenuController.cs" />
+     <Compile Include="Assets\Scripts\SoulforgeController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
