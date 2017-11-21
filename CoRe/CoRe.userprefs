@@ -2,19 +2,21 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Network.cs" Line="44" Column="20" />
-      <File FileName="Assets\Scripts\MenuController.cs" Line="99" Column="44" />
+      <File FileName="Assets\Scripts\Network.cs" Line="14" Column="30" />
+      <File FileName="Assets\Scripts\MenuController.cs" Line="34" Column="18" />
       <File FileName="Assets\Scripts\Data\User.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DataController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Data\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Data\JSONMessage.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CommandPrompt.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\IntroController.cs" Line="14" Column="3" />
+      <File FileName="Assets\Scripts\IntroController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PlayerCreationMenuController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Jan\Documents\GitHub\CoRe\CoRe\Assets\Scripts\Network.cs" line="76" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

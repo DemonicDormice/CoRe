@@ -12,7 +12,8 @@ public class Network : MonoBehaviour {
 	private CommandPrompt cmd;
 
 	[Header("Network Settings")]
-	public string serverAdress = "http://localhost/";
+	//public string serverAdress = "http://localhost/";
+	public string serverAdress = "https://conquer-the-realms.com/ftp";
 	public bool isConnected;
 
 
