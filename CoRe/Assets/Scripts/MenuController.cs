@@ -7,6 +7,15 @@ using System.Text;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine.SceneManagement;
 
+public enum Menu
+{
+	Login = 1,
+	Register,
+	PlayerCreation,
+	Soulforge,
+	None
+}
+
 public class MenuController : MonoBehaviour
 {
 
@@ -26,16 +35,7 @@ public class MenuController : MonoBehaviour
 	public Text infoText;
 	public GameObject infoBox;
 
-	public Menu _menu;
-
-	public enum Menu
-	{
-		Login = 1,
-		Register,
-		PlayerCreation,
-		Soulforge,
-		None
-	}
+	private Menu _menu;
 
 	// Use this for initialization
 	void Awake ()
@@ -54,45 +54,41 @@ public class MenuController : MonoBehaviour
 	{
 		switch (_menu) {
 		case Menu.Login:
+			deactiveMenus ();
 			loginMenu.SetActive (true);
-			playerCreationMenu.SetActive (false);
-			registerMenu.SetActive (false);
-			soulforgeMenu.SetActive (false);
 			break;
 
 		case Menu.Register:
-			loginMenu.SetActive (false);
-			playerCreationMenu.SetActive (false);
-			soulforgeMenu.SetActive (false);
+			deactiveMenus ();
 			registerMenu.SetActive (true);
 			break;
 
 		case Menu.PlayerCreation:
+			deactiveMenus ();
 			playerCreationMenu.SetActive (true);
-			loginMenu.SetActive (false);
-			registerMenu.SetActive (false);
-			soulforgeMenu.SetActive (false);
 			break;
 
 		case Menu.Soulforge:
-			playerCreationMenu.SetActive (false);
-			loginMenu.SetActive (false);
-			registerMenu.SetActive (false);
+			deactiveMenus ();
 			soulforgeMenu.SetActive (true);
 			break;
 
 		case Menu.None:
-			playerCreationMenu.SetActive (false);
-			loginMenu.SetActive (false);
-			registerMenu.SetActive (false);
-			soulforgeMenu.SetActive (false);
+			deactiveMenus ();
 			break;
 		}
 	}
 
-	public void ChangeMenu (int menu)
+	private void deactiveMenus(){
+		playerCreationMenu.SetActive (false);
+		loginMenu.SetActive (false);
+		registerMenu.SetActive (false);
+		soulforgeMenu.SetActive (false);
+	}
+
+	public void ChangeMenu (Menu menu)
 	{
-		_menu = (Menu)menu;
+		_menu = menu;
 	}
 
 	public void Login ()
@@ -106,8 +102,7 @@ public class MenuController : MonoBehaviour
 			if (response.http_status < 400) {
 				_menu = Menu.None;
 
-				//bool hasPlayer = DataController.instance.createUser (response.data);
-				bool hasPlayer = true;
+				bool hasPlayer = DataController.instance.createUser (response.data);
 
 				if (hasPlayer) {
 					SceneManager.LoadScene ("PlayerScene");

@@ -28,9 +28,20 @@ if (isset($_POST['email'], $_POST['p'])) {
             $stmt->fetch();
           }
         
-        //TODO
         //get the player data if there is a player
         $player = null;
+        
+        if ($stmt = $mysqli->prepare("SELECT idplayer, level, attitude, playername
+            FROM player
+           WHERE users_id = ?
+            LIMIT 1")) {
+            $stmt->bind_param('s', $user_id); 
+            $stmt->execute();   
+            $stmt->store_result();
+            $stmt->bind_result($player_id, $level, $attitude, $playername);
+            $stmt->fetch();
+            $player = array('playername' => $playername, 'level' => $level, 'attitude' => $attitude);
+          }
         
         $data = array('username' => $username, 'password' => $password, 'email' => $email, 'player' => $player);
         

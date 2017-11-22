@@ -6,4 +6,6 @@ using System;
 [Serializable]
 public class Player {
 	public string playername;
+	public int level;
+	public int attitude;
 }

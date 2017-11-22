@@ -16,7 +16,7 @@ public class SoulforgeController : MonoBehaviour {
 
 	void OnMouseOver(){
 		if (Input.GetMouseButtonDown (0)) {
-			MenuController.instance._menu = MenuController.Menu.Soulforge;
+			MenuController.instance.ChangeMenu(Menu.Soulforge);
 		}
 	}
 }

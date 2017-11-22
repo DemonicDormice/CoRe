@@ -6,7 +6,7 @@ public class IntroController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MenuController.instance._menu = MenuController.Menu.Login;
+		MenuController.instance.ChangeMenu(Menu.Login);
 	}
 	
 	// Update is called once per frame

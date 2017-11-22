@@ -22,7 +22,8 @@ public class PlayerCreationMenuController : MonoBehaviour {
 			Attitude a = Attitude.angel;
 			if (demonTgl.isOn)
 				a = Attitude.demon;
-			Network.instance.changePlayerData (DataController.instance.getEmail (), DataController.instance.getPassword (), playernameField.text, a);
+			JSONMessage response = Network.instance.changePlayerData (DataController.instance.getEmail (), DataController.instance.getPassword (), playernameField.text, (int)a);
+			MenuController.instance.toggleInfoBox (response.msg);
 			playernameField.colors = cbNormal;
 		} else {
 			playernameField.colors = cbRed;
@@ -34,6 +35,6 @@ public class PlayerCreationMenuController : MonoBehaviour {
 		playernameField.text = "";
 		playernameField.colors = cbNormal;
 		angelTgl.isOn = true;
-		MenuController.instance._menu = MenuController.Menu.None;
+		MenuController.instance.ChangeMenu(Menu.None);
 	}
 }

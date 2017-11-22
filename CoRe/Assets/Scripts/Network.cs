@@ -81,17 +81,18 @@ public class Network : MonoBehaviour {
 	}
 
 	/**
-	 * Call this function to change the player data on the server.
+	 * Call this function to change the player data on the server. If there is no player, a player will be created.
 	 * 
 	 * 
 	 */
-	public JSONMessage changePlayerData(string email, string password, string playername, Attitude attitude){
+	public JSONMessage changePlayerData(string email, string password, string playername, int attitude, int level = 1){
 		JSONMessage response = null;
 		WWWForm formData = new WWWForm();
 		formData.AddField ("email",email);
 		formData.AddField ("p", password);
 		formData.AddField ("playername", playername);
-		formData.AddField ("attitude", (int)attitude);
+		formData.AddField ("attitude", attitude);
+		formData.AddField ("level", level);
 		UnityWebRequest www = UnityWebRequest.Post(serverAdress+"/core/playermanager/changeplayerdata.php", formData);
 		cmd.writeLine ("Changing player data on Server...");
 		www.SendWebRequest();
