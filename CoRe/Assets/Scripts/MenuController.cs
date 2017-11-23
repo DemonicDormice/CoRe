@@ -80,16 +80,26 @@ public class MenuController : MonoBehaviour
 	}
 
 	private void deactiveMenus(){
-		playerCreationMenu.SetActive (false);
-		loginMenu.SetActive (false);
-		registerMenu.SetActive (false);
-		soulforgeMenu.SetActive (false);
+		if(_menu != Menu.PlayerCreation)
+			playerCreationMenu.SetActive (false);
+		if(_menu != Menu.Login)
+			loginMenu.SetActive (false);
+		if(_menu != Menu.Register)
+			registerMenu.SetActive (false);
+		if(_menu != Menu.Soulforge)
+			soulforgeMenu.SetActive (false);
+	}
+
+	public void ChangeMenu (int menu)
+	{
+		_menu = (Menu)menu;
 	}
 
 	public void ChangeMenu (Menu menu)
 	{
 		_menu = menu;
 	}
+
 
 	public void Login ()
 	{

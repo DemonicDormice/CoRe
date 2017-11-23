@@ -8,4 +8,5 @@ public class Player {
 	public string playername;
 	public int level;
 	public int attitude;
+	public List<Army> armys;
 }

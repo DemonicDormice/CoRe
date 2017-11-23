@@ -23,6 +23,7 @@ public class PlayerCreationMenuController : MonoBehaviour {
 			if (demonTgl.isOn)
 				a = Attitude.demon;
 			JSONMessage response = Network.instance.changePlayerData (DataController.instance.getEmail (), DataController.instance.getPassword (), playernameField.text, (int)a);
+			DataController.instance.changePlayer (response.data);
 			MenuController.instance.toggleInfoBox (response.msg);
 			playernameField.colors = cbNormal;
 		} else {

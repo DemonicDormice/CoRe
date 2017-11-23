@@ -25,7 +25,7 @@ public class DataController : MonoBehaviour {
 
 	public bool createUser(string jsondata){
 		userData = JsonUtility.FromJson<User> (jsondata);
-		if (userData.player.playername == null) {
+		if (userData.player.playername == "") {
 			return false;
 		} else {
 			return true;
@@ -42,6 +42,10 @@ public class DataController : MonoBehaviour {
 
 	public string getEmail(){
 		return userData.email;
+	}
+
+	public void changePlayer(string data){
+		Debug.Log ("evaluate playerdata");
 	}
 		
 }
