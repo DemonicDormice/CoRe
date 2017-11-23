@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Data\World.cs" />
      <Compile Include="Assets\Scripts\DataController.cs" />
      <Compile Include="Assets\Scripts\IntroController.cs" />
+     <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scripts\Network.cs" />
      <Compile Include="Assets\Scripts\PlayerCreationMenuController.cs" />

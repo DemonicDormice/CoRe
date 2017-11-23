@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerCreationMenuController : MonoBehaviour {
 
@@ -23,8 +24,12 @@ public class PlayerCreationMenuController : MonoBehaviour {
 			if (demonTgl.isOn)
 				a = Attitude.demon;
 			JSONMessage response = Network.instance.changePlayerData (DataController.instance.getEmail (), DataController.instance.getPassword (), playernameField.text, (int)a);
-			DataController.instance.changePlayer (response.data);
 			MenuController.instance.toggleInfoBox (response.msg);
+			if (response.http_status < 400) {
+				DataController.instance.changePlayer (response.data);
+				MenuController.instance.ChangeMenu (Menu.None);
+				SceneManager.LoadScene ("PlayerScene");
+			}
 			playernameField.colors = cbNormal;
 		} else {
 			playernameField.colors = cbRed;

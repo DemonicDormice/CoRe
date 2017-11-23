@@ -47,5 +47,9 @@ public class DataController : MonoBehaviour {
 	public void changePlayer(string data){
 		Debug.Log ("evaluate playerdata");
 	}
+
+	public void SaveData(){
+		Debug.Log ("Save data local!");
+	}
 		
 }
