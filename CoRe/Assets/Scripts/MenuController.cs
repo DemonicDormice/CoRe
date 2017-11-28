@@ -9,11 +9,12 @@ using UnityEngine.SceneManagement;
 
 public enum Menu
 {
-	Login = 1,
-	Register,
-	PlayerCreation,
-	Soulforge,
-	None
+	Login = 0,
+	Register = 1,
+	PlayerCreation = 2,
+	None = 3,
+	Main,
+	Soulforge
 }
 
 public class MenuController : MonoBehaviour
@@ -24,6 +25,7 @@ public class MenuController : MonoBehaviour
 	[Header ("Menu GameObjects")]
 	public GameObject loginMenu;
 	public GameObject registerMenu;
+	public GameObject mainMenu;
 	public GameObject playerCreationMenu;
 	public GameObject soulforgeMenu;
 	public InputField regusername;
@@ -52,6 +54,10 @@ public class MenuController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (Input.GetKey (KeyCode.Escape) && (int)_menu < 3 ) {
+			_menu = Menu.Main;
+		}
+			
 		switch (_menu) {
 		case Menu.Login:
 			deactiveMenus ();
@@ -61,6 +67,11 @@ public class MenuController : MonoBehaviour
 		case Menu.Register:
 			deactiveMenus ();
 			registerMenu.SetActive (true);
+			break;
+
+		case Menu.Main:
+			deactiveMenus ();
+			mainMenu.SetActive (true);
 			break;
 
 		case Menu.PlayerCreation:
@@ -88,6 +99,8 @@ public class MenuController : MonoBehaviour
 			registerMenu.SetActive (false);
 		if(_menu != Menu.Soulforge)
 			soulforgeMenu.SetActive (false);
+		if (_menu != Menu.Main)
+			mainMenu.SetActive (false);
 	}
 
 	public void ChangeMenu (int menu)
