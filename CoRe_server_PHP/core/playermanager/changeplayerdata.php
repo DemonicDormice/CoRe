@@ -125,9 +125,7 @@ if (isset($_POST['email'], $_POST['p'], $_POST['level'], $_POST['attitude'], $_P
 				}
 				else
 				{
-
 					// login not successful
-
 					$msg = "E-Mail or password not correct. Please try again.";
 					$msgcode = 401;
 				}
