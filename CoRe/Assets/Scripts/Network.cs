@@ -13,7 +13,7 @@ public class Network : MonoBehaviour {
 
 	[Header("Network Settings")]
 	//public string serverAdress = "http://localhost/";
-	public string serverAdress = "https://conquer-the-realms.com/ftp";
+	public string serverAdress = "https://conquer-the-realms.com";
 	public bool isConnected;
 
 

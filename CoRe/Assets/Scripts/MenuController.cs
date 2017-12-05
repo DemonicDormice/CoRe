@@ -13,7 +13,7 @@ public enum Menu
 	Register = 1,
 	PlayerCreation = 2,
 	None = 3,
-	Main,
+	Main = 4,
 	Soulforge
 }
 
