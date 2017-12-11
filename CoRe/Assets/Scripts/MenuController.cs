@@ -14,7 +14,9 @@ public enum Menu
 	PlayerCreation = 2,
 	None = 3,
 	Main = 4,
-	Soulforge
+	Soulforge,
+	SoulSpring,
+	Character
 }
 
 public class MenuController : MonoBehaviour
@@ -28,6 +30,8 @@ public class MenuController : MonoBehaviour
 	public GameObject mainMenu;
 	public GameObject playerCreationMenu;
 	public GameObject soulforgeMenu;
+	public GameObject soulSpringMenu;
+	public GameObject characterMenu;
 	public InputField regusername;
 	public InputField regemail;
 	public InputField regpassword2;
@@ -43,7 +47,8 @@ public class MenuController : MonoBehaviour
 	void Awake ()
 	{
 		instance = this;
-		_menu = Menu.Login;
+		//_menu = Menu.Login;
+		_menu = Menu.None;
 	}
 
 	void Start ()
@@ -86,6 +91,16 @@ public class MenuController : MonoBehaviour
 			soulforgeMenu.SetActive (true);
 			break;
 
+		case Menu.SoulSpring:
+			deactiveMenus ();
+			soulSpringMenu.SetActive (true);
+			break;
+
+		case Menu.Character:
+			deactiveMenus ();
+			characterMenu.SetActive (true);
+			break;
+
 		case Menu.None:
 			deactiveMenus ();
 			break;
@@ -101,6 +116,10 @@ public class MenuController : MonoBehaviour
 			registerMenu.SetActive (false);
 		if(_menu != Menu.Soulforge)
 			soulforgeMenu.SetActive (false);
+		if(_menu != Menu.SoulSpring)
+			soulSpringMenu.SetActive (false);
+		if(_menu != Menu.Character)
+			characterMenu.SetActive (false);
 		if (_menu != Menu.Main)
 			mainMenu.SetActive (false);
 	}
