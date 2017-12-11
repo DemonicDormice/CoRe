@@ -25,8 +25,8 @@ public class WorldMap : MonoBehaviour {
 	//Hardcoded unit with which the size of realm-tiles etc. will be determined
 	// TODO: Adminpanel to manipulate the world-size
 	// or world-size in dependend on active user numbers
-	static public readonly int numberColumns = 2; // columns are X
-	static public readonly int numberRows = 2; // rows are Y
+	static public readonly int numberColumns = 10; // columns are X
+	static public readonly int numberRows = 10; // rows are Y
 
 	//Now we set the climate zones of the world/realms and how they are distributed
 	//in percent. In follows: cold, warm, mediterranean, desert, tropic, desert,
@@ -36,8 +36,8 @@ public class WorldMap : MonoBehaviour {
 	static public readonly int numberCold = 10;
 	static public readonly int numberWarm = 10;
 	static public readonly int numberMediterranean = 0;
-	static public readonly int numberDesert = 0;
-	static public readonly int numberTropic = 0;
+	static public readonly int numberDesert = 10;
+	static public readonly int numberTropic = 10;
 	//In the finale program you don't need the calculation of the clima zones in the
 	//WorldMap.cs script. In the WorldEditor you choose the distribution, the "painting"
 	//of the realm is done in the realm szene...

@@ -222,8 +222,8 @@ public class RealmMap : MonoBehaviour {
 				//hexGameObject.name = "Hex " + column + "/" + row + " Value: " + h.HexTerrainValue;
 
 				//For making sure the hex knows its position on the map
-				hexGameObject.GetComponent<ThisHexTile> ().x = column;
-				hexGameObject.GetComponent<ThisHexTile> ().y = row;
+				hexGameObject.GetComponent<TileData> ().x = column;
+				hexGameObject.GetComponent<TileData> ().y = row;
 
 				//For a cleaner hierarchy, child this hex to RealmMap
 				hexGameObject.transform.SetParent (this.transform);

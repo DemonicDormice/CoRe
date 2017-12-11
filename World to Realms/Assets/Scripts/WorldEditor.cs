@@ -38,7 +38,7 @@ public class WorldEditor : MonoBehaviour {
 			//Debug.Log ("Mouse is over: " + hitInfo.collider.transform.parent.name);
 			GameObject hitChange_Realm = hitInfo.transform.parent.gameObject;
 
-			if (hitChange_Realm.GetComponent<ThisRealmTile> () != null) {
+			if (hitChange_Realm.GetComponent<RealmData> () != null) {
 				// We are over a realm
 				MouseOver_RealmChange (hitChange_Realm);
 			}

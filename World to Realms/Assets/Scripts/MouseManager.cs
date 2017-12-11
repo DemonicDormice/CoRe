@@ -128,7 +128,7 @@ public class MouseManager : MonoBehaviour {
 
 			// "if" to ask what kind of object we are over
 			// TODO: implement all other realm-objects
-			if (hitObject.GetComponent<ThisHexTile> () != null) {
+			if (hitObject.GetComponent<TileData> () != null) {
 				// We are over a hex
 				MouseOver_Hex (hitObject);
 			}

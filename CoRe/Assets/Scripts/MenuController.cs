@@ -49,6 +49,8 @@ public class MenuController : MonoBehaviour
 	void Start ()
 	{
 		DontDestroyOnLoad (gameObject);
+		email.text = "test@conquer-the-realms.com";
+		password.text = "abcdefg";
 	}
 
 	// Update is called once per frame
@@ -118,6 +120,7 @@ public class MenuController : MonoBehaviour
 	{
 		if (email.text == "" || password.text == "") {
 			toggleInfoBox ("Insert e-Mail and password, please.");
+
 		} else {
 			//generate sha512 hash of password
 			string pwdHash = cryptPassword(password.text);

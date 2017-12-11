@@ -154,7 +154,7 @@ public class RealmEditor : MonoBehaviour {
 			//Debug.Log ("Mouse is over: " + hitInfo.collider.transform.parent.name);
 			GameObject hitChange_Hex = hitInfo.transform.parent.gameObject;
 
-			if (hitChange_Hex.GetComponent<ThisHexTile> () != null) {
+			if (hitChange_Hex.GetComponent<TileData> () != null) {
 				// We are over a hex
 				MouseOver_HexChange (hitChange_Hex);
 			}
