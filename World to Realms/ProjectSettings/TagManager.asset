@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Hex_Water
+  - Hex_WarmBarren
+  - Hex_WarmHill
+  - Hex_WarmMountain
+  - Hex_TropicBarren
+  - Hex_TropicMountain
+  - Hex_MediterraneanBarren
+  - Hex_MediterraneanMountain
+  - Hex_DesertDeciduous
+  - Hex_DesertHammada
+  - Hex_DesertMountain
+  - Hex_DesertSand
+  - Hex_HighlightColor
+  - Hex_ColdBarren
+  - Hex_ColdConiferous
+  - Hex_ColdHill
+  - Hex_ColdMountain
+  - Hex_ColdPlain
+  - Hex_DesertPlain
+  - Hex_DesertHill
+  - Hex_MediterraneanHill
+  - Hex_MediterraneanPlain
+  - Hex_MediterraneanDeciduous
+  - Hex_TropicPlain
+  - Hex_TropicHill
+  - Hex_TropicDeciduous
+  - Hex_WarmPlain
+  - Hex_WarmDeciduous
+  - Hex_WarmConiferous
+  - VillageMedievalPlain
+  - VillageMedievalForest
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
