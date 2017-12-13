@@ -103,7 +103,17 @@ if (isset($_POST['email'], $_POST['p'], $_POST['level'], $_POST['attitude'], $_P
 										{
 											$msg.= "\n Army creation for new player successful!";
 											$msgcode = 201;
-										}
+                                             if ($result = $mysqli->query("SELECT idarmy FROM army WHERE player_idplayer = ".$playerid))
+									       {
+                                               $armys = array();
+								                while($row = $result->fetch_row()) {
+													array_push($armys, $row[0]);
+													
+												}
+                                                $data = array("armys" => $armys);
+                                               
+                                            }
+                                        }
 									}
 									else
 									{
@@ -120,20 +130,6 @@ if (isset($_POST['email'], $_POST['p'], $_POST['level'], $_POST['attitude'], $_P
 						$msgcode = 500;
 					}
 				}
-<<<<<<< HEAD
-				else
-				{
-					// login not successful
-					$msg = "E-Mail or password not correct. Please try again.";
-					$msgcode = 401;
-				}
-			}
-			else
-			{
-				$msg = "Invalid request. Some Parameters are missing.";
-				$msgcode = 420;
-=======
->>>>>>> 97424e83032cfea8339abe782e8ea9d2ccbccfb9
 			}
 		}
 	}

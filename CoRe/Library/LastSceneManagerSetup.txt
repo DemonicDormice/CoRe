@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/WorldRealmEditorSzenes/CreationScene.unity
+=======
+- path: Assets/Scenes/PreloadScene.unity
+>>>>>>> 14471958a5b99a2ae312488c158abd6f78da0518
   isLoaded: 1
   isActive: 1
