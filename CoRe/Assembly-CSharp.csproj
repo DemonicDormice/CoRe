@@ -79,6 +79,7 @@
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\Data\TileData.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\Data\WorldData.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\DataControllerEditor.cs" />
+     <Compile Include="Assets\Scripts\WorldRealmEditorScripts\EditorStatus.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\HexComponent.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\HexPosition.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\MenuController.cs" />
