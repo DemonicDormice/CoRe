@@ -11,3 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerScenes/PlayerScene.unity
     guid: 440e48397bd5edd47a1868c40d8edfe3
+  - enabled: 1
+    path: Assets/Scenes/WorldRealmEditorSzenes/CreationEditorScene.unity
+    guid: b772d0d6bb117b94c818bbbf7320c45e
+  - enabled: 1
+    path: Assets/Scenes/WorldRealmEditorSzenes/WorldEditorScene.unity
+    guid: ec60537940f779b44961398724041664
+  - enabled: 1
+    path: Assets/Scenes/WorldRealmEditorSzenes/RealmEditorScene.unity
+    guid: e0a0722adce10e94d927004205740c46

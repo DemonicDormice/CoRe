@@ -74,12 +74,12 @@
      <Compile Include="Assets\Scripts\SceneManager.cs" />
      <Compile Include="Assets\Scripts\UIHotkey.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\CameraKeyboardController.cs" />
+     <Compile Include="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\Data\RealmData.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\Data\SettlementData.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\Data\TileData.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\Data\WorldData.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\DataControllerEditor.cs" />
-     <Compile Include="Assets\Scripts\WorldRealmEditorScripts\EditorStatus.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\HexComponent.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\HexPosition.cs" />
      <Compile Include="Assets\Scripts\WorldRealmEditorScripts\MenuController.cs" />
@@ -125,17 +125,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
-<<<<<<< HEAD
  <HintPath>C:/Users/Socar/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>C:/Users/Socar/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
-=======
- <HintPath>C:/Users/Jan/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>C:/Users/Jan/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
->>>>>>> 14471958a5b99a2ae312488c158abd6f78da0518
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
