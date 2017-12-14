@@ -192,7 +192,7 @@ public class CreationMenu : MonoBehaviour {
 	}
 
 	//In NPC Menu: This little function will set NPC per Realm Quantity automaticalle to 1 every time, the "Only one NPC in the World?" 
-	//toggle is set true. And every time someone puts an number in "NPC per Realm Quantity" the 'highlander-toggle' will set on false
+	//toggle is set true. And every time someone puts an number in "NPC per Realm Quantity" the 'highlander-toggle' will be set to false
 	public void HighlanderNPC () {
 
 	}

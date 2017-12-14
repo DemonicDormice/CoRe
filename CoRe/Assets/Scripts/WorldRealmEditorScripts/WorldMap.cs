@@ -25,19 +25,19 @@ public class WorldMap : MonoBehaviour {
 	//Hardcoded unit with which the size of realm-tiles etc. will be determined
 	// TODO: Adminpanel to manipulate the world-size
 	// or world-size in dependend on active user numbers
-	static public readonly int numberColumns = 10; // columns are X
-	static public readonly int numberRows = 10; // rows are Y
+	static public readonly int numberColumns = DataControllerEditor.worldSizeX; // columns are X
+	static public readonly int numberRows = DataControllerEditor.worldSizeY; // rows are Y
 
 	//Now we set the climate zones of the world/realms and how they are distributed
 	//in percent. In follows: cold, warm, mediterranean, desert, tropic, desert,
 	//mediterranean, warm, cold. They get numbers depending on the size they take 
 	//in the world. The numbers can be choosen freely. The addition of the whole
 	//makes up for the 100 percent. 0 deactivades a climate zone.
-	static public readonly int numberCold = 10;
-	static public readonly int numberWarm = 10;
-	static public readonly int numberMediterranean = 0;
-	static public readonly int numberDesert = 10;
-	static public readonly int numberTropic = 10;
+	static public readonly int numberCold = DataControllerEditor.portionColdClimate;
+	static public readonly int numberWarm = DataControllerEditor.portionWarmClimate;
+	static public readonly int numberMediterranean = DataControllerEditor.portionMediterraneanClimate;
+	static public readonly int numberDesert = DataControllerEditor.portionDesertClimate;
+	static public readonly int numberTropic = DataControllerEditor.portionTropicClimate;
 	//In the finale program you don't need the calculation of the clima zones in the
 	//WorldMap.cs script. In the WorldEditor you choose the distribution, the "painting"
 	//of the realm is done in the realm szene...

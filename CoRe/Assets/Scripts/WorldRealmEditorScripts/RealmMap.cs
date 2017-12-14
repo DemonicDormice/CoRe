@@ -136,8 +136,8 @@ public class RealmMap : MonoBehaviour {
 	//Size of the world in realms*realms
 	// TODO: Adminpanel to manipulate the world-size
 	// or world-size in dependend on active user numbers
-	static public readonly int numberColumns = 50; // columns are X
-	static public readonly int numberRows = 50; // rows are Y
+	static public readonly int numberColumns = DataControllerEditor.realmSizeX; // columns are X
+	static public readonly int numberRows = DataControllerEditor.realmSizeY; // rows are Y
 
 	int RealmX = 0; //Later from editor or database
 	int RealmY = 1; //Later from editor or database

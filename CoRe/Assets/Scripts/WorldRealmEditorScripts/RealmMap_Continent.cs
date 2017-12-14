@@ -12,7 +12,7 @@ public class RealmMap_Continent : RealmMap {
 		int continentSpacing = numberColumns / numberRaisedArea;
 
 		//Uncomment this to generate the same "random" terrain every time.
-		Random.InitState(1);
+		Random.InitState(DataControllerEditor.randomCreationSeed);
 
 		for (int cont = 0; cont < numberRaisedArea; cont++)
 		{
