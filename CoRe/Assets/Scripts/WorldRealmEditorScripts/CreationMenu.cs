@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class CreationMenu : MonoBehaviour {
 
+	//All Canvases and panels of the menus
 	public InputField playerExpectation;
 	public InputField worldName;
 	public InputField startCalendarDate;
@@ -29,9 +31,87 @@ public class CreationMenu : MonoBehaviour {
 
 	public GameObject CanvasClimateMenu;
 	public GameObject PanelRandomClimateQuestion;
+	public GameObject PanelColdTileTypes;
+	public GameObject PanelWarmTileTypes;
+	public GameObject PanelMediterraneanTileTypes;
+	public GameObject PanelDesertTileTypes;
+	public GameObject PanelTropicTileTypes;
 
 	public GameObject CanvasNPCMenu;
 	public GameObject PanelRandomNPCQuestion;
+
+	//Inputfields of the menus
+	public InputField worldNameField;
+	public InputField playerExpectationField;
+	public InputField startDateField;
+	public InputField startTimeField;
+	public InputField endDateField;
+	public InputField endTimeField;
+	public InputField runTimeDaysField;
+	public InputField worldSizeXField;
+	public InputField worldSizeYField;
+	public InputField realmSizeXField;
+	public InputField realmSizeYField;
+	public InputField randomSeedField;
+
+	public InputField climateColdField;
+	public InputField climateWarmField;
+	public InputField climateMediterraneanField;
+	public InputField climateDesertField;
+	public InputField climateTropicField;
+
+	public InputField villagesRealmField;
+	public InputField castlesRealmField;
+	public InputField citiesRealmField;
+	public InputField villageRandomField;
+	public InputField castleRandomField;
+	public InputField cityRandomField;
+	public InputField quantityNPCField;
+
+	//Toggle of the world menus I and II
+	public Toggle toggleStartCreation;
+
+	//Toggle of the climate menu
+	public Toggle toggleColdPlain;
+	public Toggle toggleColdHill;
+	public Toggle toggleColdMountain;
+	public Toggle toggleColdConiferous;
+	public Toggle toggleColdBarren;
+	public Toggle toggleWarmPlain;
+	public Toggle toggleWarmHill;
+	public Toggle toggleWarmMountain;
+	public Toggle toggleWarmConiferous;
+	public Toggle toggleWarmDeciduous;
+	public Toggle toggleWarmBarren;
+	public Toggle toggleMediterraneanPlain;
+	public Toggle toggleMediterraneanHill;
+	public Toggle toggleMediterraneanMountain;
+	public Toggle toggleMediterraneanDeciduous;
+	public Toggle toggleMediterraneanBarren;
+	public Toggle toggleDesertPlain;
+	public Toggle toggleDesertHill;
+	public Toggle toggleDesertMountain;
+	public Toggle toggleDesertDeciduous;
+	public Toggle toggleDesertHammada;
+	public Toggle toggleDesertSand;
+	public Toggle toggleTropicPlain;
+	public Toggle toggleTropicHill;
+	public Toggle toggleTropicMountain;
+	public Toggle toggleTropicDeciduous;
+	public Toggle toggleTropicBarren;
+	public Toggle toggleWater;
+
+	//Toggle of the NPC menu
+	public Toggle toggleHighlander;
+	public Toggle toggleNordic;
+	public Toggle toggleMedieval;
+	public Toggle toggleAncient;
+	public Toggle toggleAsian;
+	public Toggle toggleAfrican;
+	public Toggle toggleHorde;
+	public Toggle toggleSpecial;
+	public Toggle toggleElite;
+	public Toggle toggleAntiUnborn;
 
 
 	// Use this for initialization
@@ -53,6 +133,13 @@ public class CreationMenu : MonoBehaviour {
 	
 		CanvasNPCMenu.GetComponent<Canvas> ().enabled = false;
 		PanelRandomNPCQuestion.SetActive(false);
+
+		PanelColdTileTypes.SetActive(true);
+		PanelWarmTileTypes.SetActive(true);
+		PanelMediterraneanTileTypes.SetActive(true);
+		PanelDesertTileTypes.SetActive(true);
+		PanelTropicTileTypes.SetActive(true);
+
 	}
 
 	// Update is called once per frame
@@ -153,6 +240,23 @@ public class CreationMenu : MonoBehaviour {
 	//set climate and NPC?"
 	public void randomTheRest () {
 
+		//The stuff that gets randomized in world menu
+		DataControllerEditor.randomCreationSeed = UnityEngine.Random.Range(0,99999); 
+
+		//The stuff that gets randomized in climate menu
+		DataControllerEditor.portionColdClimate = UnityEngine.Random.Range(0, 100); 
+		DataControllerEditor.portionWarmClimate = UnityEngine.Random.Range(0, (100 - DataControllerEditor.portionColdClimate));
+		DataControllerEditor.portionMediterraneanClimate = UnityEngine.Random.Range(0, (100 - DataControllerEditor.portionWarmClimate));
+		DataControllerEditor.portionDesertClimate = UnityEngine.Random.Range(0, (100 - DataControllerEditor.portionMediterraneanClimate));
+		DataControllerEditor.portionTropicClimate = UnityEngine.Random.Range(0, (100 - DataControllerEditor.portionDesertClimate));
+
+		//The stuff that gets randomized in NPC menu
+		DataControllerEditor.villagesRealm = UnityEngine.Random.Range(7, 13); 
+		DataControllerEditor.castlesRealm = UnityEngine.Random.Range(2, 4); 
+		DataControllerEditor.citiesRealm = UnityEngine.Random.Range(1, 3);
+		DataControllerEditor.villagesRandom = UnityEngine.Random.Range(0, 5); 
+		DataControllerEditor.castlesRandom = UnityEngine.Random.Range(0, 3); 
+		DataControllerEditor.citiesRandom = UnityEngine.Random.Range(0, 2);
 	}
 
 	//In World Menu First: This function will calculate and change the world size and realm size depending on expected players for
@@ -171,14 +275,28 @@ public class CreationMenu : MonoBehaviour {
 	//World Menu Second will automatically be set to the same status.
 	//Preview DayOfTheWeek will automatically be updated.
 	public void StartCalendarDate () {
+		/*
+		DateTime startDate = DateTime.Today.AddDays (5); //  TimeSpan(5, 0, 0, 0); //This adds 5 Days, 0 Hours, 0 Minutes and 0 Seconds to today. 
+		InputField startDateField = gameObject.GetComponent<InputField> ();
+		startDateField.text = startDate;
 
+		if (toggleStartCreation == true) { //If toggle Start on Creation is true, startDate is set to DateTime.Now
+		startDateField.text = DateTime.Now;
+		} else
+		{
+			startDateField.text = startDate;
+		} */
 	}
+
+
 
 	//In World Menu First: This function will calculate on starting the creation editor a End Calendar Date - based on the on start
 	//calculated Start Calendar Date PLUS 120 Days (4 Months).
 	//World Menu Second will automatically be set to the same status.
 	//Preview DayOfTheWeek will automatically be updated.
 	public void EndCalendarDate () {
+
+
 
 	}
 
@@ -191,9 +309,50 @@ public class CreationMenu : MonoBehaviour {
 
 	}
 
+	//In Climate Menu: This little function will deactivate the panel for the tyle types of a climate zone, if the climate zone is set
+	//to zero
+	public void DeactivateTileTypes () {
+		/* if (climateColdField <= 0) {
+			PanelColdTileTypes.SetActive (false);
+		} else {
+			PanelColdTileTypes.SetActive (true);
+		}
+
+		if (climateWarmField <= 0) { 
+			PanelWarmTileTypes.SetActive(false);
+		} else {
+		PanelColdTileTypes.SetActive (true);
+		}
+
+		if (climateMediterraneanField <= 0) {
+			PanelMediterraneanTileTypes.SetActive(false);
+		} else {
+			PanelColdTileTypes.SetActive (true);
+		}
+
+		if (climateDesertField <= 0) {
+			PanelDesertTileTypes.SetActive(false);
+		} else {
+			PanelColdTileTypes.SetActive (true);
+		}
+
+		if (climateTropicField <= 0) {
+			PanelTropicTileTypes.SetActive(false);
+		} else {
+			PanelColdTileTypes.SetActive (true);
+		} */
+	}
+
 	//In NPC Menu: This little function will set NPC per Realm Quantity automaticalle to 1 every time, the "Only one NPC in the World?" 
 	//toggle is set true. And every time someone puts an number in "NPC per Realm Quantity" the 'highlander-toggle' will be set to false
 	public void HighlanderNPC () {
+
+	}
+
+
+	//This will be used to commit all current data to the DataControllerEditor when the scene gets changed to the world or realm scene.
+	public void OnDestroy()
+	{
 
 	}
 }
