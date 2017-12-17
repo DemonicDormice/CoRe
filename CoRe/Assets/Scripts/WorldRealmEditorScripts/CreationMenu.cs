@@ -222,14 +222,73 @@ public class CreationMenu : MonoBehaviour {
 		PanelRandomNPCQuestion.SetActive(false);
 	}
 
-	public void LoadWorldEditorScene(string WorldEditorScene) {
-		SceneManager.LoadScene (WorldEditorScene);
+	public void InputWorldname () {
+		
+	}
+
+	//In World Menu First: This function will calculate and change the world size and realm size depending on expected players for
+	//the next round. This will just fill the textfields in World Menu Second with fitting numbers, the user still has to confirm
+	//or can change the numbers.
+	//World Menu Second will automatically be set to the same status. 
+	public void PlayerExpectation (int playerExpectation) {
+
+		//We will expect that a round over 120 days should start with two realms per player á 50 by 50 tiles.
+		playerExpectation = ((DataControllerEditor.realmSizeX * DataControllerEditor.realmSizeY) / 2500) * (DataControllerEditor.worldSizeX * DataControllerEditor.worldSizeY);
+	}
+		
+	public void ArenaCreation () {
+
+	}
+
+	public void LoadDatabase () {
+
+	}
+
+	public void LoadFile () {
+
+	}
+		
+	//In World Menu First: This function will calculate on starting the creation editor a Start Calendar Date - based on the real world
+	//calendar date PLUS five days. A Toggle "Start Now" will set the start date (when true) to the real world time and date the second 
+	//the user hits create.
+	//World Menu Second will automatically be set to the same status.
+	//Preview DayOfTheWeek will automatically be updated.
+	public void StartCalendarDate () {
+		/*
+		DateTime startDate = DateTime.Today.AddDays (5); //  TimeSpan(5, 0, 0, 0); //This adds 5 Days, 0 Hours, 0 Minutes and 0 Seconds to today. 
+		InputField startDateField = gameObject.GetComponent<InputField> ();
+		startDateField.text = startDate;
+
+		if (toggleStartCreation == true) { //If toggle Start on Creation is true, startDate is set to DateTime.Now
+		startDateField.text = DateTime.Now;
+		} else
+		{
+			startDateField.text = startDate;
+		} */
+	}
+
+	//In World Menu First: This function will calculate on starting the creation editor a End Calendar Date - based on the on start
+	//calculated Start Calendar Date PLUS 120 Days (4 Months).
+	//World Menu Second will automatically be set to the same status.
+	//Preview DayOfTheWeek will automatically be updated.
+	public void EndCalendarDate () {
+
+
+
+	}
+
+	public void ResetToStandard () {
+
 	}
 
 	//In World Menu First: This function will on start of the creation menu scene put a random integer number into the "Random-Seed" textfield.
 	//World Menu Second will automatically be set to the same status. 
 	public void randomTheSeed () {
 
+	}
+
+	public void LoadWorldEditorScene(string WorldEditorScene) {
+		SceneManager.LoadScene (WorldEditorScene);
 	}
 
 	//In World Menu First: This function will random all the things "randomable" in the editor like what climate zones are active or if
@@ -259,46 +318,6 @@ public class CreationMenu : MonoBehaviour {
 		DataControllerEditor.citiesRandom = UnityEngine.Random.Range(0, 2);
 	}
 
-	//In World Menu First: This function will calculate and change the world size and realm size depending on expected players for
-	//the next round. This will just fill the textfields in World Menu Second with fitting numbers, the user still has to confirm
-	//or can change the numbers.
-	//World Menu Second will automatically be set to the same status. 
-	public void PlayerExpectation (int playerExpectation) {
-
-		//We will expect that a round over 120 days should start with two realms per player á 50 by 50 tiles.
-		playerExpectation = ((DataControllerEditor.realmSizeX * DataControllerEditor.realmSizeY) / 2500) * (DataControllerEditor.worldSizeX * DataControllerEditor.worldSizeY);
-	}
-
-	//In World Menu First: This function will calculate on starting the creation editor a Start Calendar Date - based on the real world
-	//calendar date PLUS five days. A Toggle "Start Now" will set the start date (when true) to the real world time and date the second 
-	//the user hits create.
-	//World Menu Second will automatically be set to the same status.
-	//Preview DayOfTheWeek will automatically be updated.
-	public void StartCalendarDate () {
-		/*
-		DateTime startDate = DateTime.Today.AddDays (5); //  TimeSpan(5, 0, 0, 0); //This adds 5 Days, 0 Hours, 0 Minutes and 0 Seconds to today. 
-		InputField startDateField = gameObject.GetComponent<InputField> ();
-		startDateField.text = startDate;
-
-		if (toggleStartCreation == true) { //If toggle Start on Creation is true, startDate is set to DateTime.Now
-		startDateField.text = DateTime.Now;
-		} else
-		{
-			startDateField.text = startDate;
-		} */
-	}
-
-
-
-	//In World Menu First: This function will calculate on starting the creation editor a End Calendar Date - based on the on start
-	//calculated Start Calendar Date PLUS 120 Days (4 Months).
-	//World Menu Second will automatically be set to the same status.
-	//Preview DayOfTheWeek will automatically be updated.
-	public void EndCalendarDate () {
-
-
-
-	}
 
 	//In World Menu Second: This function für the run-time in days textfield will change the end date calendar textfield and the 
 	//end time of day textfield - and if the user changes things inside those fields the run-time textfield will be changed - 
