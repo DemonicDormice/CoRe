@@ -13,12 +13,6 @@ using UnityEngine.SceneManagement;
 public class CreationMenu : MonoBehaviour {
 
 	//All Canvases and panels of the menus
-	public InputField playerExpectation;
-	public InputField worldName;
-	public InputField startCalendarDate;
-	public InputField endCalendarDate;
-	public InputField randomEditorSeed;
-
 	public GameObject CanvasWorldMenuI;
 	public GameObject PanelRandomWorldQuestionI;
 	public GameObject PanelResetQuestion;
@@ -118,6 +112,7 @@ public class CreationMenu : MonoBehaviour {
 	void Start () {
 //playerExpectation = 200;
 
+		//All the canvases and panels that are active - or not..
 		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = true;
 		PanelRandomWorldQuestionI.SetActive(false);
 		PanelResetQuestion.SetActive(false); 
@@ -140,6 +135,66 @@ public class CreationMenu : MonoBehaviour {
 		PanelDesertTileTypes.SetActive(true);
 		PanelTropicTileTypes.SetActive(true);
 
+
+		//The following fills most of the Input Fields and placeholders with the right values from DataControllerEditor till they are changed
+		//some Input Fields get filled in seperate functions (example startDateField, because it has to be calculated first).
+		playerExpectationField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = 200;
+		playerExpectationField.GetComponent<InputField>().text = 200;
+
+		//startTimeField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
+		//endDateField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
+		//endTimeField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
+
+		runTimeDaysField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = 120;
+		runTimeDaysField.GetComponent<InputField>().text = 120;
+
+		worldSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.worldSizeX;
+		worldSizeXField.GetComponent<InputField>().text = DataControllerEditor.worldSizeX;
+
+		worldSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.worldSizeY;
+		worldSizeYField.GetComponent<InputField>().text = DataControllerEditor.worldSizeY;
+	
+		realmSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.realmSizeX;
+		realmSizeXField.GetComponent<InputField>().text = DataControllerEditor.realmSizeX;
+
+		realmSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.realmSizeY;
+		realmSizeYField.GetComponent<InputField>().text = DataControllerEditor.realmSizeY;
+
+		climateColdField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionColdClimate;
+		climateColdField.GetComponent<InputField>().text = DataControllerEditor.portionColdClimate;
+
+		climateWarmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionWarmClimate;
+		climateWarmField.GetComponent<InputField>().text = DataControllerEditor.portionWarmClimate;
+
+		climateMediterraneanField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionMediterraneanClimate;
+		climateMediterraneanField.GetComponent<InputField>().text = DataControllerEditor.portionMediterraneanClimate;
+
+		climateDesertField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionDesertClimate;
+		climateDesertField.GetComponent<InputField>().text = DataControllerEditor.portionDesertClimate;
+
+		climateTropicField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionTropicClimate;
+		climateTropicField.GetComponent<InputField>().text = DataControllerEditor.portionTropicClimate;
+
+		villagesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.villagesRealm;
+		villagesRealmField.GetComponent<InputField>().text = DataControllerEditor.villagesRealm;
+
+		castlesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.castlesRealm;
+		castlesRealmField.GetComponent<InputField>().text = DataControllerEditor.castlesRealm;
+
+		citiesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.citiesRealm;
+		citiesRealmField.GetComponent<InputField>().text = DataControllerEditor.citiesRealm;
+
+		villageRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.villagesRandom;
+		villageRandomField.GetComponent<InputField>().text = DataControllerEditor.villagesRandom;
+
+		castleRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.castlesRandom;
+		castleRandomField.GetComponent<InputField>().text = DataControllerEditor.castlesRandom;
+
+		cityRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.citiesRandom;
+		cityRandomField.GetComponent<InputField>().text = DataControllerEditor.citiesRandom;
+
+		quantityNPCField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.quantityNPC;
+		quantityNPCField.GetComponent<InputField>().text = DataControllerEditor.quantityNPC;
 	}
 
 	// Update is called once per frame
@@ -255,12 +310,13 @@ public class CreationMenu : MonoBehaviour {
 	//Preview DayOfTheWeek will automatically be updated.
 	public void StartCalendarDate () {
 		/*
-		DateTime startDate = DateTime.Today.AddDays (5); //  TimeSpan(5, 0, 0, 0); //This adds 5 Days, 0 Hours, 0 Minutes and 0 Seconds to today. 
-		InputField startDateField = gameObject.GetComponent<InputField> ();
-		startDateField.text = startDate;
+		DateTime startDate = DateTime.Today.AddDays (5); //  TimeSpan(5, 0, 0, 0); //This adds 5 Days, 0 Hours, 0 Minutes and 0 Seconds to today.
+		startDateField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = startDate;
+		startDateField.GetComponent<InputField>().text = startDate;
 
 		if (toggleStartCreation == true) { //If toggle Start on Creation is true, startDate is set to DateTime.Now
-		startDateField.text = DateTime.Now;
+		startDateField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DateTime.Now;
+		startDateField.GetComponent<InputField>().text = DateTime.Now;
 		} else
 		{
 			startDateField.text = startDate;
@@ -285,8 +341,13 @@ public class CreationMenu : MonoBehaviour {
 	//World Menu Second will automatically be set to the same status. 
 	public void randomTheSeed () {
 
+		//randomSeedField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = XXX;
+		//randomSeedField.GetComponent<InputField>().text = XXX;
+		//DataControllerEditor.randomCreationSeed = XXX;
+
 	}
 
+	//TODO: World with no name - Warning popup, that a world name is needed. Maybe in the popup panel a convenient input field to get the name...
 	public void LoadWorldEditorScene(string WorldEditorScene) {
 		SceneManager.LoadScene (WorldEditorScene);
 	}

@@ -74,7 +74,7 @@ public class DataControllerEditor : MonoBehaviour {
 	public static int citiesRandom = 0;
 
 	public static bool highlanderNPC = true; //All settlements and npc armies are controlled by one and only one AI-Player - ignoring cultures and realms etc.
-	public static int quantityNPC = 1; //If highlandernNPC is true, quantityNPC is automatically set to 1
+	public static int quantityNPC = 0; //If highlandernNPC is true, quantityNPC is automatically set to 0
 
 	public static bool activeCultureNordic = true;
 	public static bool activeCultureMedieval = true;
