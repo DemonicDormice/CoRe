@@ -34,33 +34,51 @@ public class CreationMenu : MonoBehaviour {
 	public GameObject CanvasNPCMenu;
 	public GameObject PanelRandomNPCQuestion;
 
-	//Inputfields of the menus
+	//For the Input Fields of the menus
 	public InputField worldNameField;
 	public InputField playerExpectationField;
+	int playerExpectation;
 	public InputField startDateField;
 	public InputField startTimeField;
 	public InputField endDateField;
 	public InputField endTimeField;
 	public InputField runTimeDaysField;
+	int runTimeDays;
 	public InputField worldSizeXField;
+	int worldSizeX;
 	public InputField worldSizeYField;
-	public InputField realmSizeXField;
+	int worldSizeY;
+	public InputField realmSizeXField;	
+	int realmSizeX;
 	public InputField realmSizeYField;
+	int realmSizeY;
 	public InputField randomSeedField;
 
 	public InputField climateColdField;
+	int climateCold;
 	public InputField climateWarmField;
+	int climateWarm;
 	public InputField climateMediterraneanField;
+	int climateMediterranean;
 	public InputField climateDesertField;
+	int climateDesert;
 	public InputField climateTropicField;
+	int climateTropic;
 
 	public InputField villagesRealmField;
+	int villagesRealm;
 	public InputField castlesRealmField;
+	int castlesRealm;
 	public InputField citiesRealmField;
+	int citiesRealm;
 	public InputField villageRandomField;
+	int villageRandom;
 	public InputField castleRandomField;
+	int castleRandom;
 	public InputField cityRandomField;
+	int cityRandom;
 	public InputField quantityNPCField;
+	int quantityNPC;
 
 	//Toggle of the world menus I and II
 	public Toggle toggleStartCreation;
@@ -138,63 +156,81 @@ public class CreationMenu : MonoBehaviour {
 
 		//The following fills most of the Input Fields and placeholders with the right values from DataControllerEditor till they are changed
 		//some Input Fields get filled in seperate functions (example startDateField, because it has to be calculated first).
-		playerExpectationField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = 200;
-		playerExpectationField.GetComponent<InputField>().text = 200;
+		playerExpectation = 200;
+		playerExpectationField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = playerExpectation.ToString();
+		playerExpectationField.GetComponent<InputField>().text = playerExpectation.ToString();
 
 		//startTimeField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
 		//endDateField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
 		//endTimeField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
 
-		runTimeDaysField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = 120;
-		runTimeDaysField.GetComponent<InputField>().text = 120;
+		runTimeDays = 120;
+		runTimeDaysField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = runTimeDays.ToString();
+		runTimeDaysField.GetComponent<InputField>().text = runTimeDays.ToString();
 
-		worldSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.worldSizeX;
-		worldSizeXField.GetComponent<InputField>().text = DataControllerEditor.worldSizeX;
+		worldSizeX = DataControllerEditor.worldSizeX;
+		worldSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = worldSizeX.ToString();
+		worldSizeXField.GetComponent<InputField>().text = worldSizeX.ToString();
 
-		worldSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.worldSizeY;
-		worldSizeYField.GetComponent<InputField>().text = DataControllerEditor.worldSizeY;
+		worldSizeY = DataControllerEditor.worldSizeY;
+		worldSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = worldSizeY.ToString();
+		worldSizeYField.GetComponent<InputField>().text = worldSizeY.ToString();
 	
-		realmSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.realmSizeX;
-		realmSizeXField.GetComponent<InputField>().text = DataControllerEditor.realmSizeX;
+		realmSizeX = DataControllerEditor.realmSizeX;
+		realmSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = realmSizeX.ToString();
+		realmSizeXField.GetComponent<InputField>().text = realmSizeX.ToString();
 
-		realmSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.realmSizeY;
-		realmSizeYField.GetComponent<InputField>().text = DataControllerEditor.realmSizeY;
+		realmSizeY = DataControllerEditor.realmSizeY;
+		realmSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = realmSizeY.ToString();
+		realmSizeYField.GetComponent<InputField>().text = realmSizeY.ToString();
 
-		climateColdField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionColdClimate;
-		climateColdField.GetComponent<InputField>().text = DataControllerEditor.portionColdClimate;
+		climateCold = DataControllerEditor.portionColdClimate;
+		//climateColdField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateCold.ToString();
+		climateColdField.GetComponent<InputField>().text = climateCold.ToString();
 
-		climateWarmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionWarmClimate;
-		climateWarmField.GetComponent<InputField>().text = DataControllerEditor.portionWarmClimate;
+		climateWarm = DataControllerEditor.portionWarmClimate;
+		//climateWarmField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = climateWarm.ToString();
+		climateWarmField.GetComponent<InputField>().text = climateWarm.ToString();
 
-		climateMediterraneanField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionMediterraneanClimate;
-		climateMediterraneanField.GetComponent<InputField>().text = DataControllerEditor.portionMediterraneanClimate;
+		climateMediterranean = DataControllerEditor.portionMediterraneanClimate;
+		//climateMediterraneanField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateMediterranean.ToString();
+		climateMediterraneanField.GetComponent<InputField>().text = climateMediterranean.ToString();
 
-		climateDesertField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionDesertClimate;
-		climateDesertField.GetComponent<InputField>().text = DataControllerEditor.portionDesertClimate;
+		climateDesert = DataControllerEditor.portionDesertClimate;
+		//climateDesertField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateDesert.ToString();
+		climateDesertField.GetComponent<InputField>().text = climateDesert.ToString();
 
-		climateTropicField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.portionTropicClimate;
-		climateTropicField.GetComponent<InputField>().text = DataControllerEditor.portionTropicClimate;
+		climateTropic = DataControllerEditor.portionTropicClimate;
+		//climateTropicField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateTropic.ToString();
+		climateTropicField.GetComponent<InputField>().text = climateTropic.ToString();
 
-		villagesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.villagesRealm;
-		villagesRealmField.GetComponent<InputField>().text = DataControllerEditor.villagesRealm;
+		villagesRealm = DataControllerEditor.villagesRealm;
+		villagesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = villagesRealm.ToString();
+		villagesRealmField.GetComponent<InputField>().text = villagesRealm.ToString();
 
-		castlesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.castlesRealm;
-		castlesRealmField.GetComponent<InputField>().text = DataControllerEditor.castlesRealm;
+		castlesRealm = DataControllerEditor.castlesRealm;
+		castlesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = castlesRealm.ToString();
+		castlesRealmField.GetComponent<InputField>().text = castlesRealm.ToString();
 
-		citiesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.citiesRealm;
-		citiesRealmField.GetComponent<InputField>().text = DataControllerEditor.citiesRealm;
+		citiesRealm = DataControllerEditor.citiesRealm;
+		citiesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = citiesRealm.ToString();
+		citiesRealmField.GetComponent<InputField>().text = citiesRealm.ToString();
 
-		villageRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.villagesRandom;
-		villageRandomField.GetComponent<InputField>().text = DataControllerEditor.villagesRandom;
+		villageRandom = DataControllerEditor.villagesRandom;
+		villageRandomField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = villageRandom.ToString();
+		villageRandomField.GetComponent<InputField>().text = villageRandom.ToString();
 
-		castleRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.castlesRandom;
-		castleRandomField.GetComponent<InputField>().text = DataControllerEditor.castlesRandom;
+		castleRandom = DataControllerEditor.castlesRandom;
+		castleRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = castleRandom.ToString();
+		castleRandomField.GetComponent<InputField>().text = castleRandom.ToString();
 
-		cityRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.citiesRandom;
-		cityRandomField.GetComponent<InputField>().text = DataControllerEditor.citiesRandom;
+		cityRandom = DataControllerEditor.citiesRandom;
+		cityRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = cityRandom.ToString();
+		cityRandomField.GetComponent<InputField>().text = cityRandom.ToString();
 
-		quantityNPCField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = DataControllerEditor.quantityNPC;
-		quantityNPCField.GetComponent<InputField>().text = DataControllerEditor.quantityNPC;
+		quantityNPC = DataControllerEditor.quantityNPC;
+		quantityNPCField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = quantityNPC.ToString();
+		quantityNPCField.GetComponent<InputField>().text = quantityNPC.ToString();
 	}
 
 	// Update is called once per frame
