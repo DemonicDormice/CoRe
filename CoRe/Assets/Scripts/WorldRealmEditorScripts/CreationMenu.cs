@@ -13,18 +13,21 @@ using UnityEngine.SceneManagement;
 public class CreationMenu : MonoBehaviour {
 
 	//All Canvases and panels of the menus
-	public GameObject CanvasWorldMenuI;
-	public GameObject PanelRandomWorldQuestionI;
+	public GameObject CanvasSuperordinate;
+	public GameObject PanelMissingWorldname;
+	public GameObject PanelRandomWorldQuestion;
 	public GameObject PanelResetQuestion;
 	public GameObject PanelLoadDatabase;
 	public GameObject PanelLoadFile;
+	public GameObject PanelTimeZonePopUp;
+	public GameObject PanelRandomClimateQuestion;
+	public GameObject PanelRandomNPCQuestion;
+
+	public GameObject CanvasWorldMenuI;
 
 	public GameObject CanvasWorldMenuII;
-	public GameObject PanelRandomWorldQuestionII;
-	public GameObject PanelTimeZonePopUp;
 
 	public GameObject CanvasClimateMenu;
-	public GameObject PanelRandomClimateQuestion;
 	public GameObject PanelColdTileTypes;
 	public GameObject PanelWarmTileTypes;
 	public GameObject PanelMediterraneanTileTypes;
@@ -32,7 +35,6 @@ public class CreationMenu : MonoBehaviour {
 	public GameObject PanelTropicTileTypes;
 
 	public GameObject CanvasNPCMenu;
-	public GameObject PanelRandomNPCQuestion;
 
 	//For the Input Fields of the menus
 	public InputField worldNameField;
@@ -131,106 +133,106 @@ public class CreationMenu : MonoBehaviour {
 //playerExpectation = 200;
 
 		//All the canvases and panels that are active - or not..
-		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = true;
-		PanelRandomWorldQuestionI.SetActive(false);
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = false;
+		PanelMissingWorldname.SetActive(false);
+		PanelRandomWorldQuestion.SetActive(false);
 		PanelResetQuestion.SetActive(false); 
 		PanelLoadDatabase.SetActive(false);
 		PanelLoadFile.SetActive(false);
-
-		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = false;
-		PanelRandomWorldQuestionII.SetActive(false);
 		PanelTimeZonePopUp.SetActive(false);
-
-		CanvasClimateMenu.GetComponent<Canvas> ().enabled = false;
 		PanelRandomClimateQuestion.SetActive(false);
-	
-		CanvasNPCMenu.GetComponent<Canvas> ().enabled = false;
 		PanelRandomNPCQuestion.SetActive(false);
 
+		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = true;
+
+		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = false;
+	
+		CanvasClimateMenu.GetComponent<Canvas> ().enabled = false;
 		PanelColdTileTypes.SetActive(true);
 		PanelWarmTileTypes.SetActive(true);
 		PanelMediterraneanTileTypes.SetActive(true);
 		PanelDesertTileTypes.SetActive(true);
 		PanelTropicTileTypes.SetActive(true);
 
+		CanvasNPCMenu.GetComponent<Canvas> ().enabled = false;
 
 		//The following fills most of the Input Fields and placeholders with the right values from DataControllerEditor till they are changed
 		//some Input Fields get filled in seperate functions (example startDateField, because it has to be calculated first).
 		playerExpectation = 200;
-		playerExpectationField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = playerExpectation.ToString();
-		playerExpectationField.GetComponent<InputField>().text = playerExpectation.ToString();
+		playerExpectationField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = "" + playerExpectation; //playerExpectation;
+		playerExpectationField.GetComponent<InputField>().text = "" + playerExpectation;
 
 		//startTimeField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
 		//endDateField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
 		//endTimeField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = ;
 
 		runTimeDays = 120;
-		runTimeDaysField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = runTimeDays.ToString();
-		runTimeDaysField.GetComponent<InputField>().text = runTimeDays.ToString();
+		runTimeDaysField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + runTimeDays;
+		runTimeDaysField.GetComponent<InputField>().text = "" + runTimeDays;
 
 		worldSizeX = DataControllerEditor.worldSizeX;
-		worldSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = worldSizeX.ToString();
-		worldSizeXField.GetComponent<InputField>().text = worldSizeX.ToString();
+		worldSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + worldSizeX;
+		worldSizeXField.GetComponent<InputField>().text = "" + worldSizeX;
 
 		worldSizeY = DataControllerEditor.worldSizeY;
-		worldSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = worldSizeY.ToString();
-		worldSizeYField.GetComponent<InputField>().text = worldSizeY.ToString();
-	
+		worldSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + worldSizeY;
+		worldSizeYField.GetComponent<InputField>().text = "" + worldSizeY;
+
 		realmSizeX = DataControllerEditor.realmSizeX;
-		realmSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = realmSizeX.ToString();
-		realmSizeXField.GetComponent<InputField>().text = realmSizeX.ToString();
+		realmSizeXField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + realmSizeX;
+		realmSizeXField.GetComponent<InputField>().text = "" + realmSizeX;
 
 		realmSizeY = DataControllerEditor.realmSizeY;
-		realmSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = realmSizeY.ToString();
-		realmSizeYField.GetComponent<InputField>().text = realmSizeY.ToString();
+		realmSizeYField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + realmSizeY;
+		realmSizeYField.GetComponent<InputField>().text = "" + realmSizeY;
 
 		climateCold = DataControllerEditor.portionColdClimate;
-		//climateColdField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateCold.ToString();
-		climateColdField.GetComponent<InputField>().text = climateCold.ToString();
+		//climateColdField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + climateCold;
+		climateColdField.GetComponent<InputField>().text = "" + climateCold;
 
 		climateWarm = DataControllerEditor.portionWarmClimate;
-		//climateWarmField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = climateWarm.ToString();
-		climateWarmField.GetComponent<InputField>().text = climateWarm.ToString();
+		//climateWarmField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = "" + climateWarm;
+		climateWarmField.GetComponent<InputField>().text = "" + climateWarm;
 
 		climateMediterranean = DataControllerEditor.portionMediterraneanClimate;
-		//climateMediterraneanField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateMediterranean.ToString();
-		climateMediterraneanField.GetComponent<InputField>().text = climateMediterranean.ToString();
+		//climateMediterraneanField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + climateMediterranean;
+		climateMediterraneanField.GetComponent<InputField>().text = "" + climateMediterranean;
 
 		climateDesert = DataControllerEditor.portionDesertClimate;
-		//climateDesertField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateDesert.ToString();
-		climateDesertField.GetComponent<InputField>().text = climateDesert.ToString();
+		//climateDesertField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + climateDesert;
+		climateDesertField.GetComponent<InputField>().text = "" + climateDesert;
 
 		climateTropic = DataControllerEditor.portionTropicClimate;
-		//climateTropicField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = climateTropic.ToString();
-		climateTropicField.GetComponent<InputField>().text = climateTropic.ToString();
+		//climateTropicField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + climateTropic;
+		climateTropicField.GetComponent<InputField>().text = "" + climateTropic;
 
 		villagesRealm = DataControllerEditor.villagesRealm;
-		villagesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = villagesRealm.ToString();
-		villagesRealmField.GetComponent<InputField>().text = villagesRealm.ToString();
+		villagesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + villagesRealm;
+		villagesRealmField.GetComponent<InputField>().text = "" + villagesRealm;
 
 		castlesRealm = DataControllerEditor.castlesRealm;
-		castlesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = castlesRealm.ToString();
-		castlesRealmField.GetComponent<InputField>().text = castlesRealm.ToString();
+		castlesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + castlesRealm;
+		castlesRealmField.GetComponent<InputField>().text = "" + castlesRealm;
 
 		citiesRealm = DataControllerEditor.citiesRealm;
-		citiesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = citiesRealm.ToString();
-		citiesRealmField.GetComponent<InputField>().text = citiesRealm.ToString();
+		citiesRealmField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + citiesRealm;
+		citiesRealmField.GetComponent<InputField>().text = "" + citiesRealm;
 
 		villageRandom = DataControllerEditor.villagesRandom;
-		villageRandomField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = villageRandom.ToString();
-		villageRandomField.GetComponent<InputField>().text = villageRandom.ToString();
+		villageRandomField.GetComponent<InputField> ().placeholder.GetComponent<Text> ().text = "" + villageRandom;
+		villageRandomField.GetComponent<InputField>().text = "" + villageRandom;
 
 		castleRandom = DataControllerEditor.castlesRandom;
-		castleRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = castleRandom.ToString();
-		castleRandomField.GetComponent<InputField>().text = castleRandom.ToString();
+		castleRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + castleRandom;
+		castleRandomField.GetComponent<InputField>().text = "" + castleRandom;
 
 		cityRandom = DataControllerEditor.citiesRandom;
-		cityRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = cityRandom.ToString();
-		cityRandomField.GetComponent<InputField>().text = cityRandom.ToString();
+		cityRandomField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + cityRandom;
+		cityRandomField.GetComponent<InputField>().text = "" + cityRandom;
 
 		quantityNPC = DataControllerEditor.quantityNPC;
-		quantityNPCField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = quantityNPC.ToString();
-		quantityNPCField.GetComponent<InputField>().text = quantityNPC.ToString();
+		quantityNPCField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "" + quantityNPC;
+		quantityNPCField.GetComponent<InputField>().text = "" + quantityNPC;
 	}
 
 	// Update is called once per frame
@@ -241,76 +243,88 @@ public class CreationMenu : MonoBehaviour {
 
 
 	public void openWorldFirstCanvas () {
-		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = true;
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = false;
 		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = false;
 		CanvasClimateMenu.GetComponent<Canvas> ().enabled = false;
 		CanvasNPCMenu.GetComponent<Canvas> ().enabled = false;
+
+		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = true;
 	}
 
 	public void openWorldSecondCanvas () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = false;
 		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = false;
-		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = true;
 		CanvasClimateMenu.GetComponent<Canvas> ().enabled = false;
 		CanvasNPCMenu.GetComponent<Canvas> ().enabled = false;
+
+		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = true;
 	}
 
 	public void openClimateCanvas () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = false;
 		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = false;
 		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = false;
-		CanvasClimateMenu.GetComponent<Canvas> ().enabled = true;
 		CanvasNPCMenu.GetComponent<Canvas> ().enabled = false;
+
+		CanvasClimateMenu.GetComponent<Canvas> ().enabled = true;
 	}
 
 	public void openNPCCanvas () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = false;
 		CanvasWorldMenuI.GetComponent<Canvas> ().enabled = false;
 		CanvasWorldMenuII.GetComponent<Canvas> ().enabled = false;
 		CanvasClimateMenu.GetComponent<Canvas> ().enabled = false;
+
 		CanvasNPCMenu.GetComponent<Canvas> ().enabled = true;
 	}
 
-	public void openRandWorldQuestI () {
-		PanelRandomWorldQuestionI.SetActive(true);
-	}
-
-	public void openRandWorldQuestII () {
-		PanelRandomWorldQuestionI.SetActive(true);
+	public void openRandWorldQuest () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
+		PanelRandomWorldQuestion.SetActive(true);
 	}
 
 	public void openResetQuestion () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
 		PanelResetQuestion.SetActive(true);
 	}
 
 	public void openLoadDatabase () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
 		PanelLoadDatabase.SetActive(true);
 	}
 
 	public void openLoadFile () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
 		PanelLoadFile.SetActive(true);
 	}
 
 	public void openTimeZone () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
 		PanelTimeZonePopUp.SetActive(true);
 	}
 
 	public void openRandClimateQuest () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
 		PanelRandomClimateQuestion.SetActive(true);
 	}
 
 	public void openRandNPCQuest () {
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = true;
 		PanelRandomNPCQuestion.SetActive(true);
 	}
 
 	public void closeAllPanels ()
 	{
 		//Well, this function just closes all open panels. So it's the close/no button for all panels.
-		PanelRandomWorldQuestionI.SetActive(false);
-		PanelRandomWorldQuestionI.SetActive(false);
+		PanelMissingWorldname.SetActive(false);
+		PanelRandomWorldQuestion.SetActive(false);
 		PanelResetQuestion.SetActive(false);
 		PanelLoadDatabase.SetActive(false);
 		PanelLoadFile.SetActive(false);
 		PanelTimeZonePopUp.SetActive(false);
 		PanelRandomClimateQuestion.SetActive(false);
 		PanelRandomNPCQuestion.SetActive(false);
+		CanvasSuperordinate.GetComponent<Canvas> ().enabled = false;
 	}
 
 	public void InputWorldname () {
@@ -385,7 +399,12 @@ public class CreationMenu : MonoBehaviour {
 
 	//TODO: World with no name - Warning popup, that a world name is needed. Maybe in the popup panel a convenient input field to get the name...
 	public void LoadWorldEditorScene(string WorldEditorScene) {
-		SceneManager.LoadScene (WorldEditorScene);
+
+		if (DataControllerEditor.worldSizeX == null) {
+			PanelMissingWorldname.SetActive (true);
+		} else {
+			SceneManager.LoadScene (WorldEditorScene);
+		}
 	}
 
 	//In World Menu First: This function will random all the things "randomable" in the editor like what climate zones are active or if
