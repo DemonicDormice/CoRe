@@ -10,6 +10,9 @@ public class SettlementData : MonoBehaviour {
 	public int worldID;
 	public int playerID;
 	public string nameSettlement;
-	public int typeSettlement;
+	public string typeSettlement;
 	public int populationSettlement;
+	public string settlementSlot1;
+	public string settlementSlot2;
+	public string settlementSlot3;
 }

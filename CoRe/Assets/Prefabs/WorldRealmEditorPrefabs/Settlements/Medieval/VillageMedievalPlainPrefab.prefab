@@ -38,7 +38,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4703806758047488}
-  - component: {fileID: 114624450755348654}
+  - component: {fileID: 114803455903139960}
   m_Layer: 0
   m_Name: VillageMedievalPlainPrefab
   m_TagString: VillageMedievalPlain
@@ -146,7 +146,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114624450755348654
+--- !u!114 &114803455903139960
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -154,8 +154,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1766475020224702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95766cc2595a4d24ebf487dc691d76ee, type: 3}
+  m_Script: {fileID: 11500000, guid: f8d2c82e45faa7240b1fc22bb443a4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
+  tileX: 0
+  tileY: 0
+  realmX: 0
+  realmY: 0
+  worldID: 0
+  playerID: 0
+  nameSettlement: 
+  typeSettlement: 
+  populationSettlement: 0
