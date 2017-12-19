@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/WorldRealmEditorSzenes/CreationEditorScene.unity
+- path: Assets/Scenes/WorldRealmEditorSzenes/RealmEditorScene.unity
   isLoaded: 1
   isActive: 1

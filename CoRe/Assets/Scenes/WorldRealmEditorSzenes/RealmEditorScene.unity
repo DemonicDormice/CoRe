@@ -279,7 +279,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 62980934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -216.50002, y: 7.5, z: 0}
+  m_LocalPosition: {x: -113, y: 114.5, z: 0}
   m_LocalScale: {x: 1.0462569, y: 1, z: 1}
   m_Children:
   - {fileID: 1571262068}
@@ -670,7 +670,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 185428352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 398.5, y: 188.5, z: 0}
+  m_LocalPosition: {x: 295, y: 295.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 693264130}
@@ -1838,7 +1838,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 693264129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -401.4945, y: 78.5, z: 0}
+  m_LocalPosition: {x: -297.9945, y: 185.5, z: 0}
   m_LocalScale: {x: 1.7495341, y: 0.64100313, z: 1}
   m_Children: []
   m_Father: {fileID: 185428356}
@@ -3161,7 +3161,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1188489479}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 55, z: 0}
+  m_LocalPosition: {x: 89.5, y: 162, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 198922367}
@@ -4456,9 +4456,161 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedObject: {fileID: 0}
+  VillageNordicForestPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageNordicPlainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageNordicHillPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageNordicMountainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
   VillageMedievalForestPrefab: {fileID: 1027781648373430, guid: 1c97b815eac6e604fa6d4003592db64f,
     type: 2}
   VillageMedievalPlainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageMedievalHillPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageMedievalMountainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAncientForestPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAncientPlainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAncientHillPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAncientMountainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAsianForestPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAsianPlainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAsianHillPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAsianMountainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAfricanForestPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAfricanPlainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAfricanHillPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageAfricanMountainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageHordeForestPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageHordePlainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageHordeHillPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  VillageHordeMountainPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,
+    type: 2}
+  CastleNordicBarrenPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleNordicForestPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleNordicPlainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleNordicHillPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleNordicMountainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleMedievalBarrenPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleMedievalForestPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleMedievalPlainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleMedievalHillPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleMedievalMountainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAncientBarrenPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAncientForestPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAncientPlainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAncientHillPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAncientMountainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAsianBarrenPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAsianForestPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAsianPlainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAsianHillPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAsianMountainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAfricanBarrenPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAfricanForestPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAfricanPlainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAfricanHillPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleAfricanMountainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleHordeBarrenPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleHordeForestPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleHordePlainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleHordeHillPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CastleHordeMountainPrefab: {fileID: 1483561997524792, guid: 0c1b69e7b9ea1cc469751a2d6addbe73,
+    type: 2}
+  CityNordicForestPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityNordicPlainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityNordicHillPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityNordicMountainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityMedievalForestPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityMedievalPlainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityMedievalHillPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityMedievalMountainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAncientForestPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAncientPlainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAncientHillPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAncientMountainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAsianForestPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAsianPlainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAsianHillPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAsianMountainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAfricanForestPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAfricanPlainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAfricanHillPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityAfricanMountainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityHordeForestPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityHordePlainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityHordeHillPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
+    type: 2}
+  CityHordeMountainPrefab: {fileID: 1184252569129776, guid: 05f864faf6467ab4e842d25e270ab9f4,
     type: 2}
   isToggle_None: {fileID: 198922368}
   isToggle_All: {fileID: 1968852953}
@@ -4535,8 +4687,6 @@ MonoBehaviour:
   MatTropicDeciduous: {fileID: 2100000, guid: 1be9465015bebe4429ab00fcd6e2070e, type: 2}
   MeshTropicBarren: {fileID: 4300002, guid: d5ed65430ebf60947b3397b9b82d2ccc, type: 3}
   MatTropicBarren: {fileID: 2100000, guid: 9a11390b2bd29074ba3781f0105e3093, type: 2}
-  MeshVillageMedievalPlain: {fileID: 0}
-  MatVillageMedievalPlain: {fileID: 0}
 --- !u!4 &1725879521
 Transform:
   m_ObjectHideFlags: 0

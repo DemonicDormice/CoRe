@@ -37,8 +37,84 @@ TagManager:
   - Hex_WarmPlain
   - Hex_WarmDeciduous
   - Hex_WarmConiferous
+  - VillageNordicForest
+  - VillageNordicPlain
+  - VillageNordicHill
+  - VillageNordicMountain
+  - VillageMedievalForest
   - VillageMedievalPlain
-  - VillageMedievalForest 
+  - VillageMedievalHill
+  - VillageMedievalMountain
+  - VillageAncientForest
+  - VillageAncientPlain
+  - VillageAncientHill
+  - VillageAncientMountain
+  - VillageAsianForest
+  - VillageAsianPlain
+  - VillageAsianHill
+  - VillageAsianMountain
+  - VillageAfricanForest
+  - VillageAfricanPlain
+  - VillageAfricanHill
+  - VillageAfricanMountain
+  - VillageHordeForest
+  - VillageHordePlain
+  - VillageHordeHill
+  - VillageHordeMountain
+  - CastleNordicForest
+  - CastleNordicPlain
+  - CastleNordicHill
+  - CastleNordicMountain
+  - CastleMedievalForest
+  - CastleMedievalPlain
+  - CastleMedievalHill
+  - CastleMedievalMountain
+  - CastleAncientForest
+  - CastleAncientPlain
+  - CastleAncientHill
+  - CastleAncientMountain
+  - CastleAsianForest
+  - CastleAsianPlain
+  - CastleAsianHill
+  - CastleAsianMountain
+  - CastleAfricanForest
+  - CastleAfricanPlain
+  - CastleAfricanHill
+  - CastleAfricanMountain
+  - CastleHordeForest
+  - CastleHordePlain
+  - CastleHordeHill
+  - CastleHordeMountain
+  - CityNordicForest
+  - CityNordicPlain
+  - CityNordicHill
+  - CityNordicMountain
+  - CityMedievalForest
+  - CityMedievalPlain
+  - CityMedievalHill
+  - CityMedievalMountain
+  - CityAncientForest
+  - CityAncientPlain
+  - CityAncientHill
+  - CityAncientMountain
+  - CityAsianForest
+  - CityAsianPlain
+  - CityAsianHill
+  - CityAsianMountain
+  - CityAfricanForest
+  - CityAfricanPlain
+  - CityAfricanHill
+  - CityAfricanMountain
+  - CityHordeForest
+  - CityHordePlain
+  - CityHordeHill
+  - CityHordeMountain
+  - CastleNordicBarren
+  - CastleMedievalBarren
+  - CastleAncientBarren
+  - CastleAsianBarren
+  - CastleAfricanBarren
+  - CastleHordeBarren
   layers:
   - Default
   - TransparentFX

@@ -6,10 +6,101 @@ public class RealmEditor : MonoBehaviour {
 
 	public GameObject selectedObject;
 
+	public GameObject VillageNordicForestPrefab;
+	public GameObject VillageNordicPlainPrefab;
+	public GameObject VillageNordicHillPrefab;
+	public GameObject VillageNordicMountainPrefab;
+
 	public GameObject VillageMedievalForestPrefab;
 	public GameObject VillageMedievalPlainPrefab;
+	public GameObject VillageMedievalHillPrefab;
+	public GameObject VillageMedievalMountainPrefab;
 
+	public GameObject VillageAncientForestPrefab;
+	public GameObject VillageAncientPlainPrefab;
+	public GameObject VillageAncientHillPrefab;
+	public GameObject VillageAncientMountainPrefab;
 
+	public GameObject VillageAsianForestPrefab;
+	public GameObject VillageAsianPlainPrefab;
+	public GameObject VillageAsianHillPrefab;
+	public GameObject VillageAsianMountainPrefab;
+
+	public GameObject VillageAfricanForestPrefab;
+	public GameObject VillageAfricanPlainPrefab;
+	public GameObject VillageAfricanHillPrefab;
+	public GameObject VillageAfricanMountainPrefab;
+
+	public GameObject VillageHordeForestPrefab;
+	public GameObject VillageHordePlainPrefab;
+	public GameObject VillageHordeHillPrefab;
+	public GameObject VillageHordeMountainPrefab;
+
+	public GameObject CastleNordicBarrenPrefab;
+	public GameObject CastleNordicForestPrefab;
+	public GameObject CastleNordicPlainPrefab;
+	public GameObject CastleNordicHillPrefab;
+	public GameObject CastleNordicMountainPrefab;
+
+	public GameObject CastleMedievalBarrenPrefab;
+	public GameObject CastleMedievalForestPrefab;
+	public GameObject CastleMedievalPlainPrefab;
+	public GameObject CastleMedievalHillPrefab;
+	public GameObject CastleMedievalMountainPrefab;
+
+	public GameObject CastleAncientBarrenPrefab;
+	public GameObject CastleAncientForestPrefab;
+	public GameObject CastleAncientPlainPrefab;
+	public GameObject CastleAncientHillPrefab;
+	public GameObject CastleAncientMountainPrefab;
+
+	public GameObject CastleAsianBarrenPrefab;
+	public GameObject CastleAsianForestPrefab;
+	public GameObject CastleAsianPlainPrefab;
+	public GameObject CastleAsianHillPrefab;
+	public GameObject CastleAsianMountainPrefab;
+
+	public GameObject CastleAfricanBarrenPrefab;
+	public GameObject CastleAfricanForestPrefab;
+	public GameObject CastleAfricanPlainPrefab;
+	public GameObject CastleAfricanHillPrefab;
+	public GameObject CastleAfricanMountainPrefab;
+
+	public GameObject CastleHordeBarrenPrefab;
+	public GameObject CastleHordeForestPrefab;
+	public GameObject CastleHordePlainPrefab;
+	public GameObject CastleHordeHillPrefab;
+	public GameObject CastleHordeMountainPrefab;
+
+	public GameObject CityNordicForestPrefab;
+	public GameObject CityNordicPlainPrefab;
+	public GameObject CityNordicHillPrefab;
+	public GameObject CityNordicMountainPrefab;
+
+	public GameObject CityMedievalForestPrefab;
+	public GameObject CityMedievalPlainPrefab;
+	public GameObject CityMedievalHillPrefab;
+	public GameObject CityMedievalMountainPrefab;
+
+	public GameObject CityAncientForestPrefab;
+	public GameObject CityAncientPlainPrefab;
+	public GameObject CityAncientHillPrefab;
+	public GameObject CityAncientMountainPrefab;
+
+	public GameObject CityAsianForestPrefab;
+	public GameObject CityAsianPlainPrefab;
+	public GameObject CityAsianHillPrefab;
+	public GameObject CityAsianMountainPrefab;
+
+	public GameObject CityAfricanForestPrefab;
+	public GameObject CityAfricanPlainPrefab;
+	public GameObject CityAfricanHillPrefab;
+	public GameObject CityAfricanMountainPrefab;
+
+	public GameObject CityHordeForestPrefab;
+	public GameObject CityHordePlainPrefab;
+	public GameObject CityHordeHillPrefab;
+	public GameObject CityHordeMountainPrefab;
 
 	//Toggle Game Objects
 	public Toggle isToggle_None;
@@ -94,10 +185,6 @@ public class RealmEditor : MonoBehaviour {
 	public Mesh MeshTropicBarren;
 	public Material MatTropicBarren;
 
-	public Mesh MeshVillageMedievalPlain;
-	public Material MatVillageMedievalPlain;
-
-
 	/*
 	//Mostly to check what mesh or material a hex has and to act with for example settlements accordingly
 	//First get the renderer from the selected object
@@ -109,9 +196,9 @@ public class RealmEditor : MonoBehaviour {
 
 	void Start ()
 	{
-	//	PopulateList_HexTileTypes ();
-	//realmMap = GetComponentInChildren<MeshRenderer>();
-	//RealmMap realmMap = hexGameObject.GetComponentsInChildren<MeshRenderer>();
+		//	PopulateList_HexTileTypes ();
+		//realmMap = GetComponentInChildren<MeshRenderer>();
+		//RealmMap realmMap = hexGameObject.GetComponentsInChildren<MeshRenderer>();
 		//ChangeHex = GetComponent<Renderer>();
 		//ChangeHex.enabled = true;
 
@@ -142,10 +229,10 @@ public class RealmEditor : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown (2))
 			Debug.Log ("Pressed middle click.");
-	
-	//}
-	//void Update()
-	//{
+
+		//}
+		//void Update()
+		//{
 
 		Ray mouseRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hitInfo;
@@ -183,30 +270,35 @@ public class RealmEditor : MonoBehaviour {
 				hexMesh.mesh = MeshColdMountain;
 				MouseManager.initialColor = MatColdMountain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", ""); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type. To avoid problems while placing objects like settlements and highlight-color this has to be in every single if-clause
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;			
 			}
 			if (dropdownTileEditor.captionText.text == "Cold Woodland Hill") {
 				hexMaterial.material = MatColdHill;
 				hexMesh.mesh = MeshColdHill;
 				MouseManager.initialColor = MatColdHill;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Cold Winter Forest") {
 				hexMaterial.material = MatColdConiferous;
 				hexMesh.mesh = MeshColdConiferous;
 				MouseManager.initialColor = MatColdConiferous;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Cold Sparse Grassland") {
 				hexMaterial.material = MatColdPlain;
 				hexMesh.mesh = MeshColdPlain;
 				MouseManager.initialColor = MatColdPlain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Cold Tundra") {
 				hexMaterial.material = MatColdBarren;
 				hexMesh.mesh = MeshColdBarren;
 				MouseManager.initialColor = MatColdBarren;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 
 			if (dropdownTileEditor.captionText.text == "Warm Mountain") {
@@ -214,36 +306,42 @@ public class RealmEditor : MonoBehaviour {
 				hexMesh.mesh = MeshWarmMountain;
 				MouseManager.initialColor = MatWarmMountain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Warm Hill") {
 				hexMaterial.material = MatWarmHill;
 				hexMesh.mesh = MeshWarmHill;
 				MouseManager.initialColor = MatWarmHill;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Warm Coniferous Forest") {
 				hexMaterial.material = MatWarmConiferous;
 				hexMesh.mesh = MeshWarmConiferous;
 				MouseManager.initialColor = MatWarmConiferous;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Warm Deciduous Forest") {
 				hexMaterial.material = MatWarmDeciduous;
 				hexMesh.mesh = MeshWarmDeciduous;
 				MouseManager.initialColor = MatWarmDeciduous;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Warm Grassland") {
 				hexMaterial.material = MatWarmPlain;
 				hexMesh.mesh = MeshWarmPlain;
 				MouseManager.initialColor = MatWarmPlain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Warm Barren Plain") {
 				hexMaterial.material = MatWarmBarren;
 				hexMesh.mesh = MeshWarmBarren;
 				MouseManager.initialColor = MatWarmBarren;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 
 			if (dropdownTileEditor.captionText.text == "Mediterranean Mountain") {
@@ -251,30 +349,35 @@ public class RealmEditor : MonoBehaviour {
 				hexMesh.mesh = MeshMediterraneanMountain;
 				MouseManager.initialColor = MatMediterraneanMountain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Mediterranean Coniferous Hill") {
 				hexMaterial.material = MatMediterraneanHill;
 				hexMesh.mesh = MeshMediterraneanHill;
 				MouseManager.initialColor = MatMediterraneanHill;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Mediterranean Deciduous Forest") {
 				hexMaterial.material = MatMediterraneanDeciduous;
 				hexMesh.mesh = MeshMediterraneanDeciduous;
 				MouseManager.initialColor = MatMediterraneanDeciduous;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Mediterranean Grassland") {
 				hexMaterial.material = MatMediterraneanPlain;
 				hexMesh.mesh = MeshMediterraneanPlain;
 				MouseManager.initialColor = MatMediterraneanPlain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Mediterranean Barren") {
 				hexMaterial.material = MatMediterraneanBarren;
 				hexMesh.mesh = MeshMediterraneanBarren;
 				MouseManager.initialColor = MatMediterraneanBarren;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 
 			if (dropdownTileEditor.captionText.text == "Desert Mountain") {
@@ -282,36 +385,42 @@ public class RealmEditor : MonoBehaviour {
 				hexMesh.mesh = MeshDesertMountain;
 				MouseManager.initialColor = MatDesertMountain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Desert Trees") {
 				hexMaterial.material = MatDesertDeciduous;
 				hexMesh.mesh = MeshDesertDeciduous;
 				MouseManager.initialColor = MatDesertDeciduous;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Desert Oasis") {
 				hexMaterial.material = MatDesertPlain;
 				hexMesh.mesh = MeshDesertPlain;
 				MouseManager.initialColor = MatDesertPlain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Desert Hammada Stonedesert") {
 				hexMaterial.material = MatDesertHammada;
 				hexMesh.mesh = MeshDesertHammada;
 				MouseManager.initialColor = MatDesertHammada;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Desert Sanddesert") {
 				hexMaterial.material = MatDesertSand;
 				hexMesh.mesh = MeshDesertSand;
 				MouseManager.initialColor = MatDesertSand;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Desert Dunes") {
 				hexMaterial.material = MatDesertHill;
 				hexMesh.mesh = MeshDesertHill;
 				MouseManager.initialColor = MatDesertHill;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 
 			if (dropdownTileEditor.captionText.text == "Tropic Mountain") {
@@ -319,30 +428,35 @@ public class RealmEditor : MonoBehaviour {
 				hexMesh.mesh = MeshTropicMountain;
 				MouseManager.initialColor = MatTropicMountain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Tropic Jungle Hill") {
 				hexMaterial.material = MatTropicHill;
 				hexMesh.mesh = MeshTropicHill;
 				MouseManager.initialColor = MatTropicHill;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Tropic Jungle Forest") {
 				hexMaterial.material = MatTropicDeciduous;
 				hexMesh.mesh = MeshTropicDeciduous;
 				MouseManager.initialColor = MatTropicDeciduous;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Tropic Plain-Glade") {
 				hexMaterial.material = MatTropicPlain;
 				hexMesh.mesh = MeshTropicPlain;
 				MouseManager.initialColor = MatTropicPlain;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 			if (dropdownTileEditor.captionText.text == "Tropic Barren") {
 				hexMaterial.material = MatTropicBarren;
 				hexMesh.mesh = MeshTropicBarren;
 				MouseManager.initialColor = MatTropicBarren;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 
 			if (dropdownTileEditor.captionText.text == "Water") {
@@ -350,6 +464,7 @@ public class RealmEditor : MonoBehaviour {
 				hexMesh.mesh = MeshWater;
 				MouseManager.initialColor = MatWater;
 				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
 			}
 		}
 
@@ -367,61 +482,344 @@ public class RealmEditor : MonoBehaviour {
 					Debug.Log("Destroy the settlement...");
 				}
 
-					if (selectedObject.tag.Contains("Water")) {
+				if (selectedObject.tag.Contains("Water")) {
 					Debug.Log ("You can't build villages on water!");
 				} else if (selectedObject.tag.Contains("Barren")) {
 					Debug.Log ("You can't build villages on barren ground!");
+				} else if (selectedObject.tag.Contains("Hammada")) {
+					Debug.Log ("You can't build villages on stonedesert!");
+				} else if (selectedObject.tag.Contains("Sand")) {
+					Debug.Log ("You can't build villages on sanddesert!");
+				} else if (selectedObject.tag.Contains("DesertHill")) {
+					Debug.Log ("You can't build villages on sanddunes!");
 				} else if (selectedObject.tag.Contains("ColdPlain"))
 				{
-					Debug.Log ("Now there would be placed a nordic/viking village with farmers!");
-					//GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-					//settlementGameObject.tag = "VillageNordicPlain";
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageNordicPlain";
 				} else if (selectedObject.tag.Contains("ColdConiferous"))
 				{
-					Debug.Log ("Now there would be placed a nordic/viking village with loggers!");
-					//GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicConiferousPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-					//settlementGameObject.tag = "VillageNordicConiferous";
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageNordicForest";
 				} else if (selectedObject.tag.Contains("ColdHill"))
 				{
-					Debug.Log ("Now there would be placed a nordic/viking village with cattle-farmers!");
-					//GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-					//settlementGameObject.tag = "VillageNordicHill";
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageNordicHill";
 				} 
 				else if (selectedObject.tag.Contains("ColdMountain"))
 				{
-					Debug.Log ("Now there would be placed a nordic/viking village with stone masons!");
-					//GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-					//settlementGameObject.tag = "VillageNordicMountain";
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageNordicMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageNordicMountain";
 				}
 				else if (selectedObject.tag.Contains("WarmPlain"))
 				{
 					GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
 					settlementGameObject.tag = "VillageMedievalPlain";
-				} else if (selectedObject.tag.Contains("WarmDeciduous") | selectedObject.tag.Contains("WarmConiferous"))
+				} 
+				else if (selectedObject.tag.Contains("WarmDeciduous") | selectedObject.tag.Contains("WarmConiferous"))
 				{
 					GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
 					settlementGameObject.tag = "VillageMedievalForest";
-				} else if (selectedObject.tag.Contains("WarmHill"))
+				} 
+				else if (selectedObject.tag.Contains("WarmHill"))
 				{
-					Debug.Log ("Now there would be placed a medieval village with cattle-farmers!");
-					//GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-					//settlementGameObject.tag = "VillageMedievalHill";
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageMedievalHill";
 				} 
 				else if (selectedObject.tag.Contains("WarmMountain"))
 				{
-					Debug.Log ("Now there would be placed a medieval village with stone masons!");
-					//GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-					//settlementGameObject.tag = "VillageMedievalMountain";
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageMedievalMountain";
+				}
+				else if (selectedObject.tag.Contains("MediterraneanPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAncientPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAncientPlain";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAncientForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAncientForest";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAncientHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAncientHill";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAncientMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAncientMountain";
+				}
+				else if (selectedObject.tag.Contains("DesertPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageHordePlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageHordePlain";
+				} 
+				else if (selectedObject.tag.Contains("DesertDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageHordeForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageHordeForest";
+				} 
+				else if (selectedObject.tag.Contains("DesertMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageHordeMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageHordeMountain";
+				}
+				else if (selectedObject.tag.Contains("TropicPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAfricanPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAfricanPlain";
+				}
+				else if (selectedObject.tag.Contains("TropicDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAfricanForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAfricanForest";
+				} 
+				else if (selectedObject.tag.Contains("TropicHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAfricanHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAfricanHill";
+				} 
+				else if (selectedObject.tag.Contains("TropicMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(VillageAfricanMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "VillageAfricanMountain";
 				}
 			}
-			/* if (dropdownTileEditor.captionText.text == "Castle") {
 
-				GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			if (dropdownTileEditor.captionText.text == "Castle") {
+
+				if (selectedObject.tag.Contains("Water")) {
+					Debug.Log ("You can't build Castles on water!");
+				} else if (selectedObject.tag.Contains("ColdBarren"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleNordicBarrenPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleNordicBarren";
+				}
+				else if (selectedObject.tag.Contains("ColdPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleNordicPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleNordicPlain";
+				} else if (selectedObject.tag.Contains("ColdConiferous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleNordicForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleNordicForest";
+				} else if (selectedObject.tag.Contains("ColdHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleNordicHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleNordicHill";
+				} 
+				else if (selectedObject.tag.Contains("ColdMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleNordicMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleNordicMountain";
+				} else if (selectedObject.tag.Contains("WarmBarren"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleMedievalBarrenPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleMedievalBarren";
+				}
+				else if (selectedObject.tag.Contains("WarmPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleMedievalPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleMedievalPlain";
+				} 
+				else if (selectedObject.tag.Contains("WarmDeciduous") | selectedObject.tag.Contains("WarmConiferous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleMedievalForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleMedievalForest";
+				} 
+				else if (selectedObject.tag.Contains("WarmHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleMedievalHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleMedievalHill";
+				} 
+				else if (selectedObject.tag.Contains("WarmMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleMedievalMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleMedievalMountain";
+				} else if (selectedObject.tag.Contains("MediterraneanBarren"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAncientBarrenPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAncientBarren";
+				}
+				else if (selectedObject.tag.Contains("MediterraneanPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAncientPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAncientPlain";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAncientForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAncientForest";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAncientHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAncientHill";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAncientMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAncientMountain";
+				} 
+				else if (selectedObject.tag.Contains("DesertSand") | selectedObject.tag.Contains("DesertHammada"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleHordeBarrenPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleHordeBarren";
+				}
+				else if (selectedObject.tag.Contains("DesertHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleHordeHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleHordeHill";
+				}
+				else if (selectedObject.tag.Contains("DesertPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleHordePlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleHordePlain";
+				} 
+				else if (selectedObject.tag.Contains("DesertDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleHordeForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleHordeForest";
+				} 
+				else if (selectedObject.tag.Contains("DesertMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleHordeMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleHordeMountain";
+				} 
+				else if (selectedObject.tag.Contains("TropicBarren"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAfricanBarrenPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAfricanBarren";
+				}
+				else if (selectedObject.tag.Contains("TropicPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAfricanPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAfricanPlain";
+				}
+				else if (selectedObject.tag.Contains("TropicDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAfricanForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAfricanForest";
+				} 
+				else if (selectedObject.tag.Contains("TropicHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAfricanHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAfricanHill";
+				} 
+				else if (selectedObject.tag.Contains("TropicMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CastleAfricanMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CastleAfricanMountain";
+				}
 			}
 			if (dropdownTileEditor.captionText.text == "City") {
 
-				GameObject settlementGameObject = (GameObject)Instantiate(VillageMedievalPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
-			} */
+				if (selectedObject.tag.Contains("Water")) {
+					Debug.Log ("You can't build Cities on water!");
+				} else if (selectedObject.tag.Contains("Barren")) {
+					Debug.Log ("You can't build Cities on barren ground!");
+				} else if (selectedObject.tag.Contains("Hammada")) {
+					Debug.Log ("You can't build Cities on stonedesert!");
+				} else if (selectedObject.tag.Contains("Sand")) {
+					Debug.Log ("You can't build Cities on sanddesert!");
+				} else if (selectedObject.tag.Contains("DesertHill")) {
+					Debug.Log ("You can't build Cities on sanddunes!");
+				} else if (selectedObject.tag.Contains("ColdPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityNordicPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityNordicPlain";
+				} else if (selectedObject.tag.Contains("ColdConiferous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityNordicForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityNordicForest";
+				} else if (selectedObject.tag.Contains("ColdHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityNordicHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityNordicHill";
+				} 
+				else if (selectedObject.tag.Contains("ColdMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityNordicMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityNordicMountain";
+				}
+				else if (selectedObject.tag.Contains("WarmPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityMedievalPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityMedievalPlain";
+				} 
+				else if (selectedObject.tag.Contains("WarmDeciduous") | selectedObject.tag.Contains("WarmConiferous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityMedievalForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityMedievalForest";
+				} 
+				else if (selectedObject.tag.Contains("WarmHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityMedievalHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityMedievalHill";
+				} 
+				else if (selectedObject.tag.Contains("WarmMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityMedievalMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityMedievalMountain";
+				}
+				else if (selectedObject.tag.Contains("MediterraneanPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAncientPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAncientPlain";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAncientForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAncientForest";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAncientHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAncientHill";
+				} 
+				else if (selectedObject.tag.Contains("MediterraneanMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAncientMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAncientMountain";
+				}
+				else if (selectedObject.tag.Contains("DesertPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityHordePlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityHordePlain";
+				} 
+				else if (selectedObject.tag.Contains("DesertDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityHordeForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityHordeForest";
+				} 
+				else if (selectedObject.tag.Contains("DesertMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityHordeMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityHordeMountain";
+				}
+				else if (selectedObject.tag.Contains("TropicPlain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAfricanPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAfricanPlain";
+				}
+				else if (selectedObject.tag.Contains("TropicDeciduous"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAfricanForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAfricanForest";
+				} 
+				else if (selectedObject.tag.Contains("TropicHill"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAfricanHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAfricanHill";
+				} 
+				else if (selectedObject.tag.Contains("TropicMountain"))
+				{
+					GameObject settlementGameObject = (GameObject)Instantiate(CityAfricanMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+					settlementGameObject.tag = "CityAfricanMountain";
+				}
+			
+			}
 
 			if (dropdownTileEditor.captionText.text == "Medieval Village") {
 				if (selectedObject.tag.Contains("Water")) {
@@ -456,7 +854,7 @@ public class RealmEditor : MonoBehaviour {
 		//if(selectedObject != null) {
 		//	if(obj == selectedObject)
 		//		return;
-			//ClearSelection();
+		//ClearSelection();
 		//}
 
 		//selectedObject = obj;
@@ -663,7 +1061,7 @@ public class RealmEditor : MonoBehaviour {
 			//Material[] mats = rs.materials; 
 			//foreach(Material mat in mats) { 
 			//	mat.color = Material.SetColor.MatHills;
-			}
+		}
 
 		if (Input.GetMouseButtonDown(0))
 			Debug.Log("Pressed left click.");
@@ -673,12 +1071,12 @@ public class RealmEditor : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(2))
 			Debug.Log("Pressed middle click.");
-		}
-		
+	}
 
 
 
-/*	//Checks active toggle for dropdown
+
+	/*	//Checks active toggle for dropdown
 	public void PopulateList_HexTileTypes()
 	{
 		if (ToggleNone == true)
@@ -707,7 +1105,7 @@ public class RealmEditor : MonoBehaviour {
 		}
 	} 
 
-    
+
 
 
 	/* void PopulateList_HexTileTypes()
@@ -719,7 +1117,7 @@ public class RealmEditor : MonoBehaviour {
 
 
 
-/*	void Update()
+	/*	void Update()
 	{
 		switch (dropdownTileEditor.value) {
 		case 1:
@@ -757,8 +1155,7 @@ public class RealmEditor : MonoBehaviour {
 			}
 
 
+		}
+
+		*/
 	}
-
-*/
-}
-

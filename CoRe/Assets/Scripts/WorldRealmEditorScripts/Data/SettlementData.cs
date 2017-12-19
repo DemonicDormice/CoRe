@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SettlementData : MonoBehaviour {
-	public int tileid;
-	public int realmid;
-	public string name;
-	public int type;
-	public int population;
+	public int tileX;
+	public int tileY;
+	public int realmX;
+	public int realmY;
+	public int worldID;
+	public int playerID;
+	public string nameSettlement;
+	public int typeSettlement;
+	public int populationSettlement;
 }

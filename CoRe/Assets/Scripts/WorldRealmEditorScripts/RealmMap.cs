@@ -139,7 +139,7 @@ public class RealmMap : MonoBehaviour {
 	static public readonly int numberColumns = DataControllerEditor.realmSizeX; // columns are X
 	static public readonly int numberRows = DataControllerEditor.realmSizeY; // rows are Y
 
-	int RealmX = 0; //Later from editor or database
+	int RealmX = 1; //Later from editor or database
 	int RealmY = 1; //Later from editor or database
 	int rowWorld; //thats the row inside a realm in relation to the whole world
 	int numberRowsWorld = WorldMap.numberRows * numberRows; //thats the whole of all rows inside the world
@@ -220,10 +220,6 @@ public class RealmMap : MonoBehaviour {
 
 				//Give the GO some sensible name
 				//hexGameObject.name = "Hex " + column + "/" + row + " Value: " + h.HexTerrainValue;
-
-				//For making sure the hex knows its position on the map
-				hexGameObject.GetComponent<TileData> ().x = column;
-				hexGameObject.GetComponent<TileData> ().y = row;
 
 				//For a cleaner hierarchy, child this hex to RealmMap
 				hexGameObject.transform.SetParent (this.transform);
@@ -594,6 +590,15 @@ public class RealmMap : MonoBehaviour {
 				hexGameObject.name = "Hex " + column + "/" + row + " Value: " + h.HexTerrainValue;
 				hexGameObject.tag = "Hex_" + mr.material.name.Replace (" (Instance)", ""); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
 
+				//For making sure the hex knows its position on the map
+				hexGameObject.GetComponent<TileData> ().tileX = column;
+				hexGameObject.GetComponent<TileData> ().tileY = row;
+				//And for making sure it knows its world position, ids and type
+				hexGameObject.GetComponent<TileData> ().realmX = RealmX;
+				hexGameObject.GetComponent<TileData> ().realmY = RealmY;
+				//hexGameObject.GetComponent<TileData> ().realmID;
+				//hexGameObject.GetComponent<TileData> ().tileID;
+				hexGameObject.GetComponent<TileData> ().typeTile = hexGameObject.tag;
 			}
 		}
 	}
