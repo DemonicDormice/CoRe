@@ -3,12 +3,12 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs">
     <Files>
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\DataControllerEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" Line="137" Column="3" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap_Continent.cs" Line="1" Column="22" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap_Continent.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="594" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\TileData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="133" Column="2" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\SettlementData.cs" Line="17" Column="31" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="271" Column="22" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\SettlementData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\RealmData.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

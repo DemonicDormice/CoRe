@@ -216,6 +216,7 @@ public class RealmEditor : MonoBehaviour {
 		//RealmMap realmMap = hexGameObject.GetComponentsInChildren<MeshRenderer>();
 		//ChangeHex = GetComponent<Renderer>();
 		//ChangeHex.enabled = true;
+		PanelExtended.SetActive(true);
 
 		isToggle_None.onValueChanged.AddListener(ToggleNone);
 		isToggle_All.onValueChanged.AddListener(ToggleAll);
@@ -231,7 +232,75 @@ public class RealmEditor : MonoBehaviour {
 		isToggle_African.onValueChanged.AddListener(ToggleAfrican);
 		isToggle_Horde.onValueChanged.AddListener(ToggleHorde);
 
-		PanelExtended.SetActive(false);
+		dropdownLevelSettlement.onValueChanged.AddListener(PopulationDropdowner);
+
+
+
+		List<string> SettlementLevels = new List<string>();
+		SettlementLevels.Clear ();
+		SettlementLevels.Add( "0" );
+		SettlementLevels.Add( "1" );
+		SettlementLevels.Add( "2" );
+		SettlementLevels.Add( "3" );
+		SettlementLevels.Add( "4" );
+		SettlementLevels.Add( "5" );
+		SettlementLevels.Add( "6" );
+		SettlementLevels.Add( "7" );
+		SettlementLevels.Add( "8" );
+		SettlementLevels.Add( "9" );
+		SettlementLevels.Add( "10" );
+		dropdownLevelSettlement.AddOptions (SettlementLevels);
+		dropdownLevelSettlement.value = 1;
+
+
+	
+	}
+
+	public void PopulationDropdowner(int input)
+	{
+		if (dropdownLevelSettlement.captionText.text == "0") 
+		{
+			dropdownPopulationSettlement.ClearOptions ();
+			List<string> SettlementPopulation = new List<string> ();
+			SettlementPopulation.Clear ();
+			SettlementPopulation.Add ("0");
+			dropdownPopulationSettlement.AddOptions (SettlementPopulation);
+		} else { 
+			dropdownPopulationSettlement.enabled = true;
+			int population1 = int.Parse (dropdownLevelSettlement.captionText.text) * 100; 
+			int population2 = int.Parse (dropdownLevelSettlement.captionText.text) * 200; 
+			int population3 = int.Parse (dropdownLevelSettlement.captionText.text) * 300; 
+			int population4 = int.Parse (dropdownLevelSettlement.captionText.text) * 400;
+			int population5 = int.Parse (dropdownLevelSettlement.captionText.text) * 500; 
+			int population6 = int.Parse (dropdownLevelSettlement.captionText.text) * 600; 
+			int population7 = int.Parse (dropdownLevelSettlement.captionText.text) * 700; 
+			int population8 = int.Parse (dropdownLevelSettlement.captionText.text) * 800; 
+			int population9 = int.Parse (dropdownLevelSettlement.captionText.text) * 900; 
+			int population10 = int.Parse (dropdownLevelSettlement.captionText.text) * 1000; 
+
+			dropdownPopulationSettlement.ClearOptions ();
+			List<string> SettlementPopulation = new List<string> ();
+			SettlementPopulation.Clear ();
+			SettlementPopulation.Add ("" + population1);
+			SettlementPopulation.Add ("" + population2);
+			SettlementPopulation.Add ("" + population3);
+			SettlementPopulation.Add ("" + population4);
+			SettlementPopulation.Add ("" + population5);
+			SettlementPopulation.Add ("" + population6);
+			SettlementPopulation.Add ("" + population7);
+			SettlementPopulation.Add ("" + population8);
+			SettlementPopulation.Add ("" + population9);
+			SettlementPopulation.Add ("" + population10);
+			dropdownPopulationSettlement.AddOptions (SettlementPopulation);
+		}
+
+		//dropdownTileEditor.captionText.text == "Cold Icy Mountain"
+
+		//public Dropdown dropdownPopulationSettlement;
+		//public Dropdown dropdownSlot1Settlement;
+		//public Dropdown dropdownSlot2Settlement;
+		//public Dropdown dropdownSlot3Settlement;
+		//public Dropdown dropdownArmyTypeSettlement;
 	}
 
 	void Update()
@@ -1557,6 +1626,26 @@ public class RealmEditor : MonoBehaviour {
 		HexTileTypes.Add( "Horde City" );
 		dropdownTileEditor.AddOptions (HexTileTypes);
 	}
+
+	/* public void LevelSettlement ()
+	{
+		dropdownLevelSettlement.ClearOptions ();
+		//Level for settlements can be placed
+		List<string> SettlementLevels = new List<string>();
+		SettlementLevels.Clear ();
+		SettlementLevels.Add( "0" );
+		SettlementLevels.Add( "1" );
+		SettlementLevels.Add( "2" );
+		SettlementLevels.Add( "3" );
+		SettlementLevels.Add( "4" );
+		SettlementLevels.Add( "5" );
+		SettlementLevels.Add( "6" );
+		SettlementLevels.Add( "7" );
+		SettlementLevels.Add( "8" );
+		SettlementLevels.Add( "9" );
+		SettlementLevels.Add( "10" );
+		dropdownLevelSettlement.AddOptions (SettlementLevels);
+	} */
 
 	void MouseOver_HexChange (GameObject hitChange_Hex) 
 	{
