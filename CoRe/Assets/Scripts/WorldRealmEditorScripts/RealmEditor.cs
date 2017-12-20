@@ -120,11 +120,17 @@ public class RealmEditor : MonoBehaviour {
 	public Toggle isToggle_African;
 	public Toggle isToggle_Horde;
 
+	//Input Fields Game Objects
+	public InputField populationInputField;
+	public InputField settlementNameField;
+
+	//Slider Game Objects
+	public Slider populationSlider;
 
 	//Dropdown Game Objects
 	public Dropdown dropdownTileEditor;
+	public Dropdown dropdownNPCID;
 	public Dropdown dropdownLevelSettlement;
-	public Dropdown dropdownPopulationSettlement;
 	public Dropdown dropdownSlot1Settlement;
 	public Dropdown dropdownSlot2Settlement;
 	public Dropdown dropdownSlot3Settlement;
@@ -232,9 +238,11 @@ public class RealmEditor : MonoBehaviour {
 		isToggle_African.onValueChanged.AddListener(ToggleAfrican);
 		isToggle_Horde.onValueChanged.AddListener(ToggleHorde);
 
-		dropdownLevelSettlement.onValueChanged.AddListener(PopulationDropdowner);
-
-
+		dropdownTileEditor.onValueChanged.AddListener(PopulationSlider);
+		dropdownTileEditor.onValueChanged.AddListener(LevelByDropdownSettlementType);
+		dropdownLevelSettlement.onValueChanged.AddListener(PopulationSlider);
+		populationSlider.onValueChanged.AddListener(PopulationToInputField);
+		populationInputField.onValueChanged.AddListener(PopulationToSlider);
 
 		List<string> SettlementLevels = new List<string>();
 		SettlementLevels.Clear ();
@@ -250,49 +258,99 @@ public class RealmEditor : MonoBehaviour {
 		SettlementLevels.Add( "9" );
 		SettlementLevels.Add( "10" );
 		dropdownLevelSettlement.AddOptions (SettlementLevels);
-		dropdownLevelSettlement.value = 1;
-
-
-	
+		dropdownLevelSettlement.value = 0;
+		dropdownLevelSettlement.enabled = false;
+		dropdownNPCID.enabled = false;
+		settlementNameField.enabled = false;
+		populationSlider.enabled = false;
+		populationInputField.enabled = false;
+		dropdownSlot1Settlement.enabled = false;
+		dropdownSlot2Settlement.enabled = false;
+		dropdownSlot3Settlement.enabled = false;
+		dropdownArmyTypeSettlement.enabled = false;
 	}
 
-	public void PopulationDropdowner(int input)
-	{
-		if (dropdownLevelSettlement.captionText.text == "0") 
-		{
-			dropdownPopulationSettlement.ClearOptions ();
-			List<string> SettlementPopulation = new List<string> ();
-			SettlementPopulation.Clear ();
-			SettlementPopulation.Add ("0");
-			dropdownPopulationSettlement.AddOptions (SettlementPopulation);
-		} else { 
-			dropdownPopulationSettlement.enabled = true;
-			int population1 = int.Parse (dropdownLevelSettlement.captionText.text) * 100; 
-			int population2 = int.Parse (dropdownLevelSettlement.captionText.text) * 200; 
-			int population3 = int.Parse (dropdownLevelSettlement.captionText.text) * 300; 
-			int population4 = int.Parse (dropdownLevelSettlement.captionText.text) * 400;
-			int population5 = int.Parse (dropdownLevelSettlement.captionText.text) * 500; 
-			int population6 = int.Parse (dropdownLevelSettlement.captionText.text) * 600; 
-			int population7 = int.Parse (dropdownLevelSettlement.captionText.text) * 700; 
-			int population8 = int.Parse (dropdownLevelSettlement.captionText.text) * 800; 
-			int population9 = int.Parse (dropdownLevelSettlement.captionText.text) * 900; 
-			int population10 = int.Parse (dropdownLevelSettlement.captionText.text) * 1000; 
+	public void PopulationSlider(int input) 
+	{ 
+		int settlementMultiplier = 0;
 
-			dropdownPopulationSettlement.ClearOptions ();
-			List<string> SettlementPopulation = new List<string> ();
-			SettlementPopulation.Clear ();
-			SettlementPopulation.Add ("" + population1);
-			SettlementPopulation.Add ("" + population2);
-			SettlementPopulation.Add ("" + population3);
-			SettlementPopulation.Add ("" + population4);
-			SettlementPopulation.Add ("" + population5);
-			SettlementPopulation.Add ("" + population6);
-			SettlementPopulation.Add ("" + population7);
-			SettlementPopulation.Add ("" + population8);
-			SettlementPopulation.Add ("" + population9);
-			SettlementPopulation.Add ("" + population10);
-			dropdownPopulationSettlement.AddOptions (SettlementPopulation);
+		if (dropdownTileEditor.captionText.text.Contains ("Village"))
+			{
+				settlementMultiplier = 10;
+			} else if (dropdownTileEditor.captionText.text.Contains ("Castle"))
+			{
+				settlementMultiplier = 5;
+			} else if (dropdownTileEditor.captionText.text.Contains ("City"))
+			{
+				settlementMultiplier = 500;
+			}
+
+				int population1 = int.Parse (dropdownLevelSettlement.captionText.text) * 1 * settlementMultiplier; 
+				int population2 = int.Parse (dropdownLevelSettlement.captionText.text) * 2 * settlementMultiplier; 
+				int population3 = int.Parse (dropdownLevelSettlement.captionText.text) * 3 * settlementMultiplier; 
+				int population4 = int.Parse (dropdownLevelSettlement.captionText.text) * 4 * settlementMultiplier;
+				int population5 = int.Parse (dropdownLevelSettlement.captionText.text) * 5 * settlementMultiplier; 
+				int population6 = int.Parse (dropdownLevelSettlement.captionText.text) * 6 * settlementMultiplier; 
+				int population7 = int.Parse (dropdownLevelSettlement.captionText.text) * 7 * settlementMultiplier; 
+				int population8 = int.Parse (dropdownLevelSettlement.captionText.text) * 8 * settlementMultiplier; 
+				int population9 = int.Parse (dropdownLevelSettlement.captionText.text) * 9 * settlementMultiplier; 
+				int population10 = int.Parse (dropdownLevelSettlement.captionText.text) * 10 * settlementMultiplier;  
+
+				populationSlider.minValue = 0;
+				populationSlider.maxValue = population10;
+				populationSlider.value = population10;
+
+				populationInputField.text = "" + populationSlider.value;
+
+		//populationInputField.text = value.ToString(); 
+	}
+
+	public void PopulationToInputField (float input)
+	{
+		populationInputField.text = "" + populationSlider.value;
+	}
+
+	public void PopulationToSlider (string input)
+	{
+		if (populationInputField.text != "") {
+			populationSlider.value = float.Parse (populationInputField.text);
+		} else {
+			populationSlider.value = 0;
 		}
+	}
+
+	public void LevelByDropdownSettlementType (int input)
+	{
+		if (dropdownTileEditor.captionText.text.Contains ("Village") | dropdownTileEditor.captionText.text.Contains ("Castle") | dropdownTileEditor.captionText.text.Contains ("City"))
+		{
+		dropdownLevelSettlement.enabled = true;
+		dropdownLevelSettlement.value = 1;
+
+			dropdownNPCID.enabled = true;
+			settlementNameField.enabled = true;
+			populationSlider.enabled = true;
+			populationInputField.enabled = true;
+			dropdownSlot1Settlement.enabled = true;
+			dropdownSlot2Settlement.enabled = true;
+			dropdownSlot3Settlement.enabled = true;
+			dropdownArmyTypeSettlement.enabled = true;
+		} else 
+		{
+			dropdownLevelSettlement.value = 0;
+			dropdownLevelSettlement.enabled = false;
+			dropdownNPCID.enabled = false;
+			settlementNameField.enabled = false;
+			populationSlider.enabled = false;
+			populationInputField.enabled = false;
+			dropdownSlot1Settlement.enabled = false;
+			dropdownSlot2Settlement.enabled = false;
+			dropdownSlot3Settlement.enabled = false;
+			dropdownArmyTypeSettlement.enabled = false;
+		}
+	}
+
+	//public void PopulationInputField (string text) { populationSlider.value = System.Convert.ToSingle(text); }
+
 
 		//dropdownTileEditor.captionText.text == "Cold Icy Mountain"
 
@@ -301,10 +359,11 @@ public class RealmEditor : MonoBehaviour {
 		//public Dropdown dropdownSlot2Settlement;
 		//public Dropdown dropdownSlot3Settlement;
 		//public Dropdown dropdownArmyTypeSettlement;
-	}
+
 
 	void Update()
 	{
+
 		/* if (Input.GetMouseButtonDown (0)) {
 			Debug.Log ("Pressed left click.");
 			/*Renderer rs = selectedObject.GetComponentInChildren<Renderer>();
@@ -1356,11 +1415,20 @@ public class RealmEditor : MonoBehaviour {
 			}
 
 			if (settlementGameObject != null) {
-				settlementGameObject.GetComponent<SettlementData> ().typeSettlement = settlementGameObject.tag;
 				settlementGameObject.GetComponent<SettlementData> ().tileX = selectedObject.GetComponent<TileData> ().tileX;
 				settlementGameObject.GetComponent<SettlementData> ().tileY = selectedObject.GetComponent<TileData> ().tileY;
 				settlementGameObject.GetComponent<SettlementData> ().realmX = selectedObject.GetComponent<TileData> ().realmX;
 				settlementGameObject.GetComponent<SettlementData> ().realmY = selectedObject.GetComponent<TileData> ().realmY;
+				//settlementGameObject.GetComponent<SettlementData> ().worldID = ;
+				//settlementGameObject.GetComponent<SettlementData> ().playerID = ;
+				//settlementGameObject.GetComponent<SettlementData> ().nameSettlement = ;
+				settlementGameObject.GetComponent<SettlementData> ().typeSettlement = settlementGameObject.tag;
+				settlementGameObject.GetComponent<SettlementData> ().populationSettlement = int.Parse(populationInputField.text);
+				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot1 = ;
+				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot2 = ;
+				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot3 = ;
+				//settlementGameObject.GetComponent<SettlementData> ().armyID = ;
+	
 			}
 		}
 		//if(selectedObject != null) {

@@ -15,4 +15,5 @@ public class SettlementData : MonoBehaviour {
 	public string settlementSlot1;
 	public string settlementSlot2;
 	public string settlementSlot3;
+	public string armyID;
 }
