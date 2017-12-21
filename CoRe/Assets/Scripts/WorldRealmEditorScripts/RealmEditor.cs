@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class RealmEditor : MonoBehaviour {
 
 	public GameObject selectedObject;
+	public GameObject settlementGameObject = null; 
+
+	public GameObject SettlementPlaceholderPrefab;
 
 	public GameObject VillageNordicForestPrefab;
 	public GameObject VillageNordicPlainPrefab;
@@ -215,6 +218,21 @@ public class RealmEditor : MonoBehaviour {
 	//now you can build if statements with the material like "if(selectedMaterial.name == "MatWater")
 	*/
 
+
+	//The following is for the settlement placement with the editor AND for the first time the random generator creates the map 
+	bool settlementVillage = false;
+	bool settlementCastle = false;
+	bool settlementCity = false;
+	bool cultureNONE = false;
+	bool cultureNordic = false;
+	bool cultureMedieval = false;
+	bool cultureAncient = false;
+	bool cultureAsian = false;
+	bool cultureAfrican = false;
+	bool cultureHorde = false;
+	string settlementType = null;
+
+
 	void Start ()
 	{
 		//	PopulateList_HexTileTypes ();
@@ -243,6 +261,7 @@ public class RealmEditor : MonoBehaviour {
 		dropdownLevelSettlement.onValueChanged.AddListener(PopulationSlider);
 		populationSlider.onValueChanged.AddListener(PopulationToInputField);
 		populationInputField.onValueChanged.AddListener(PopulationToSlider);
+
 
 		List<string> SettlementLevels = new List<string>();
 		SettlementLevels.Clear ();
@@ -410,223 +429,422 @@ public class RealmEditor : MonoBehaviour {
 
 		selectedObject = obj;
 
-		Renderer hexMaterial = selectedObject.GetComponentInChildren<Renderer>();
-		MeshFilter hexMesh = selectedObject.GetComponentInChildren<MeshFilter>();
-
-
 		if (Input.GetMouseButton (1)) {
 			//this will be activated every frame on the right mouse button down. That makes 'painting' like with a brush possible. But is horrible with settlements.
 
-
-			if (dropdownTileEditor.captionText.text == "Cold Icy Mountain") {
-				hexMaterial.material = MatColdMountain;
-				hexMesh.mesh = MeshColdMountain;
-				MouseManager.initialColor = MatColdMountain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", ""); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type. To avoid problems while placing objects like settlements and highlight-color this has to be in every single if-clause
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;			
-			}
-			if (dropdownTileEditor.captionText.text == "Cold Woodland Hill") {
-				hexMaterial.material = MatColdHill;
-				hexMesh.mesh = MeshColdHill;
-				MouseManager.initialColor = MatColdHill;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Cold Winter Forest") {
-				hexMaterial.material = MatColdConiferous;
-				hexMesh.mesh = MeshColdConiferous;
-				MouseManager.initialColor = MatColdConiferous;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Cold Sparse Grassland") {
-				hexMaterial.material = MatColdPlain;
-				hexMesh.mesh = MeshColdPlain;
-				MouseManager.initialColor = MatColdPlain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Cold Tundra") {
-				hexMaterial.material = MatColdBarren;
-				hexMesh.mesh = MeshColdBarren;
-				MouseManager.initialColor = MatColdBarren;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-
-			if (dropdownTileEditor.captionText.text == "Warm Mountain") {
-				hexMaterial.material = MatWarmMountain;
-				hexMesh.mesh = MeshWarmMountain;
-				MouseManager.initialColor = MatWarmMountain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Warm Hill") {
-				hexMaterial.material = MatWarmHill;
-				hexMesh.mesh = MeshWarmHill;
-				MouseManager.initialColor = MatWarmHill;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Warm Coniferous Forest") {
-				hexMaterial.material = MatWarmConiferous;
-				hexMesh.mesh = MeshWarmConiferous;
-				MouseManager.initialColor = MatWarmConiferous;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Warm Deciduous Forest") {
-				hexMaterial.material = MatWarmDeciduous;
-				hexMesh.mesh = MeshWarmDeciduous;
-				MouseManager.initialColor = MatWarmDeciduous;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Warm Grassland") {
-				hexMaterial.material = MatWarmPlain;
-				hexMesh.mesh = MeshWarmPlain;
-				MouseManager.initialColor = MatWarmPlain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Warm Barren Plain") {
-				hexMaterial.material = MatWarmBarren;
-				hexMesh.mesh = MeshWarmBarren;
-				MouseManager.initialColor = MatWarmBarren;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-
-			if (dropdownTileEditor.captionText.text == "Mediterranean Mountain") {
-				hexMaterial.material = MatMediterraneanMountain;
-				hexMesh.mesh = MeshMediterraneanMountain;
-				MouseManager.initialColor = MatMediterraneanMountain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Mediterranean Coniferous Hill") {
-				hexMaterial.material = MatMediterraneanHill;
-				hexMesh.mesh = MeshMediterraneanHill;
-				MouseManager.initialColor = MatMediterraneanHill;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Mediterranean Deciduous Forest") {
-				hexMaterial.material = MatMediterraneanDeciduous;
-				hexMesh.mesh = MeshMediterraneanDeciduous;
-				MouseManager.initialColor = MatMediterraneanDeciduous;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Mediterranean Grassland") {
-				hexMaterial.material = MatMediterraneanPlain;
-				hexMesh.mesh = MeshMediterraneanPlain;
-				MouseManager.initialColor = MatMediterraneanPlain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Mediterranean Barren") {
-				hexMaterial.material = MatMediterraneanBarren;
-				hexMesh.mesh = MeshMediterraneanBarren;
-				MouseManager.initialColor = MatMediterraneanBarren;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-
-			if (dropdownTileEditor.captionText.text == "Desert Mountain") {
-				hexMaterial.material = MatDesertMountain;
-				hexMesh.mesh = MeshDesertMountain;
-				MouseManager.initialColor = MatDesertMountain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Desert Trees") {
-				hexMaterial.material = MatDesertDeciduous;
-				hexMesh.mesh = MeshDesertDeciduous;
-				MouseManager.initialColor = MatDesertDeciduous;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Desert Oasis") {
-				hexMaterial.material = MatDesertPlain;
-				hexMesh.mesh = MeshDesertPlain;
-				MouseManager.initialColor = MatDesertPlain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Desert Hammada Stonedesert") {
-				hexMaterial.material = MatDesertHammada;
-				hexMesh.mesh = MeshDesertHammada;
-				MouseManager.initialColor = MatDesertHammada;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Desert Sanddesert") {
-				hexMaterial.material = MatDesertSand;
-				hexMesh.mesh = MeshDesertSand;
-				MouseManager.initialColor = MatDesertSand;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Desert Dunes") {
-				hexMaterial.material = MatDesertHill;
-				hexMesh.mesh = MeshDesertHill;
-				MouseManager.initialColor = MatDesertHill;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-
-			if (dropdownTileEditor.captionText.text == "Tropic Mountain") {
-				hexMaterial.material = MatTropicMountain;
-				hexMesh.mesh = MeshTropicMountain;
-				MouseManager.initialColor = MatTropicMountain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Tropic Jungle Hill") {
-				hexMaterial.material = MatTropicHill;
-				hexMesh.mesh = MeshTropicHill;
-				MouseManager.initialColor = MatTropicHill;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Tropic Jungle Forest") {
-				hexMaterial.material = MatTropicDeciduous;
-				hexMesh.mesh = MeshTropicDeciduous;
-				MouseManager.initialColor = MatTropicDeciduous;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Tropic Plain-Glade") {
-				hexMaterial.material = MatTropicPlain;
-				hexMesh.mesh = MeshTropicPlain;
-				MouseManager.initialColor = MatTropicPlain;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-			if (dropdownTileEditor.captionText.text == "Tropic Barren") {
-				hexMaterial.material = MatTropicBarren;
-				hexMesh.mesh = MeshTropicBarren;
-				MouseManager.initialColor = MatTropicBarren;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
-
-			if (dropdownTileEditor.captionText.text == "Water") {
-				hexMaterial.material = MatWater;
-				hexMesh.mesh = MeshWater;
-				MouseManager.initialColor = MatWater;
-				selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
-				selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
-			}
+			SetTerrain ();
 		}
 
-		if (Input.GetMouseButtonUp (1) ) {
+		if (Input.GetMouseButtonUp (1)) {
 			//this will only be activated on the right mouse button getting up. That makes it possible to only build settlements once per click.
 			//TODO: If there is already a settlement on a tile, that should be destroyed by a right click (the user than can set a new settlement with a new right click)
 
-			GameObject settlementGameObject = null; 
+			//SetSettlement ();
+		}
 
+		if (Input.GetMouseButtonUp (1)) {
+
+			EditorSettlementPlacer ();
+		}
+	}
+
+
+	public void EditorSettlementPlacer()
+	{
+		if (dropdownTileEditor.captionText.text.Contains ("Village"))
+			settlementVillage = true;
+		if (dropdownTileEditor.captionText.text.Contains ("Castle"))
+			settlementCastle = true;
+		if (dropdownTileEditor.captionText.text.Contains ("City"))
+			settlementCity = true;
+		
+		
+		if (cultureNONE = true & dropdownTileEditor.captionText.text.Contains ("Nordic")) {
+			cultureNordic = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & dropdownTileEditor.captionText.text.Contains ("Medieval")) {
+			cultureMedieval = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & dropdownTileEditor.captionText.text.Contains ("Ancient")) {
+			cultureAncient = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & dropdownTileEditor.captionText.text.Contains ("Asian")) {
+			cultureAsian = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & dropdownTileEditor.captionText.text.Contains ("African")) {
+			cultureAfrican = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & dropdownTileEditor.captionText.text.Contains ("Horde")) {
+			cultureHorde = true;
+			cultureNONE = false;
+		}
+
+		else if (cultureNONE = true & selectedObject.tag.Contains ("Cold")) {
+			cultureNordic = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & selectedObject.tag.Contains ("Warm")) {
+			cultureMedieval = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & selectedObject.tag.Contains ("Mediterranean")) {
+			cultureAncient = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & selectedObject.tag.Contains ("Desert")) {
+			cultureHorde = true;
+			cultureNONE = false;
+		}
+		else if (cultureNONE = true & selectedObject.tag.Contains ("Tropic")) {
+			cultureAfrican = true;
+			cultureNONE = false;
+		}
+
+		if (settlementVillage != true & settlementCastle != true & settlementCity != true) {
+			return;
+		} else {
+			SetTypeSettlement ();
+		}
+	}
+
+	public void SetTypeSettlement()
+	{
+		if (selectedObject.tag.Contains ("Water")) //This will prevent from building on water
+		{
+			return;
+		} else if (selectedObject.GetComponentInChildren<SettlementData>() != null) //This gives the option to destroy existing settlements on click
+		{
+			//TODO: Destroy the settlement child of the selected Object - and only this
+		} else {
+
+			if (settlementVillage == true)
+				settlementType = "Village";
+			if (settlementCastle == true)
+				settlementType = "Castle";
+			if (settlementCity == true)
+				settlementType = "City";
+
+			settlementGameObject = (GameObject)Instantiate (SettlementPlaceholderPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = settlementType;
+
+			SetCultureToSettlement ();
+			SetStatsToSettlement (); 
+		}
+	}
+
+	public void SetCultureToSettlement()
+	{
+		if (selectedObject.tag.Contains ("Water")) {
+			Destroy (settlementGameObject);
+			return;
+		} else {
+			
+			if (cultureNordic == true)
+				settlementGameObject.tag = settlementGameObject.tag + "Nordic";
+			if (cultureMedieval == true)
+				settlementGameObject.tag = settlementGameObject.tag + "Medieval";
+			if (cultureAncient == true)
+				settlementGameObject.tag = settlementGameObject.tag + "Ancient";
+			if (cultureAsian == true)
+				settlementGameObject.tag = settlementGameObject.tag + "Asian";
+			if (cultureAfrican == true)
+				settlementGameObject.tag = settlementGameObject.tag + "African";
+			if (cultureHorde == true)
+				settlementGameObject.tag = settlementGameObject.tag + "Horde";
+
+			SetTerrainToSettlement ();
+			SetStatsToSettlement ();
+		}
+	}
+
+	public void SetTerrainToSettlement()
+	{
+		if (selectedObject.tag.Contains ("Water")) {
+			Destroy (settlementGameObject);
+			return;
+		} else {
+			
+			if (selectedObject.tag.Contains ("Plain"))
+				settlementGameObject.tag = settlementGameObject.tag + "Plain";
+			if (selectedObject.tag.Contains ("Deciduous") | selectedObject.tag.Contains ("Coniferous"))
+				settlementGameObject.tag = settlementGameObject.tag + "Forest";
+			if (selectedObject.tag.Contains ("Hill"))
+				settlementGameObject.tag = settlementGameObject.tag + "Hill";
+			if (selectedObject.tag.Contains ("Mountain"))
+				settlementGameObject.tag = settlementGameObject.tag + "Mountain";
+			
+			if ((settlementType == "Village" | settlementType == "City") & (selectedObject.tag.Contains ("Barren") | selectedObject.tag.Contains ("Hammada") | selectedObject.tag.Contains ("Sand")))
+			{	Destroy (settlementGameObject);
+			} else if (selectedObject.tag.Contains ("Barren") | selectedObject.tag.Contains ("Hammada") | selectedObject.tag.Contains ("Sand"))
+			{
+				settlementGameObject.tag = settlementGameObject.tag + "Barren";
+			}
+
+			SetStatsToSettlement ();
+		}
+	}
+
+	public void SetStatsToSettlement()
+	{   
+		if (selectedObject.tag.Contains ("Water")) {
+			Destroy (settlementGameObject);
+			return;
+		} else {
+
+			string PlaceholderPrefab = settlementGameObject.tag + "Prefab";
+
+			settlementGameObject = (GameObject)Instantiate (XXXXXXXXXXXXXXXX, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+
+			/*
+			if (settlementGameObject != null) {
+				settlementGameObject.GetComponent<SettlementData> ().tileX = selectedObject.GetComponent<TileData> ().tileX;
+				settlementGameObject.GetComponent<SettlementData> ().tileY = selectedObject.GetComponent<TileData> ().tileY;
+				settlementGameObject.GetComponent<SettlementData> ().realmX = selectedObject.GetComponent<TileData> ().realmX;
+				settlementGameObject.GetComponent<SettlementData> ().realmY = selectedObject.GetComponent<TileData> ().realmY;
+				//settlementGameObject.GetComponent<SettlementData> ().worldID = ;
+				//settlementGameObject.GetComponent<SettlementData> ().playerID = ;
+				//settlementGameObject.GetComponent<SettlementData> ().nameSettlement = ;
+				settlementGameObject.GetComponent<SettlementData> ().typeSettlement = settlementGameObject.tag;
+				settlementGameObject.GetComponent<SettlementData> ().populationSettlement = int.Parse(populationInputField.text);
+				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot1 = ;
+				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot2 = ;
+				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot3 = ;
+				//settlementGameObject.GetComponent<SettlementData> ().armyID = ;
+			
+			} */
+		}
+
+		//Reset all
+		settlementVillage = false;
+		settlementCastle = false;
+		settlementCity = false;
+		cultureNONE = false;
+		cultureNordic = false;
+		cultureMedieval = false;
+		cultureAncient = false;
+		cultureAsian = false;
+		cultureAfrican = false;
+		cultureHorde = false;
+		settlementType = null;
+	}
+
+		public void SetTerrain()
+		{
+
+		Renderer hexMaterial = selectedObject.GetComponentInChildren<Renderer> ();
+		MeshFilter hexMesh = selectedObject.GetComponentInChildren<MeshFilter> ();
+
+		if (dropdownTileEditor.captionText.text == "Cold Icy Mountain") {
+			hexMaterial.material = MatColdMountain;
+			hexMesh.mesh = MeshColdMountain;
+			MouseManager.initialColor = MatColdMountain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", ""); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type. To avoid problems while placing objects like settlements and highlight-color this has to be in every single if-clause
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;			
+		}
+		if (dropdownTileEditor.captionText.text == "Cold Woodland Hill") {
+			hexMaterial.material = MatColdHill;
+			hexMesh.mesh = MeshColdHill;
+			MouseManager.initialColor = MatColdHill;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Cold Winter Forest") {
+			hexMaterial.material = MatColdConiferous;
+			hexMesh.mesh = MeshColdConiferous;
+			MouseManager.initialColor = MatColdConiferous;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Cold Sparse Grassland") {
+			hexMaterial.material = MatColdPlain;
+			hexMesh.mesh = MeshColdPlain;
+			MouseManager.initialColor = MatColdPlain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Cold Tundra") {
+			hexMaterial.material = MatColdBarren;
+			hexMesh.mesh = MeshColdBarren;
+			MouseManager.initialColor = MatColdBarren;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+
+		if (dropdownTileEditor.captionText.text == "Warm Mountain") {
+			hexMaterial.material = MatWarmMountain;
+			hexMesh.mesh = MeshWarmMountain;
+			MouseManager.initialColor = MatWarmMountain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Warm Hill") {
+			hexMaterial.material = MatWarmHill;
+			hexMesh.mesh = MeshWarmHill;
+			MouseManager.initialColor = MatWarmHill;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Warm Coniferous Forest") {
+			hexMaterial.material = MatWarmConiferous;
+			hexMesh.mesh = MeshWarmConiferous;
+			MouseManager.initialColor = MatWarmConiferous;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Warm Deciduous Forest") {
+			hexMaterial.material = MatWarmDeciduous;
+			hexMesh.mesh = MeshWarmDeciduous;
+			MouseManager.initialColor = MatWarmDeciduous;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Warm Grassland") {
+			hexMaterial.material = MatWarmPlain;
+			hexMesh.mesh = MeshWarmPlain;
+			MouseManager.initialColor = MatWarmPlain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Warm Barren Plain") {
+			hexMaterial.material = MatWarmBarren;
+			hexMesh.mesh = MeshWarmBarren;
+			MouseManager.initialColor = MatWarmBarren;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+
+		if (dropdownTileEditor.captionText.text == "Mediterranean Mountain") {
+			hexMaterial.material = MatMediterraneanMountain;
+			hexMesh.mesh = MeshMediterraneanMountain;
+			MouseManager.initialColor = MatMediterraneanMountain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Mediterranean Coniferous Hill") {
+			hexMaterial.material = MatMediterraneanHill;
+			hexMesh.mesh = MeshMediterraneanHill;
+			MouseManager.initialColor = MatMediterraneanHill;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Mediterranean Deciduous Forest") {
+			hexMaterial.material = MatMediterraneanDeciduous;
+			hexMesh.mesh = MeshMediterraneanDeciduous;
+			MouseManager.initialColor = MatMediterraneanDeciduous;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Mediterranean Grassland") {
+			hexMaterial.material = MatMediterraneanPlain;
+			hexMesh.mesh = MeshMediterraneanPlain;
+			MouseManager.initialColor = MatMediterraneanPlain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Mediterranean Barren") {
+			hexMaterial.material = MatMediterraneanBarren;
+			hexMesh.mesh = MeshMediterraneanBarren;
+			MouseManager.initialColor = MatMediterraneanBarren;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+
+		if (dropdownTileEditor.captionText.text == "Desert Mountain") {
+			hexMaterial.material = MatDesertMountain;
+			hexMesh.mesh = MeshDesertMountain;
+			MouseManager.initialColor = MatDesertMountain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Desert Trees") {
+			hexMaterial.material = MatDesertDeciduous;
+			hexMesh.mesh = MeshDesertDeciduous;
+			MouseManager.initialColor = MatDesertDeciduous;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Desert Oasis") {
+			hexMaterial.material = MatDesertPlain;
+			hexMesh.mesh = MeshDesertPlain;
+			MouseManager.initialColor = MatDesertPlain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Desert Hammada Stonedesert") {
+			hexMaterial.material = MatDesertHammada;
+			hexMesh.mesh = MeshDesertHammada;
+			MouseManager.initialColor = MatDesertHammada;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Desert Sanddesert") {
+			hexMaterial.material = MatDesertSand;
+			hexMesh.mesh = MeshDesertSand;
+			MouseManager.initialColor = MatDesertSand;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Desert Dunes") {
+			hexMaterial.material = MatDesertHill;
+			hexMesh.mesh = MeshDesertHill;
+			MouseManager.initialColor = MatDesertHill;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+
+		if (dropdownTileEditor.captionText.text == "Tropic Mountain") {
+			hexMaterial.material = MatTropicMountain;
+			hexMesh.mesh = MeshTropicMountain;
+			MouseManager.initialColor = MatTropicMountain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Tropic Jungle Hill") {
+			hexMaterial.material = MatTropicHill;
+			hexMesh.mesh = MeshTropicHill;
+			MouseManager.initialColor = MatTropicHill;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Tropic Jungle Forest") {
+			hexMaterial.material = MatTropicDeciduous;
+			hexMesh.mesh = MeshTropicDeciduous;
+			MouseManager.initialColor = MatTropicDeciduous;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Tropic Plain-Glade") {
+			hexMaterial.material = MatTropicPlain;
+			hexMesh.mesh = MeshTropicPlain;
+			MouseManager.initialColor = MatTropicPlain;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		if (dropdownTileEditor.captionText.text == "Tropic Barren") {
+			hexMaterial.material = MatTropicBarren;
+			hexMesh.mesh = MeshTropicBarren;
+			MouseManager.initialColor = MatTropicBarren;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+
+		if (dropdownTileEditor.captionText.text == "Water") {
+			hexMaterial.material = MatWater;
+			hexMesh.mesh = MeshWater;
+			MouseManager.initialColor = MatWater;
+			selectedObject.tag = "Hex_" + hexMaterial.material.name.Replace (" (Instance)", "");
+			selectedObject.GetComponent<TileData> ().typeTile = selectedObject.tag;
+		}
+		}
+
+		public void SetSettlement()
+		{
+						
 			if (dropdownTileEditor.captionText.text == "Village") {
 				/* if (selectedObject.transform.GetChild(1).gameObject.tag.Contains("Village")) { //(selectedObject.Child.tag.Contains("Village")) {
 					Debug.Log("Destroy the settlement...");
@@ -1431,26 +1649,124 @@ public class RealmEditor : MonoBehaviour {
 	
 			}
 		}
-		//if(selectedObject != null) {
-		//	if(obj == selectedObject)
-		//		return;
-		//ClearSelection();
-		//}
 
-		//selectedObject = obj;
 
-		//Renderer hexMaterial = selectedObject.GetComponentInChildren<Renderer>();
-		//hexMaterial.material = MatMountains;
+	public void VillageForRandomPlacement()
+	{
+		/*if (selectedObject.tag.Contains("Cold"))
+		{
+			if (DataControllerEditor.activeCultureNordic == true) {
+			
+			}
+		}
 
-		//Renderer rs = selectedObject.GetComponentInChildren<Renderer>();
-		//rs.material = MatMountains;
-		//rs.material = MatMountains;
-		//Material[] mats = rs.materials; 
-		//foreach(Material mat in mats) { 
-		//	mat.material = MatMountains; 
-		//}
+		if (selectedObject.tag.Contains("Water")) {
+			null;
+		} else if (selectedObject.tag.Contains("Barren")) {
+			null;
+		} else if (selectedObject.tag.Contains("Hammada")) {
+			null;
+		} else if (selectedObject.tag.Contains("Sand")) {
+			null;
+		} else if (selectedObject.tag.Contains("DesertHill")) {
+			null;
+		} else if (selectedObject.tag.Contains("ColdPlain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageNordicPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageNordicPlain";
+		} else if (selectedObject.tag.Contains("ColdConiferous"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageNordicForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageNordicForest";
+		} else if (selectedObject.tag.Contains("ColdHill"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageNordicHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageNordicHill";
+		} 
+		else if (selectedObject.tag.Contains("ColdMountain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageNordicMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageNordicMountain";
+		}
+		else if (selectedObject.tag.Contains("WarmPlain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageMedievalPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageMedievalPlain";
+		} 
+		else if (selectedObject.tag.Contains("WarmDeciduous") | selectedObject.tag.Contains("WarmConiferous"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageMedievalForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageMedievalForest";
+		} 
+		else if (selectedObject.tag.Contains("WarmHill"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageMedievalHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageMedievalHill";
+		} 
+		else if (selectedObject.tag.Contains("WarmMountain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageMedievalMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageMedievalMountain";
+		}
+		else if (selectedObject.tag.Contains("MediterraneanPlain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAncientPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAncientPlain";
+		} 
+		else if (selectedObject.tag.Contains("MediterraneanDeciduous"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAncientForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAncientForest";
+		} 
+		else if (selectedObject.tag.Contains("MediterraneanHill"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAncientHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAncientHill";
+		} 
+		else if (selectedObject.tag.Contains("MediterraneanMountain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAncientMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAncientMountain";
+		}
+		else if (selectedObject.tag.Contains("DesertPlain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageHordePlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageHordePlain";
+		} 
+		else if (selectedObject.tag.Contains("DesertDeciduous"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageHordeForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageHordeForest";
+		} 
+		else if (selectedObject.tag.Contains("DesertMountain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageHordeMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageHordeMountain";
+		}
+		else if (selectedObject.tag.Contains("TropicPlain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAfricanPlainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAfricanPlain";
+		}
+		else if (selectedObject.tag.Contains("TropicDeciduous"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAfricanForestPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAfricanForest";
+		} 
+		else if (selectedObject.tag.Contains("TropicHill"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAfricanHillPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAfricanHill";
+		} 
+		else if (selectedObject.tag.Contains("TropicMountain"))
+		{
+			settlementGameObject = (GameObject)Instantiate(VillageAfricanMountainPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			settlementGameObject.tag = "VillageAfricanMountain";
+		} */
 
 	}
+
+
 
 	/* if mouse leaves selected object, it gets initial color back
 	void ClearSelection() {
@@ -1464,6 +1780,9 @@ public class RealmEditor : MonoBehaviour {
 		}
 		selectedObject = null;
 	} */
+
+
+
 
 	// -------------------------------------------------------------------------
 
@@ -1694,26 +2013,6 @@ public class RealmEditor : MonoBehaviour {
 		HexTileTypes.Add( "Horde City" );
 		dropdownTileEditor.AddOptions (HexTileTypes);
 	}
-
-	/* public void LevelSettlement ()
-	{
-		dropdownLevelSettlement.ClearOptions ();
-		//Level for settlements can be placed
-		List<string> SettlementLevels = new List<string>();
-		SettlementLevels.Clear ();
-		SettlementLevels.Add( "0" );
-		SettlementLevels.Add( "1" );
-		SettlementLevels.Add( "2" );
-		SettlementLevels.Add( "3" );
-		SettlementLevels.Add( "4" );
-		SettlementLevels.Add( "5" );
-		SettlementLevels.Add( "6" );
-		SettlementLevels.Add( "7" );
-		SettlementLevels.Add( "8" );
-		SettlementLevels.Add( "9" );
-		SettlementLevels.Add( "10" );
-		dropdownLevelSettlement.AddOptions (SettlementLevels);
-	} */
 
 	void MouseOver_HexChange (GameObject hitChange_Hex) 
 	{

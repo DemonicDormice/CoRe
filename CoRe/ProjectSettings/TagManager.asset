@@ -115,6 +115,39 @@ TagManager:
   - CastleAsianBarren
   - CastleAfricanBarren
   - CastleHordeBarren
+  - Village
+  - Castle
+  - City
+  - VillageNordic
+  - VillageMedieval
+  - VillageAncient
+  - VillageAsian
+  - VillageAfrican
+  - VillageHorde
+  - CastleNordic
+  - CastleMedieval
+  - CastleAncient
+  - CastleAsian
+  - CastleAfrican
+  - CastleHorde
+  - CityNordic
+  - CityMedieval
+  - CityAncient
+  - CityAsian
+  - CityAfrican
+  - CityHorde
+  - CityNordicBarren
+  - CityMedievalBarren
+  - CityAncientBarren
+  - CityAsianBarren
+  - CityAfricanBarren
+  - CityHordeBarren
+  - VillageNordicBarren
+  - VillageMedievalBarren
+  - VillageAncientBarren
+  - VillageAsianBarren
+  - VillageAfricanBarren
+  - VillageHordeBarren
   layers:
   - Default
   - TransparentFX

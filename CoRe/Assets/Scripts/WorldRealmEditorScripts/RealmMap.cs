@@ -263,6 +263,7 @@ public class RealmMap : MonoBehaviour {
 		}
 
 		UpdateHexVisuals ();
+		UpdateSettlementVisuals ();
 	}
 
 	public void UpdateHexVisuals() //loop trought all the hexes and set their type based on HexTerrainValue
@@ -272,16 +273,11 @@ public class RealmMap : MonoBehaviour {
 		//randomRange = randomRange - 0.01f; //the higher randomRange is, the higher the concentration/denseness of random climate 
 		//TODO: the randomRange has to be tied to the worldsize / numberRowsWorld and has to gradually decrease depending on Y position north and south from the middle.
 
-		for (int column = 0; column < numberColumns; column++) 
-		{
-
-
-
-			for (int row = 0; row < numberRows; row++) 
-			{
+		for (int column = 0; column < numberColumns; column++) {
+			for (int row = 0; row < numberRows; row++) {
 
 				HexPosition h = hexes [column, row];
-				GameObject hexGameObject = hexToGameObjectRealm[h];
+				GameObject hexGameObject = hexToGameObjectRealm [h];
 
 				rowWorld = row + (numberRows * RealmY);
 				MeshRenderer mr = hexGameObject.GetComponentInChildren<MeshRenderer> ();
@@ -289,179 +285,113 @@ public class RealmMap : MonoBehaviour {
 
 				//Now that we have the numbers, we have to divide the world y-axis along this lines
 				//like "if column < y than mr.material = blabla"
-				if (WorldMap.numberTropic != 0 & rowWorld <= middleRowWorld + climateTropicHalfzone & rowWorld >= middleRowWorld - climateTropicHalfzone) 
-				{
+				if (WorldMap.numberTropic != 0 & rowWorld <= middleRowWorld + climateTropicHalfzone & rowWorld >= middleRowWorld - climateTropicHalfzone) {
 					//Tropic climate renderer
-					if(h.HexTerrainValue >= ValueTropicMountain)
-					{
+					if (h.HexTerrainValue >= ValueTropicMountain) {
 						mr.material = MatTropicMountain;
-					}
-					else if(h.HexTerrainValue >= ValueTropicHill)
-					{
+					} else if (h.HexTerrainValue >= ValueTropicHill) {
 						mr.material = MatTropicHill;
-					} 
-					else if(h.HexTerrainValue >= ValueTropicDeciduous)
-					{
+					} else if (h.HexTerrainValue >= ValueTropicDeciduous) {
 						mr.material = MatTropicDeciduous;
-					} else if(h.HexTerrainValue >= ValueTropicPlain)
-					{
+					} else if (h.HexTerrainValue >= ValueTropicPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						if (Random.Range (0f, 1f) > 0.8f) {
 							mr.material = MatTropicBarren;
-						} else 
-						{
+						} else {
 							mr.material = MatTropicPlain;
 						}
-					} else
-					{
+					} else {
 						mr.material = MatWater;
 					}
-				} 
-				else if (WorldMap.numberDesert != 0 & rowWorld <= middleRowWorld + climateDesertHalfzone & rowWorld >= middleRowWorld - climateDesertHalfzone) 
-				{				
+				} else if (WorldMap.numberDesert != 0 & rowWorld <= middleRowWorld + climateDesertHalfzone & rowWorld >= middleRowWorld - climateDesertHalfzone) {				
 					//Desert climate renderer
-					if(h.HexTerrainValue >= ValueDesertMountain)
-					{
+					if (h.HexTerrainValue >= ValueDesertMountain) {
 						mr.material = MatDesertMountain;
-					}
-					else if(h.HexTerrainValue >= ValueDesertHill)
-					{
+					} else if (h.HexTerrainValue >= ValueDesertHill) {
 						mr.material = MatDesertHill;
-					} 
-					else if(h.HexTerrainValue >= ValueDesertSand)
-					{
+					} else if (h.HexTerrainValue >= ValueDesertSand) {
 						mr.material = MatDesertSand;
-					} 
-					else if(h.HexTerrainValue >= ValueDesertHammada)
-					{
+					} else if (h.HexTerrainValue >= ValueDesertHammada) {
 						mr.material = MatDesertHammada;
-					} 
-					else if(h.HexTerrainValue >= ValueDesertDeciduous)
-					{
+					} else if (h.HexTerrainValue >= ValueDesertDeciduous) {
 						mr.material = MatDesertDeciduous;
-					} 
-					else if(h.HexTerrainValue >= ValueDesertPlain)
-					{
+					} else if (h.HexTerrainValue >= ValueDesertPlain) {
 						mr.material = MatDesertPlain;
-					} 
-					else
-					{
+					} else {
 						mr.material = MatWater;
 					}
-				} 
-				else if (WorldMap.numberMediterranean != 0 & rowWorld <= middleRowWorld + climateMediterraneanHalfzone & rowWorld >= middleRowWorld - climateMediterraneanHalfzone) 
-				{
+				} else if (WorldMap.numberMediterranean != 0 & rowWorld <= middleRowWorld + climateMediterraneanHalfzone & rowWorld >= middleRowWorld - climateMediterraneanHalfzone) {
 					//Mediterranean climate renderer
-					if(h.HexTerrainValue >= ValueMediterraneanMountain)
-					{
+					if (h.HexTerrainValue >= ValueMediterraneanMountain) {
 						mr.material = MatMediterraneanMountain;
-					}
-					else if(h.HexTerrainValue >= ValueMediterraneanHill)
-					{
+					} else if (h.HexTerrainValue >= ValueMediterraneanHill) {
 						mr.material = MatMediterraneanHill;
-					} 
-					else if(h.HexTerrainValue >= ValueMediterraneanDeciduous)
-					{
+					} else if (h.HexTerrainValue >= ValueMediterraneanDeciduous) {
 						mr.material = MatMediterraneanDeciduous;
-					} else if(h.HexTerrainValue >= ValueMediterraneanPlain)
-					{
+					} else if (h.HexTerrainValue >= ValueMediterraneanPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						if (Random.Range (0f, 1f) > 0.9f) {
 							mr.material = MatMediterraneanBarren;
-						} else 
-						{
+						} else {
 							mr.material = MatMediterraneanPlain;
 						}
-					} else
-					{
+					} else {
 						mr.material = MatWater;
 					}				
-				} 
-				else if (WorldMap.numberWarm != 0 & rowWorld <= middleRowWorld + climateWarmHalfzone & rowWorld >= middleRowWorld - climateWarmHalfzone) 
-				{
+				} else if (WorldMap.numberWarm != 0 & rowWorld <= middleRowWorld + climateWarmHalfzone & rowWorld >= middleRowWorld - climateWarmHalfzone) {
 					//Warm climate renderer
-					if(h.HexTerrainValue >= ValueWarmMountain)
-					{
+					if (h.HexTerrainValue >= ValueWarmMountain) {
 						mr.material = MatWarmMountain;
 						mf.mesh = MeshWarmMountain;
-					}
-					else if(h.HexTerrainValue >= ValueWarmHill)
-					{
+					} else if (h.HexTerrainValue >= ValueWarmHill) {
 						mr.material = MatWarmHill;
 						mf.mesh = MeshWarmHill;
-					} 
-					else if(h.HexTerrainValue >= ValueWarmConiferous)
-					{
+					} else if (h.HexTerrainValue >= ValueWarmConiferous) {
 						mr.material = MatWarmConiferous;
 						mf.mesh = MeshWarmConiferous;
-					} 
-					else if(h.HexTerrainValue >= ValueWarmDeciduous)
-					{
+					} else if (h.HexTerrainValue >= ValueWarmDeciduous) {
 						mr.material = MatWarmDeciduous;
 						mf.mesh = MeshWarmDeciduous;
-					} else if(h.HexTerrainValue >= ValueWarmPlain)
-					{
+					} else if (h.HexTerrainValue >= ValueWarmPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						if (Random.Range (0f, 1f) > 0.9f) {
 							mr.material = MatWarmBarren;
 							mf.mesh = MeshWarmBarren;
-						} else 
-						{
+						} else {
 							mr.material = MatWarmPlain;
 							mf.mesh = MeshWarmPlain;
 						}
-					} else
-					{
+					} else {
 						mr.material = MatWater;
 					}				
-				} 
-				else if (WorldMap.numberCold != 0 & rowWorld <= middleRowWorld + climateColdHalfzone & rowWorld >= middleRowWorld - climateColdHalfzone) 
-				{
+				} else if (WorldMap.numberCold != 0 & rowWorld <= middleRowWorld + climateColdHalfzone & rowWorld >= middleRowWorld - climateColdHalfzone) {
 					//Cold climate renderer
-					if(h.HexTerrainValue >= ValueColdMountain)
-					{
+					if (h.HexTerrainValue >= ValueColdMountain) {
 						mr.material = MatColdMountain;
-					}
-					else if(h.HexTerrainValue >= ValueColdHill)
-					{
+					} else if (h.HexTerrainValue >= ValueColdHill) {
 						mr.material = MatColdHill;
-					} 
-					else if(h.HexTerrainValue >= ValueColdConiferous)
-					{
+					} else if (h.HexTerrainValue >= ValueColdConiferous) {
 						mr.material = MatColdConiferous;
-					} else if(h.HexTerrainValue >= ValueColdPlain)
-					{
+					} else if (h.HexTerrainValue >= ValueColdPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						//In cold climate many plains are barren and only a portion is good for agriculture
 						if (Random.Range (0f, 1f) > 0.5f) {
 							mr.material = MatColdBarren;
-						} else 
-						{
+						} else {
 							mr.material = MatColdPlain;
 						}
-					} else
-					{
+					} else {
 						mr.material = MatWater;
 					}				
-				} 
-				else if (WorldMap.numberCold == 0 & WorldMap.numberWarm != 0)
-				{
+				} else if (WorldMap.numberCold == 0 & WorldMap.numberWarm != 0) {
 					mr.material = MatWarmPlain;
-				} 
-				else if (WorldMap.numberWarm == 0 & WorldMap.numberMediterranean != 0)
-				{
+				} else if (WorldMap.numberWarm == 0 & WorldMap.numberMediterranean != 0) {
 					mr.material = MatMediterraneanPlain;
-				}
-				else if (WorldMap.numberMediterranean == 0 & WorldMap.numberDesert != 0)
-				{
+				} else if (WorldMap.numberMediterranean == 0 & WorldMap.numberDesert != 0) {
 					mr.material = MatDesertHammada;
-				}
-				else if (WorldMap.numberDesert == 0 & WorldMap.numberTropic != 0)
-				{
+				} else if (WorldMap.numberDesert == 0 & WorldMap.numberTropic != 0) {
 					mr.material = MatTropicPlain;
-				} 
-				else
-				{
+				} else {
 					mr.material = MatWarmPlain;
 				}
 
@@ -599,6 +529,27 @@ public class RealmMap : MonoBehaviour {
 				//hexGameObject.GetComponent<TileData> ().realmID;
 				//hexGameObject.GetComponent<TileData> ().tileID;
 				hexGameObject.GetComponent<TileData> ().typeTile = hexGameObject.tag;
+			}
+		}
+	}
+
+	public void UpdateSettlementVisuals() //loop trought all the hexes and set up the settlements
+	{
+		int numberVillages = DataControllerEditor.villagesRealm + Random.Range (0, DataControllerEditor.villagesRandom);
+		int numberCastles = DataControllerEditor.castlesRealm + Random.Range (0, DataControllerEditor.castlesRandom);
+		int numberCities = DataControllerEditor.citiesRealm + Random.Range (0, DataControllerEditor.citiesRandom);
+
+		GameObject settlementGameObject = null; 
+
+			for (int column = 0; column < numberColumns; column++) {
+				for (int row = 0; row < numberRows; row++) {
+					
+
+				for (int villages = 0; villages < numberVillages; villages++) {
+						
+
+
+				}
 			}
 		}
 	}
