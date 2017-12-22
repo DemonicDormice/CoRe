@@ -7,8 +7,9 @@
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap_Continent.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\TileData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="601" Column="66" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\SettlementData.cs" Line="18" Column="23" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\GlobalPrefabs.cs" Line="17" Column="6" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="538" Column="31" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\SettlementData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\RealmData.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
