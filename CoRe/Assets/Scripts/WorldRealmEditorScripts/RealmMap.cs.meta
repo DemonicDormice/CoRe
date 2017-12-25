@@ -1,70 +1,11 @@
 fileFormatVersion: 2
 guid: 04cb8d186fbfe294caf318631304217c
-timeCreated: 1512735036
+timeCreated: 1514234918
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - HexPrefab: {instanceID: 0}
-  - MeshWater: {instanceID: 0}
-  - MatWater: {instanceID: 0}
-  - MeshColdPlain: {instanceID: 0}
-  - MatColdPlain: {instanceID: 0}
-  - MeshColdHill: {instanceID: 0}
-  - MatColdHill: {instanceID: 0}
-  - MeshColdMountain: {instanceID: 0}
-  - MatColdMountain: {instanceID: 0}
-  - MeshColdConiferous: {instanceID: 0}
-  - MatColdConiferous: {instanceID: 0}
-  - MeshColdBarren: {instanceID: 0}
-  - MatColdBarren: {instanceID: 0}
-  - MeshWarmPlain: {instanceID: 0}
-  - MatWarmPlain: {instanceID: 0}
-  - MeshWarmHill: {instanceID: 0}
-  - MatWarmHill: {instanceID: 0}
-  - MeshWarmMountain: {instanceID: 0}
-  - MatWarmMountain: {instanceID: 0}
-  - MeshWarmConiferous: {instanceID: 0}
-  - MatWarmConiferous: {instanceID: 0}
-  - MeshWarmDeciduous: {instanceID: 0}
-  - MatWarmDeciduous: {instanceID: 0}
-  - MeshWarmBarren: {instanceID: 0}
-  - MatWarmBarren: {instanceID: 0}
-  - MeshMediterraneanPlain: {instanceID: 0}
-  - MatMediterraneanPlain: {instanceID: 0}
-  - MeshMediterraneanHill: {instanceID: 0}
-  - MatMediterraneanHill: {instanceID: 0}
-  - MeshMediterraneanMountain: {instanceID: 0}
-  - MatMediterraneanMountain: {instanceID: 0}
-  - MeshMediterraneanDeciduous: {instanceID: 0}
-  - MatMediterraneanDeciduous: {instanceID: 0}
-  - MeshMediterraneanBarren: {instanceID: 0}
-  - MatMediterraneanBarren: {instanceID: 0}
-  - MeshDesertPlain: {instanceID: 0}
-  - MatDesertPlain: {instanceID: 0}
-  - MeshDesertHill: {instanceID: 0}
-  - MatDesertHill: {instanceID: 0}
-  - MeshDesertMountain: {instanceID: 0}
-  - MatDesertMountain: {instanceID: 0}
-  - MeshDesertDeciduous: {instanceID: 0}
-  - MatDesertDeciduous: {instanceID: 0}
-  - MeshDesertHammada: {instanceID: 0}
-  - MatDesertHammada: {instanceID: 0}
-  - MeshDesertSand: {instanceID: 0}
-  - MatDesertSand: {instanceID: 0}
-  - MeshTropicPlain: {instanceID: 0}
-  - MatTropicPlain: {instanceID: 0}
-  - MeshTropicHill: {instanceID: 0}
-  - MatTropicHill: {instanceID: 0}
-  - MeshTropicMountain: {instanceID: 0}
-  - MatTropicMountain: {instanceID: 0}
-  - MeshTropicDeciduous: {instanceID: 0}
-  - MatTropicDeciduous: {instanceID: 0}
-  - MeshTropicBarren: {instanceID: 0}
-  - MatTropicBarren: {instanceID: 0}
-  - MeshSettlement: {instanceID: 0}
-  - MatSettlements: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -225,7 +225,7 @@ public class RealmEditor : MonoBehaviour {
 	bool settlementVillage = false;
 	bool settlementCastle = false;
 	bool settlementCity = false;
-	bool cultureNONE = false;
+	bool cultureNONE = true;
 	bool cultureNordic = false;
 	bool cultureMedieval = false;
 	bool cultureAncient = false;
@@ -638,7 +638,7 @@ public class RealmEditor : MonoBehaviour {
 		settlementVillage = false;
 		settlementCastle = false;
 		settlementCity = false;
-		cultureNONE = false;
+		cultureNONE = true;
 		cultureNordic = false;
 		cultureMedieval = false;
 		cultureAncient = false;

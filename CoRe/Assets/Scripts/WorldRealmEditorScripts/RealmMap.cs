@@ -6,6 +6,8 @@ public class RealmMap : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		globalPrefabs.LoadAll ("Prefabs/HexTilePrefabs");
+
 		GenerateRealm();
 	}
 
@@ -210,7 +212,7 @@ public class RealmMap : MonoBehaviour {
 				); */
 
 				GameObject hexGameObject = (GameObject)Instantiate(	
-					HexPrefab,
+					globalPrefabs.getPrefab("Hex_Standard"),
 					h.Position(),
 					Quaternion.identity,
 					this.transform 
@@ -288,7 +290,7 @@ public class RealmMap : MonoBehaviour {
 				if (WorldMap.numberTropic != 0 & rowWorld <= middleRowWorld + climateTropicHalfzone & rowWorld >= middleRowWorld - climateTropicHalfzone) {
 					//Tropic climate renderer
 					if (h.HexTerrainValue >= ValueTropicMountain) {
-						mr.material = MatTropicMountain;
+						//hexGameObject.tag = "Hex_TropicMountain";
 					} else if (h.HexTerrainValue >= ValueTropicHill) {
 						mr.material = MatTropicHill;
 					} else if (h.HexTerrainValue >= ValueTropicDeciduous) {
@@ -367,18 +369,30 @@ public class RealmMap : MonoBehaviour {
 				} else if (WorldMap.numberCold != 0 & rowWorld <= middleRowWorld + climateColdHalfzone & rowWorld >= middleRowWorld - climateColdHalfzone) {
 					//Cold climate renderer
 					if (h.HexTerrainValue >= ValueColdMountain) {
-						mr.material = MatColdMountain;
+						hexGameObject.tag = "Hex_ColdMountain";
+						hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdMountain"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+				
 					} else if (h.HexTerrainValue >= ValueColdHill) {
-						mr.material = MatColdHill;
+						hexGameObject.tag = "Hex_ColdHill";
+						hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdHill"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+
 					} else if (h.HexTerrainValue >= ValueColdConiferous) {
-						mr.material = MatColdConiferous;
+						hexGameObject.tag = "Hex_ColdConiferous";
+						hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdConiferous"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+
 					} else if (h.HexTerrainValue >= ValueColdPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						//In cold climate many plains are barren and only a portion is good for agriculture
 						if (Random.Range (0f, 1f) > 0.5f) {
-							mr.material = MatColdBarren;
+							hexGameObject.tag = "Hex_ColdBarren";
+
+							hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdBarren"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+
 						} else {
-							mr.material = MatColdPlain;
+							hexGameObject.tag = "Hex_ColdPlain";
+
+							hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdPlain"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+
 						}
 					} else {
 						mr.material = MatWater;
@@ -512,13 +526,16 @@ public class RealmMap : MonoBehaviour {
 					}
 
 				} */
+
 				//Later this material stuff is only part of the realm szene, editor etc.
 				//and here you will get a screenshot or something of the realm and
 				//Gameobjects for the settlements, maybe for armies, too.
 
+				string HexTileTag = hexGameObject.tag;
+
 				//Give the GO some sensible name
 				hexGameObject.name = "Hex " + column + "/" + row + " Value: " + h.HexTerrainValue;
-				hexGameObject.tag = "Hex_" + mr.material.name.Replace (" (Instance)", ""); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+				//hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("" + HexTileTag), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
 
 				//For making sure the hex knows its position on the map
 				hexGameObject.GetComponent<TileData> ().tileX = column;
