@@ -1,15 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs">
     <Files>
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="783" Column="35" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="21" Column="41" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\WorldMap.cs" Line="29" Column="42" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\DataControllerEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="608" Column="4" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="372" Column="46" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap_Continent.cs" Line="41" Column="11" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\TileData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\SettlementData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\Data\RealmData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" Line="403" Column="7" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\GlobalPrefabs.cs" Line="7" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

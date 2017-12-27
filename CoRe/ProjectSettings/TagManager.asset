@@ -148,6 +148,7 @@ TagManager:
   - VillageAsianBarren
   - VillageAfricanBarren
   - VillageHordeBarren
+  - Hex_Standard
   layers:
   - Default
   - TransparentFX

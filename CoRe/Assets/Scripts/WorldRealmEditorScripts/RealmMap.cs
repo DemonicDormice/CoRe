@@ -11,77 +11,6 @@ public class RealmMap : MonoBehaviour {
 		GenerateRealm();
 	}
 
-	public GameObject HexPrefab;
-
-	//Different meshes and materials per climate
-	//Standard
-	public Mesh MeshWater;
-	public Material MatWater;
-
-	//Cold climate
-	public Mesh MeshColdPlain;
-	public Material MatColdPlain;
-	public Mesh MeshColdHill;
-	public Material MatColdHill;
-	public Mesh MeshColdMountain;
-	public Material MatColdMountain;
-	public Mesh MeshColdConiferous;
-	public Material MatColdConiferous;
-	public Mesh MeshColdBarren;
-	public Material MatColdBarren;
-
-	//Warm climate
-	public Mesh MeshWarmPlain;
-	public Material MatWarmPlain;
-	public Mesh MeshWarmHill;
-	public Material MatWarmHill;
-	public Mesh MeshWarmMountain;
-	public Material MatWarmMountain;
-	public Mesh MeshWarmConiferous;
-	public Material MatWarmConiferous;
-	public Mesh MeshWarmDeciduous;
-	public Material MatWarmDeciduous;
-	public Mesh MeshWarmBarren;
-	public Material MatWarmBarren;
-
-	//Mediterranean climate
-	public Mesh MeshMediterraneanPlain;
-	public Material MatMediterraneanPlain;
-	public Mesh MeshMediterraneanHill;
-	public Material MatMediterraneanHill;
-	public Mesh MeshMediterraneanMountain;
-	public Material MatMediterraneanMountain;
-	public Mesh MeshMediterraneanDeciduous;
-	public Material MatMediterraneanDeciduous;
-	public Mesh MeshMediterraneanBarren;
-	public Material MatMediterraneanBarren;
-
-	//Desert climate
-	public Mesh MeshDesertPlain;
-	public Material MatDesertPlain;
-	public Mesh MeshDesertHill;
-	public Material MatDesertHill;
-	public Mesh MeshDesertMountain;
-	public Material MatDesertMountain;
-	public Mesh MeshDesertDeciduous;
-	public Material MatDesertDeciduous;
-	public Mesh MeshDesertHammada;
-	public Material MatDesertHammada;
-	public Mesh MeshDesertSand;
-	public Material MatDesertSand;
-
-	//Tropic climate
-	public Mesh MeshTropicPlain;
-	public Material MatTropicPlain;
-	public Mesh MeshTropicHill;
-	public Material MatTropicHill;
-	public Mesh MeshTropicMountain;
-	public Material MatTropicMountain;
-	public Mesh MeshTropicDeciduous;
-	public Material MatTropicDeciduous;
-	public Mesh MeshTropicBarren;
-	public Material MatTropicBarren;
-
 	public Mesh MeshSettlement;
 	public Material MatSettlements;
 
@@ -192,7 +121,7 @@ public class RealmMap : MonoBehaviour {
 		hexToGameObjectRealm = new Dictionary<HexPosition, GameObject> (); 
 
 
-		//Generate a map filled with Grassland
+		//Generate a map filled with standard
 		for (int column = 0; column < numberColumns; column++) 
 		{
 			for (int row = 0; row < numberRows; row++) 
@@ -232,9 +161,6 @@ public class RealmMap : MonoBehaviour {
 				//hexGameObject.GetComponent<HexComponent> ().Hex = h;
 				//hexGameObject.GetComponent<HexComponent> ().RealmMap = this;
 
-				hexGameObject.GetComponentInChildren<TextMesh> ().text = string.Format ("{0},{1}", column, row);
-
-
 				//NOW FOR THE CLIMATE, what will finally be "paintet" in the realm only
 				//whats the whole summ of all climate numbers?
 				climateWholeNumber = WorldMap.numberCold + WorldMap.numberWarm + WorldMap.numberMediterranean + WorldMap.numberDesert + WorldMap.numberTropic;
@@ -261,11 +187,12 @@ public class RealmMap : MonoBehaviour {
 				climateWarmHalfzone = climateMediterraneanHalfzone + (numberRowsWorld * ((climateWarmPercent / 100) / 2));
 				climateColdHalfzone = climateWarmHalfzone + (numberRowsWorld * ((climateColdPercent / 100) / 2));
 
+				Destroy (hexGameObject); //we have now the positioning done and put in the array [h] ... so we can destroy the hexGameObject and build new hexes with terrain in UpdateHexVisuals();
 			}
 		}
 
-		UpdateHexVisuals ();
 		UpdateSettlementVisuals ();
+
 	}
 
 	public void UpdateHexVisuals() //loop trought all the hexes and set their type based on HexTerrainValue
@@ -275,139 +202,136 @@ public class RealmMap : MonoBehaviour {
 		//randomRange = randomRange - 0.01f; //the higher randomRange is, the higher the concentration/denseness of random climate 
 		//TODO: the randomRange has to be tied to the worldsize / numberRowsWorld and has to gradually decrease depending on Y position north and south from the middle.
 
-		for (int column = 0; column < numberColumns; column++) {
+		for (int column = 0; column < numberColumns; column++) { 				
 			for (int row = 0; row < numberRows; row++) {
 
 				HexPosition h = hexes [column, row];
-				GameObject hexGameObject = hexToGameObjectRealm [h];
+				GameObject newHexGameObject = hexToGameObjectRealm [h];
+				//GameObject hexGameObject;
 
 				rowWorld = row + (numberRows * RealmY);
-				MeshRenderer mr = hexGameObject.GetComponentInChildren<MeshRenderer> ();
-				MeshFilter mf = hexGameObject.GetComponentInChildren<MeshFilter> ();
+				MeshRenderer mr = newHexGameObject.GetComponentInChildren<MeshRenderer> ();
+				MeshFilter mf = newHexGameObject.GetComponentInChildren<MeshFilter> ();
+
+				string terrainString = null;
+				string climateString = "Standard";
 
 				//Now that we have the numbers, we have to divide the world y-axis along this lines
 				//like "if column < y than mr.material = blabla"
 				if (WorldMap.numberTropic != 0 & rowWorld <= middleRowWorld + climateTropicHalfzone & rowWorld >= middleRowWorld - climateTropicHalfzone) {
 					//Tropic climate renderer
+					climateString = "Tropic";	
 					if (h.HexTerrainValue >= ValueTropicMountain) {
-						//hexGameObject.tag = "Hex_TropicMountain";
+						terrainString = "Mountain";
 					} else if (h.HexTerrainValue >= ValueTropicHill) {
-						mr.material = MatTropicHill;
+						terrainString = "Hill";
 					} else if (h.HexTerrainValue >= ValueTropicDeciduous) {
-						mr.material = MatTropicDeciduous;
+						terrainString = "Deciduous";
 					} else if (h.HexTerrainValue >= ValueTropicPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						if (Random.Range (0f, 1f) > 0.8f) {
-							mr.material = MatTropicBarren;
+							terrainString = "Barren";
 						} else {
-							mr.material = MatTropicPlain;
+							terrainString = "Plain";
 						}
 					} else {
-						mr.material = MatWater;
+						terrainString = "Water";
 					}
 				} else if (WorldMap.numberDesert != 0 & rowWorld <= middleRowWorld + climateDesertHalfzone & rowWorld >= middleRowWorld - climateDesertHalfzone) {				
 					//Desert climate renderer
+					climateString = "Desert";
 					if (h.HexTerrainValue >= ValueDesertMountain) {
-						mr.material = MatDesertMountain;
+						terrainString = "Mountain";
 					} else if (h.HexTerrainValue >= ValueDesertHill) {
-						mr.material = MatDesertHill;
+						terrainString = "Hill";
 					} else if (h.HexTerrainValue >= ValueDesertSand) {
-						mr.material = MatDesertSand;
+						terrainString = "Sand";
 					} else if (h.HexTerrainValue >= ValueDesertHammada) {
-						mr.material = MatDesertHammada;
+						terrainString = "Hammada";
 					} else if (h.HexTerrainValue >= ValueDesertDeciduous) {
-						mr.material = MatDesertDeciduous;
+						terrainString = "Deciduous";
 					} else if (h.HexTerrainValue >= ValueDesertPlain) {
-						mr.material = MatDesertPlain;
+						terrainString = "Plain";
 					} else {
-						mr.material = MatWater;
+						terrainString = "Water";
 					}
 				} else if (WorldMap.numberMediterranean != 0 & rowWorld <= middleRowWorld + climateMediterraneanHalfzone & rowWorld >= middleRowWorld - climateMediterraneanHalfzone) {
 					//Mediterranean climate renderer
+					climateString = "Mediterranean";	
 					if (h.HexTerrainValue >= ValueMediterraneanMountain) {
-						mr.material = MatMediterraneanMountain;
+						terrainString = "Mountain";
 					} else if (h.HexTerrainValue >= ValueMediterraneanHill) {
-						mr.material = MatMediterraneanHill;
+						terrainString = "Hill";
 					} else if (h.HexTerrainValue >= ValueMediterraneanDeciduous) {
-						mr.material = MatMediterraneanDeciduous;
+						terrainString = "Deciduous";
 					} else if (h.HexTerrainValue >= ValueMediterraneanPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						if (Random.Range (0f, 1f) > 0.9f) {
-							mr.material = MatMediterraneanBarren;
+							terrainString = "Barren";
 						} else {
-							mr.material = MatMediterraneanPlain;
+							terrainString = "Plain";
 						}
 					} else {
-						mr.material = MatWater;
+						terrainString = "Water";
 					}				
 				} else if (WorldMap.numberWarm != 0 & rowWorld <= middleRowWorld + climateWarmHalfzone & rowWorld >= middleRowWorld - climateWarmHalfzone) {
 					//Warm climate renderer
+					climateString = "Warm";	
 					if (h.HexTerrainValue >= ValueWarmMountain) {
-						mr.material = MatWarmMountain;
-						mf.mesh = MeshWarmMountain;
+						terrainString = "Mountain";
 					} else if (h.HexTerrainValue >= ValueWarmHill) {
-						mr.material = MatWarmHill;
-						mf.mesh = MeshWarmHill;
+						terrainString = "Hill";
 					} else if (h.HexTerrainValue >= ValueWarmConiferous) {
-						mr.material = MatWarmConiferous;
-						mf.mesh = MeshWarmConiferous;
+						terrainString = "Coniferous";
 					} else if (h.HexTerrainValue >= ValueWarmDeciduous) {
-						mr.material = MatWarmDeciduous;
-						mf.mesh = MeshWarmDeciduous;
+						terrainString = "Deciduous";
 					} else if (h.HexTerrainValue >= ValueWarmPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						if (Random.Range (0f, 1f) > 0.9f) {
-							mr.material = MatWarmBarren;
-							mf.mesh = MeshWarmBarren;
-						} else {
-							mr.material = MatWarmPlain;
-							mf.mesh = MeshWarmPlain;
-						}
+							terrainString = "Barren";
 					} else {
-						mr.material = MatWater;
+							terrainString = "Plain";
+							}
+					} else {
+						terrainString = "Water";
 					}				
 				} else if (WorldMap.numberCold != 0 & rowWorld <= middleRowWorld + climateColdHalfzone & rowWorld >= middleRowWorld - climateColdHalfzone) {
 					//Cold climate renderer
+					climateString = "Cold";						
 					if (h.HexTerrainValue >= ValueColdMountain) {
-						hexGameObject.tag = "Hex_ColdMountain";
-						hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdMountain"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
-				
+						terrainString = "Mountain";
 					} else if (h.HexTerrainValue >= ValueColdHill) {
-						hexGameObject.tag = "Hex_ColdHill";
-						hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdHill"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
-
+						terrainString = "Hill";
 					} else if (h.HexTerrainValue >= ValueColdConiferous) {
-						hexGameObject.tag = "Hex_ColdConiferous";
-						hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdConiferous"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
-
+						terrainString = "Coniferous";
 					} else if (h.HexTerrainValue >= ValueColdPlain) {
 						//Some tiles in the "plain-spectrum" will randomly get barren
 						//In cold climate many plains are barren and only a portion is good for agriculture
 						if (Random.Range (0f, 1f) > 0.5f) {
-							hexGameObject.tag = "Hex_ColdBarren";
-
-							hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdBarren"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
-
+							terrainString = "Plain";
 						} else {
-							hexGameObject.tag = "Hex_ColdPlain";
-
-							hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_ColdPlain"), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
-
+							terrainString = "Barren";
 						}
 					} else {
-						mr.material = MatWater;
+						climateString = "Water";
 					}				
 				} else if (WorldMap.numberCold == 0 & WorldMap.numberWarm != 0) {
-					mr.material = MatWarmPlain;
+					climateString = "Warm";
+					terrainString = "Plain";
 				} else if (WorldMap.numberWarm == 0 & WorldMap.numberMediterranean != 0) {
-					mr.material = MatMediterraneanPlain;
+					climateString = "Mediterranean";
+					terrainString = "Plain";
 				} else if (WorldMap.numberMediterranean == 0 & WorldMap.numberDesert != 0) {
-					mr.material = MatDesertHammada;
+					climateString = "Desert";
+					terrainString = "Hammada";
 				} else if (WorldMap.numberDesert == 0 & WorldMap.numberTropic != 0) {
-					mr.material = MatTropicPlain;
+					climateString = "Tropic";
+					terrainString = "Plain";
 				} else {
-					mr.material = MatWarmPlain;
+					climateString = "Tropic";
+					terrainString = "Plain";
 				}
+
 
 				//Now for the seamless climate change
 				//We want some seamless as possible transitions between clima zones.
@@ -527,25 +451,28 @@ public class RealmMap : MonoBehaviour {
 
 				} */
 
+				Debug.Log ("Hex_" + climateString + terrainString);
+
+				newHexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_" + climateString + terrainString), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+
 				//Later this material stuff is only part of the realm szene, editor etc.
 				//and here you will get a screenshot or something of the realm and
 				//Gameobjects for the settlements, maybe for armies, too.
 
-				string HexTileTag = hexGameObject.tag;
-
 				//Give the GO some sensible name
-				hexGameObject.name = "Hex " + column + "/" + row + " Value: " + h.HexTerrainValue;
-				//hexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("" + HexTileTag), h.Position(), Quaternion.identity, this.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
+				newHexGameObject.name = "Hex " + column + "/" + row + " Value: " + h.HexTerrainValue;
+				newHexGameObject.GetComponentInChildren<TextMesh> ().text = string.Format ("{0},{1}", column, row);
 
-				//For making sure the hex knows its position on the map
-				hexGameObject.GetComponent<TileData> ().tileX = column;
-				hexGameObject.GetComponent<TileData> ().tileY = row;
+
+				//For making sure the hex knows its position on the map etc.
+				newHexGameObject.GetComponent<TileData> ().tileX = column;
+				newHexGameObject.GetComponent<TileData> ().tileY = row;
 				//And for making sure it knows its world position, ids and type
-				hexGameObject.GetComponent<TileData> ().realmX = RealmX;
-				hexGameObject.GetComponent<TileData> ().realmY = RealmY;
-				//hexGameObject.GetComponent<TileData> ().realmID;
-				//hexGameObject.GetComponent<TileData> ().tileID;
-				hexGameObject.GetComponent<TileData> ().typeTile = hexGameObject.tag;
+				newHexGameObject.GetComponent<TileData> ().realmX = RealmX;
+				newHexGameObject.GetComponent<TileData> ().realmY = RealmY;
+				//newHexGameObject.GetComponent<TileData> ().realmID;
+				//newHexGameObject.GetComponent<TileData> ().tileID;
+				newHexGameObject.GetComponent<TileData> ().typeTile = newHexGameObject.tag;
 			}
 		}
 	}
@@ -556,14 +483,14 @@ public class RealmMap : MonoBehaviour {
 		int numberCastles = DataControllerEditor.castlesRealm + Random.Range (0, DataControllerEditor.castlesRandom);
 		int numberCities = DataControllerEditor.citiesRealm + Random.Range (0, DataControllerEditor.citiesRandom);
 
-		GameObject settlementGameObject = null; 
+		int numberSettlements = numberVillages + numberCastles + numberCities; 
 
-			for (int column = 0; column < numberColumns; column++) {
-				for (int row = 0; row < numberRows; row++) {
-					
+		for (int column = 0; column < numberColumns; column++) {
+			for (int row = 0; row < numberRows; row++) {
+
 
 				for (int villages = 0; villages < numberVillages; villages++) {
-						
+
 
 
 				}
