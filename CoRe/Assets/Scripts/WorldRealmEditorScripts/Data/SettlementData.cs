@@ -11,6 +11,7 @@ public class SettlementData : MonoBehaviour {
 	public int playerID;
 	public string nameSettlement;
 	public string typeSettlement;
+	public int levelSettlement;
 	public int populationSettlement;
 	public string settlementSlot1;
 	public string settlementSlot2;

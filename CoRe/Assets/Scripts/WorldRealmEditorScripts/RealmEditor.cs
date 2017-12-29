@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class RealmEditor : MonoBehaviour {
 
 	public GameObject selectedObject;
+	public GameObject someObjects;
 	public GameObject settlementGameObject; 
 	public GameObject newSettlement;
 
@@ -241,6 +242,7 @@ public class RealmEditor : MonoBehaviour {
 
 	void Start ()
 	{
+		ToggleNone (true);
 
 		globalPrefabs.LoadAll ("Prefabs/SettlementPrefabs");
 
@@ -442,7 +444,7 @@ public class RealmEditor : MonoBehaviour {
 			//this will be activated every frame on the right mouse button down. That makes 'painting' like with a brush possible. But is horrible with settlements.
 			//because of this we have to differentiate between MouseDown/MouseHold and ButtonUp and the dropdownTileEditor-Text...
 
-			if (dropdownTileEditor.captionText.text.Contains ("Village") | dropdownTileEditor.captionText.text.Contains ("Castle") | dropdownTileEditor.captionText.text.Contains ("City")) {
+			if (dropdownTileEditor.captionText.text == "" | dropdownTileEditor.captionText.text.Contains ("None") | dropdownTileEditor.captionText.text.Contains ("Village") | dropdownTileEditor.captionText.text.Contains ("Castle") | dropdownTileEditor.captionText.text.Contains ("City")) {
 				
 			} else {
 				SetTerrain ();
@@ -629,6 +631,7 @@ public class RealmEditor : MonoBehaviour {
 				//settlementGameObject.GetComponent<SettlementData> ().playerID = ;
 				//settlementGameObject.GetComponent<SettlementData> ().nameSettlement = ;
 				settlementGameObject.GetComponent<SettlementData> ().typeSettlement = SettlementSubtypeName;
+				settlementGameObject.GetComponent<SettlementData> ().levelSettlement = dropdownLevelSettlement.value;
 				settlementGameObject.GetComponent<SettlementData> ().populationSettlement = int.Parse(populationInputField.text);
 				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot1 = ;
 				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot2 = ;
@@ -748,7 +751,7 @@ public class RealmEditor : MonoBehaviour {
 			newTerrain = "Water";
 		}
 
-		Destroy (selectedObject);
+
 		newHexGameObject = (GameObject)Instantiate(globalPrefabs.getPrefab("Hex_" + newTerrain), selectedObject.transform.position, Quaternion.identity, selectedObject.transform); //this gives every tile the generic tag "Hex_XXX" where X is the same as the material, which defines the tile perfectly. Later it is possible to ask tag.Contains() for example tag.Contains("Warm"), which gets you all tiles of this tag type
 		newHexGameObject.transform.SetParent (selectedObject.transform.parent);
 		newHexGameObject.name = selectedObject.name;
@@ -761,7 +764,7 @@ public class RealmEditor : MonoBehaviour {
 		//newHexGameObject.GetComponent<TileData> ().realmID = selectedObject.GetComponent<TileData> ().realmID;
 		//newHexGameObject.GetComponent<TileData> ().tileID = selectedObject.GetComponent<TileData> ().tileID;
 		newHexGameObject.GetComponent<TileData> ().typeTile = newHexGameObject.tag;
-
+		Destroy (selectedObject);
 	}
 
 
@@ -769,6 +772,8 @@ public class RealmEditor : MonoBehaviour {
 
 	public void SettlementRandomPlacement()
 	{
+		ToggleAll (true);
+
 		int numberVillages = DataControllerEditor.villagesRealm + Random.Range (0, DataControllerEditor.villagesRandom);
 		int numberCastles = DataControllerEditor.castlesRealm + Random.Range (0, DataControllerEditor.castlesRandom);
 		int numberCities = DataControllerEditor.citiesRealm + Random.Range (0, DataControllerEditor.citiesRandom);
@@ -777,24 +782,75 @@ public class RealmEditor : MonoBehaviour {
 
 		//for (int settlements = 0; settlements < numberSettlements; settlements++) {
 
-		string [] terrainArray = { "ColdPlain", "ColdHill" };
+		//string [] terrainArray = { "ColdPlain", "ColdHill" };
+
+		List<GameObject> foundPlaces = new List<GameObject>();
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdPlain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdHill"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdMountain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdConiferous"));
+
+		List<GameObject> foundPlacesForCastles = new List<GameObject>();
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdBarren"));
+		foundPlacesForCastles.AddRange (foundPlacesForCastles);
 
 
-		//TODO: später ... so ein scheiß
 
-		for (int settlements = 0; settlements < numberSettlements; settlements++) 
-		{ 
-			GameObject[] testObjects = GameObject.FindGameObjectsWithTag ("Hex_" + terrainArray[terrainArray.Length]);
-			Random Random = new Random ();
-			int index = Random.Range (0, testObjects.Length);
-			GameObject someObjects = testObjects [index];
+			for (int villages = 0; villages < numberVillages; villages++) {  
+			dropdownTileEditor.value = 1;
 
-			selectedObject = someObjects.transform.gameObject;
+				settlementVillage = true;
+				settlementCastle = false;
+				settlementCity = false;
 
-			EditorSettlementPlacer ();
-			//settlementGameObject = (GameObject)Instantiate (globalPrefabs.getPrefab ("VillageNordicPlainPrefab"), someObjects.transform.position, Quaternion.identity, someObjects.transform);
-		}
-		//GameObject.FindGameObjectsWithTag.text.Contains ("Village"); 
+				Random Random = new Random ();
+				int index = Random.Range (0, foundPlaces.Count);
+				someObjects = foundPlaces [index];
+
+				selectedObject = someObjects.transform.gameObject;
+
+				EditorSettlementPlacer ();
+			}
+
+			for (int castles = 0; castles < numberCastles; castles++) {
+			dropdownTileEditor.value = 2;
+
+				settlementVillage = false;
+				settlementCastle = true;
+				settlementCity = false;
+
+				Random Random = new Random ();
+				int index = Random.Range (0, foundPlacesForCastles.Count);
+				someObjects = foundPlacesForCastles [index];
+
+				selectedObject = someObjects.transform.gameObject;
+
+				EditorSettlementPlacer ();
+			}
+
+			for (int cities = 0; cities < numberCities; cities++) {  
+			dropdownTileEditor.value = 3;
+
+				settlementVillage = false;
+				settlementCastle = false;
+				settlementCity = true;
+
+				Random Random = new Random ();
+				int index = Random.Range (0, foundPlaces.Count);
+				someObjects = foundPlaces [index];
+
+				selectedObject = someObjects.transform.gameObject;
+
+				EditorSettlementPlacer ();
+
+			} 
+
+
+		settlementVillage = false;
+		settlementCastle = false;
+		settlementCity = false;
+
+				//GameObject.FindGameObjectsWithTag.text.Contains ("Village"); 
 
 
 		//for (int column = 0; column < RealmMap.numberColumns; column++) {

@@ -3,11 +3,12 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs">
     <Files>
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="783" Column="35" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="21" Column="41" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\WorldMap.cs" Line="29" Column="42" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="194" Column="1" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap_Continent.cs" Line="45" Column="10" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\WorldMap.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\DataControllerEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" Line="403" Column="7" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\GlobalPrefabs.cs" Line="7" Column="24" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\CreationMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\GlobalPrefabs.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

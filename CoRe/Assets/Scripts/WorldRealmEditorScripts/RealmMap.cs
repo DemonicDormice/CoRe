@@ -14,7 +14,6 @@ public class RealmMap : MonoBehaviour {
 	public Mesh MeshSettlement;
 	public Material MatSettlements;
 
-
 	//Tiles with HexTerrainValue of blabla are bla
 	//Cold climate - tactically bad for cavalry because of hills and forests and mountains
 	public float ValueColdPlain = 0.0f; //ColdBarren will get randomized with ColdPlain
@@ -192,7 +191,6 @@ public class RealmMap : MonoBehaviour {
 		}
 
 		UpdateSettlementVisuals ();
-
 	}
 
 	public void UpdateHexVisuals() //loop trought all the hexes and set their type based on HexTerrainValue
