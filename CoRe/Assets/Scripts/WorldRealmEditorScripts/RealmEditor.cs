@@ -5,9 +5,8 @@ using System.Collections.Generic;
 public class RealmEditor : MonoBehaviour {
 
 	public GameObject selectedObject;
-	public GameObject someObjects;
+	//public GameObject someObjects;
 	public GameObject settlementGameObject; 
-	public GameObject newSettlement;
 
 	public GameObject SettlementPlaceholderPrefab;
 	//public GameObject PlaceholderPrefab;
@@ -538,15 +537,7 @@ public class RealmEditor : MonoBehaviour {
 			//TODO: Destroy the settlement child of the selected Object - and only this
 		} else {
 
-			if (settlementVillage == true)
-				settlementType = "Village";
-			if (settlementCastle == true)
-				settlementType = "Castle";
-			if (settlementCity == true)
-				settlementType = "City";
-
 			settlementGameObject = (GameObject)Instantiate (SettlementPlaceholderPrefab, selectedObject.transform.position, Quaternion.identity, selectedObject.transform.parent);
-			settlementGameObject.tag = settlementType;
 
 			SetCultureToSettlement ();
 		}
@@ -559,19 +550,6 @@ public class RealmEditor : MonoBehaviour {
 			return;
 		} else {
 
-			if (cultureNordic == true)
-				settlementGameObject.tag = settlementGameObject.tag + "Nordic";
-			if (cultureMedieval == true)
-				settlementGameObject.tag = settlementGameObject.tag + "Medieval";
-			if (cultureAncient == true)
-				settlementGameObject.tag = settlementGameObject.tag + "Ancient";
-			if (cultureAsian == true)
-				settlementGameObject.tag = settlementGameObject.tag + "Asian";
-			if (cultureAfrican == true)
-				settlementGameObject.tag = settlementGameObject.tag + "African";
-			if (cultureHorde == true)
-				settlementGameObject.tag = settlementGameObject.tag + "Horde";
-
 			SetTerrainToSettlement ();
 		}
 	}
@@ -582,24 +560,7 @@ public class RealmEditor : MonoBehaviour {
 			Destroy (settlementGameObject);
 			return;
 		} else {
-
-			if (selectedObject.tag.Contains ("Plain"))
-				settlementGameObject.tag = settlementGameObject.tag + "Plain";
-			if (selectedObject.tag.Contains ("Deciduous") | selectedObject.tag.Contains ("Coniferous"))
-				settlementGameObject.tag = settlementGameObject.tag + "Forest";
-			if (selectedObject.tag.Contains ("Hill"))
-				settlementGameObject.tag = settlementGameObject.tag + "Hill";
-			if (selectedObject.tag.Contains ("Mountain"))
-				settlementGameObject.tag = settlementGameObject.tag + "Mountain";
-
-			if ((settlementType == "Village" | settlementType == "City") & (selectedObject.tag.Contains ("Barren") | selectedObject.tag.Contains ("Hammada") | selectedObject.tag.Contains ("Sand")))
-			{	Destroy (settlementGameObject);
-				return;
-			} else if (selectedObject.tag.Contains ("Barren") | selectedObject.tag.Contains ("Hammada") | selectedObject.tag.Contains ("Sand"))
-			{
-				settlementGameObject.tag = settlementGameObject.tag + "Barren";
-			}
-
+			
 			SetStatsToSettlement ();
 		}
 	}
@@ -607,14 +568,57 @@ public class RealmEditor : MonoBehaviour {
 
 	public void SetStatsToSettlement()
 	{   
+		string cultureType = null;
+		string terrainType = null;
+
 		if (selectedObject.tag.Contains ("Water")) {
+			Destroy (settlementGameObject);
+			return;
+		} else if (selectedObject == null) {
 			Destroy (settlementGameObject);
 			return;
 		} else {
 
-			string SettlementSubtypeName = settlementGameObject.tag;
+			if (settlementVillage == true)
+				settlementType = "Village";
+			if (settlementCastle == true)
+				settlementType = "Castle";
+			if (settlementCity == true)
+				settlementType = "City";
 
-			settlementGameObject = (GameObject)Instantiate (globalPrefabs.getPrefab(SettlementSubtypeName + "Prefab"), selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
+			if (cultureNordic == true)
+				cultureType = "Nordic";
+			if (cultureMedieval == true)
+				cultureType = "Medieval";
+			if (cultureAncient == true)
+				cultureType = "Ancient";
+			if (cultureAsian == true)
+				cultureType = "Asian";
+			if (cultureAfrican == true)
+				cultureType = "African";
+			if (cultureHorde == true)
+				cultureType = "Horde";
+
+			if (selectedObject.tag.Contains ("Plain"))
+				terrainType = "Plain";
+			if (selectedObject.tag.Contains ("Deciduous") | selectedObject.tag.Contains ("Coniferous"))
+				terrainType = "Forest";
+			if (selectedObject.tag.Contains ("Hill"))
+				terrainType = "Hill";
+			if (selectedObject.tag.Contains ("Mountain"))
+				terrainType = "Mountain";
+
+			if ((settlementType == "Village" | settlementType == "City") & (selectedObject.tag.Contains ("Barren") | selectedObject.tag.Contains ("Hammada") | selectedObject.tag.Contains ("Sand")))
+			{	Destroy (settlementGameObject);
+				return;
+			} else if (selectedObject.tag.Contains ("Barren") | selectedObject.tag.Contains ("Hammada") | selectedObject.tag.Contains ("Sand"))
+			{
+				terrainType = "Barren";
+			}
+
+			string SettlementSubtypeName = settlementType + cultureType + terrainType;
+
+			settlementGameObject = (GameObject)Instantiate (globalPrefabs.getPrefab (SettlementSubtypeName + "Prefab"), selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
 			settlementGameObject.tag = SettlementSubtypeName;
 
 			//newSettlement = (GameObject)Instantiate (PrefabDictionary ["" + PlaceholderPrefabName], selectedObject.transform.position, Quaternion.identity, selectedObject.transform);
@@ -637,7 +641,6 @@ public class RealmEditor : MonoBehaviour {
 				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot2 = ;
 				//settlementGameObject.GetComponent<SettlementData> ().settlementSlot3 = ;
 				//settlementGameObject.GetComponent<SettlementData> ().armyID = ;
-
 			}
 		}
 
@@ -774,6 +777,8 @@ public class RealmEditor : MonoBehaviour {
 	{
 		ToggleAll (true);
 
+		GameObject someObjects;
+
 		int numberVillages = DataControllerEditor.villagesRealm + Random.Range (0, DataControllerEditor.villagesRandom);
 		int numberCastles = DataControllerEditor.castlesRealm + Random.Range (0, DataControllerEditor.castlesRandom);
 		int numberCities = DataControllerEditor.citiesRealm + Random.Range (0, DataControllerEditor.citiesRandom);
@@ -789,10 +794,32 @@ public class RealmEditor : MonoBehaviour {
 		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdHill"));
 		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdMountain"));
 		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdConiferous"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_WarmPlain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_WarmHill"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_WarmMountain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_WarmConiferous"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_WarmDeciduous"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_MediterraneanPlain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_MediterraneanHill"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_MediterraneanMountain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_MediterraneanDeciduous"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_DesertPlain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_DesertMountain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_DesertDeciduous"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_TropicPlain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_TropicHill"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_TropicMountain"));
+		foundPlaces.AddRange (GameObject.FindGameObjectsWithTag ("Hex_TropicDeciduous"));
 
 		List<GameObject> foundPlacesForCastles = new List<GameObject>();
 		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_ColdBarren"));
-		foundPlacesForCastles.AddRange (foundPlacesForCastles);
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_WarmBarren"));
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_MediterraneanBarren"));
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_DesertHill"));
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_DesertSand"));
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_DesertHammada"));
+		foundPlacesForCastles.AddRange (GameObject.FindGameObjectsWithTag ("Hex_TropicBarren"));
+		foundPlacesForCastles.AddRange (foundPlaces);
 
 
 
@@ -803,7 +830,7 @@ public class RealmEditor : MonoBehaviour {
 				settlementCastle = false;
 				settlementCity = false;
 
-				Random Random = new Random ();
+				Random RandomSettlement = new Random ();
 				int index = Random.Range (0, foundPlaces.Count);
 				someObjects = foundPlaces [index];
 
@@ -819,7 +846,7 @@ public class RealmEditor : MonoBehaviour {
 				settlementCastle = true;
 				settlementCity = false;
 
-				Random Random = new Random ();
+				Random RandomSettlement = new Random ();
 				int index = Random.Range (0, foundPlacesForCastles.Count);
 				someObjects = foundPlacesForCastles [index];
 
@@ -835,7 +862,7 @@ public class RealmEditor : MonoBehaviour {
 				settlementCastle = false;
 				settlementCity = true;
 
-				Random Random = new Random ();
+				Random RandomSettlement = new Random ();
 				int index = Random.Range (0, foundPlaces.Count);
 				someObjects = foundPlaces [index];
 

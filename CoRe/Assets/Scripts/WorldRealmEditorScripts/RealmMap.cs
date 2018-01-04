@@ -11,8 +11,7 @@ public class RealmMap : MonoBehaviour {
 		GenerateRealm();
 	}
 
-	public Mesh MeshSettlement;
-	public Material MatSettlements;
+	public GameObject EditorController;
 
 	//Tiles with HexTerrainValue of blabla are bla
 	//Cold climate - tactically bad for cavalry because of hills and forests and mountains
@@ -69,8 +68,8 @@ public class RealmMap : MonoBehaviour {
 	static public readonly int numberColumns = DataControllerEditor.realmSizeX; // columns are X
 	static public readonly int numberRows = DataControllerEditor.realmSizeY; // rows are Y
 
-	int RealmX = 1; //Later from editor or database
-	int RealmY = 1; //Later from editor or database
+	int RealmX = 0; //Later from editor or database
+	int RealmY = 0; //Later from editor or database
 	int rowWorld; //thats the row inside a realm in relation to the whole world
 	int numberRowsWorld = WorldMap.numberRows * numberRows; //thats the whole of all rows inside the world
 	int middleRowWorld = (WorldMap.numberRows * numberRows) / 2; //whats the middle-row of the world (which we need to place climate zones)
@@ -189,15 +188,13 @@ public class RealmMap : MonoBehaviour {
 				Destroy (hexGameObject); //we have now the positioning done and put in the array [h] ... so we can destroy the hexGameObject and build new hexes with terrain in UpdateHexVisuals();
 			}
 		}
-
-		UpdateSettlementVisuals ();
 	}
 
 	public void UpdateHexVisuals() //loop trought all the hexes and set their type based on HexTerrainValue
 	{
 
-		//float transitionRange = 0.9f; //the higher the transitionRange, the bigger the area of intermixture is. transitionRange is the percentage calculated from the starting area
-		//randomRange = randomRange - 0.01f; //the higher randomRange is, the higher the concentration/denseness of random climate 
+		float transitionRange = 0.1f; //the higher the transitionRange, the bigger the area of intermixture is. transitionRange is the percentage calculated from the starting area
+		randomRange = randomRange - 0.01f; //the higher randomRange is, the higher the concentration/denseness of random climate 
 		//TODO: the randomRange has to be tied to the worldsize / numberRowsWorld and has to gradually decrease depending on Y position north and south from the middle.
 
 		for (int column = 0; column < numberColumns; column++) { 				
@@ -233,7 +230,7 @@ public class RealmMap : MonoBehaviour {
 							terrainString = "Plain";
 						}
 					} else {
-						terrainString = "Water";
+						climateString = "Water";
 					}
 				} else if (WorldMap.numberDesert != 0 & rowWorld <= middleRowWorld + climateDesertHalfzone & rowWorld >= middleRowWorld - climateDesertHalfzone) {				
 					//Desert climate renderer
@@ -251,7 +248,7 @@ public class RealmMap : MonoBehaviour {
 					} else if (h.HexTerrainValue >= ValueDesertPlain) {
 						terrainString = "Plain";
 					} else {
-						terrainString = "Water";
+						climateString = "Water";
 					}
 				} else if (WorldMap.numberMediterranean != 0 & rowWorld <= middleRowWorld + climateMediterraneanHalfzone & rowWorld >= middleRowWorld - climateMediterraneanHalfzone) {
 					//Mediterranean climate renderer
@@ -270,7 +267,7 @@ public class RealmMap : MonoBehaviour {
 							terrainString = "Plain";
 						}
 					} else {
-						terrainString = "Water";
+						climateString = "Water";
 					}				
 				} else if (WorldMap.numberWarm != 0 & rowWorld <= middleRowWorld + climateWarmHalfzone & rowWorld >= middleRowWorld - climateWarmHalfzone) {
 					//Warm climate renderer
@@ -291,7 +288,7 @@ public class RealmMap : MonoBehaviour {
 							terrainString = "Plain";
 							}
 					} else {
-						terrainString = "Water";
+						climateString = "Water";
 					}				
 				} else if (WorldMap.numberCold != 0 & rowWorld <= middleRowWorld + climateColdHalfzone & rowWorld >= middleRowWorld - climateColdHalfzone) {
 					//Cold climate renderer
@@ -338,48 +335,51 @@ public class RealmMap : MonoBehaviour {
 				//TODO: we have to "catch" the possibility, that some clima zones are
 				//deactivated, so that desert doesn't follow tropic and tropic could
 				//transition directly for example into cold
-				/*
+
 				if (WorldMap.numberTropic != 0 & rowWorld >= middleRowWorld + climateTropicHalfzone & rowWorld <= middleRowWorld + climateTropicHalfzone + (climateTropicHalfzone * transitionRange) | rowWorld <= middleRowWorld - climateTropicHalfzone & rowWorld >= middleRowWorld - (climateTropicHalfzone + (climateTropicHalfzone * transitionRange)))
 				{
 					if (Random.Range (0f, 1f) < randomRange) 
 					{
 						//Tropic climate renderer
+						climateString = "Tropic";
+						terrainString = "Plain";
 
-						mr.material = MatWater;
-
-						/*if (h.HexTerrainValue >= ValueTropicMountain) { 
-							mr.material = MatTropicMountain;
+						if (h.HexTerrainValue >= ValueTropicMountain) { 
+							terrainString = "Mountain";
 						} else if (h.HexTerrainValue >= ValueTropicHill) {
-							mr.material = MatTropicHill;
+							terrainString = "Hill";
 						} else if (h.HexTerrainValue >= ValueTropicDeciduous) {
-							mr.material = MatTropicDeciduous;
+							terrainString = "Deciduous";
 						} else if (h.HexTerrainValue >= ValueTropicPlain) {
 							//Some tiles in the "plain-spectrum" will randomly get barren
 							if (Random.Range (0f, 1f) > 0.8f) {
-								mr.material = MatTropicBarren;
+								terrainString = "Barren";
 							} else {
-								mr.material = MatTropicPlain;
+								terrainString = "Plain";
 							}
 						}
 					}
 				}
 				else if (WorldMap.numberDesert != 0 & rowWorld >= middleRowWorld + climateDesertHalfzone & rowWorld <= middleRowWorld + climateDesertHalfzone + (climateDesertHalfzone * transitionRange) | rowWorld <= middleRowWorld - climateDesertHalfzone & rowWorld >= middleRowWorld - (climateDesertHalfzone + (climateDesertHalfzone * transitionRange)))		
 				{	
-				if (Random.Range (0f, 1f) < randomRange) {
-						mr.material = MatWarmMountain;
+					if (Random.Range (0f, 1f) < randomRange) 
+					{
 						//Desert climate renderer
-						/* if (h.HexTerrainValue >= ValueDesertMountain) {
-							mr.material = MatDesertMountain;
+						climateString = "Desert";
+						terrainString = "Hammada";
+
+						if (h.HexTerrainValue >= ValueDesertMountain) {
+							terrainString = "Mountain";
 						} else if (h.HexTerrainValue >= ValueDesertHill) {
-							mr.material = MatDesertHill;
+							terrainString = "Hill";
 						} else if (h.HexTerrainValue >= ValueDesertSand) {
-							mr.material = MatDesertSand;
+							terrainString = "Sand";
 						} else if (h.HexTerrainValue >= ValueDesertHammada) {
-							mr.material = MatDesertHammada;
+							terrainString = "Hammada";
 						} else if (h.HexTerrainValue >= ValueDesertDeciduous) {
-							mr.material = MatDesertDeciduous;
+							terrainString = "Deciduous";
 						} else if (h.HexTerrainValue >= ValueDesertPlain) {
-							mr.material = MatDesertPlain;
+							terrainString = "Plain";
 						}
 					} 
 				}
@@ -387,18 +387,21 @@ public class RealmMap : MonoBehaviour {
 				{
 					if (Random.Range (0f, 1f) < randomRange) {
 						//Mediterranean climate renderer
+						climateString = "Mediterranean";
+						terrainString = "Plain";
+
 						if (h.HexTerrainValue >= ValueMediterraneanMountain) {
-							mr.material = MatMediterraneanMountain;
+							terrainString = "Mountain";
 						} else if (h.HexTerrainValue >= ValueMediterraneanHill) {
-							mr.material = MatMediterraneanHill;
+							terrainString = "Hill";
 						} else if (h.HexTerrainValue >= ValueMediterraneanDeciduous) {
-							mr.material = MatMediterraneanDeciduous;
+							terrainString = "Deciduous";
 						} else if (h.HexTerrainValue >= ValueMediterraneanPlain) {
 							//Some tiles in the "plain-spectrum" will randomly get barren
 							if (Random.Range (0f, 1f) > 0.9f) {
-								mr.material = MatMediterraneanBarren;
+								terrainString = "Barren";
 							} else {
-								mr.material = MatMediterraneanPlain;
+								terrainString = "Plain";
 							}
 						} 
 					}
@@ -407,20 +410,23 @@ public class RealmMap : MonoBehaviour {
 				{
 					if (Random.Range (0f, 1f) < randomRange) {
 						//Warm climate renderer
+						climateString = "Warm";
+						terrainString = "Plain";
+
 						if (h.HexTerrainValue >= ValueWarmMountain) {
-							mr.material = MatWarmMountain;
+							terrainString = "Mountain";
 						} else if (h.HexTerrainValue >= ValueWarmHill) {
-							mr.material = MatWarmHill;
+							terrainString = "Hill";
 						} else if (h.HexTerrainValue >= ValueWarmConiferous) {
-							mr.material = MatWarmConiferous;
+							terrainString = "Coniferous";
 						} else if (h.HexTerrainValue >= ValueWarmDeciduous) {
-							mr.material = MatWarmDeciduous;
+							terrainString = "Deciduous";
 						} else if (h.HexTerrainValue >= ValueWarmPlain) {
 							//Some tiles in the "plain-spectrum" will randomly get barren
 							if (Random.Range (0f, 1f) > 0.9f) {
-								mr.material = MatWarmBarren;
+								terrainString = "Barren";
 							} else {
-								mr.material = MatWarmPlain;
+								terrainString = "Plain";
 							}
 						
 						}
@@ -430,24 +436,27 @@ public class RealmMap : MonoBehaviour {
 				{
 					if (Random.Range (0f, 1f) < randomRange) {
 						//Cold climate renderer
+						climateString = "Cold";
+						terrainString = "Plain";
+
 						if (h.HexTerrainValue >= ValueColdMountain) {
-							mr.material = MatColdMountain;
+							terrainString = "Mountain";
 						} else if (h.HexTerrainValue >= ValueColdHill) {
-							mr.material = MatColdHill;
+							terrainString = "Hill";
 						} else if (h.HexTerrainValue >= ValueColdConiferous) {
-							mr.material = MatColdConiferous;
+							terrainString = "Coniferous";
 						} else if (h.HexTerrainValue >= ValueColdPlain) {
 							//Some tiles in the "plain-spectrum" will randomly get barren
 							//In cold climate many plains are barren and only a portion is good for agriculture
 							if (Random.Range (0f, 1f) < 0.5f) {
-								mr.material = MatColdBarren;
+								terrainString = "Barren";
 							} else {
-								mr.material = MatColdPlain;
+								terrainString = "Plain";
 							}
 						}
 					}
 
-				} */
+				}
 
 				Debug.Log ("Hex_" + climateString + terrainString);
 
@@ -473,11 +482,15 @@ public class RealmMap : MonoBehaviour {
 				newHexGameObject.GetComponent<TileData> ().typeTile = newHexGameObject.tag;
 			}
 		}
+
+		//UpdateSettlementVisuals ();
 	}
 
 	public void UpdateSettlementVisuals() //loop trought all the hexes and set up the settlements
 	{
-		int numberVillages = DataControllerEditor.villagesRealm + Random.Range (0, DataControllerEditor.villagesRandom);
+		EditorController.GetComponent<RealmEditor>().SettlementRandomPlacement ();
+
+		/* int numberVillages = DataControllerEditor.villagesRealm + Random.Range (0, DataControllerEditor.villagesRandom);
 		int numberCastles = DataControllerEditor.castlesRealm + Random.Range (0, DataControllerEditor.castlesRandom);
 		int numberCities = DataControllerEditor.citiesRealm + Random.Range (0, DataControllerEditor.citiesRandom);
 
@@ -493,7 +506,7 @@ public class RealmMap : MonoBehaviour {
 
 				}
 			}
-		}
+		} */
 	}
 
 	// Pick hexes around a center one within a given range.

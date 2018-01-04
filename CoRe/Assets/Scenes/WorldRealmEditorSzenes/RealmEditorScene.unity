@@ -1740,7 +1740,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 185428352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 332.5, y: 295, z: 0}
+  m_LocalPosition: {x: 307, y: 295, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1188489480}
@@ -6369,8 +6369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f863bd0decc8b8418bff911bf3e7564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeshSettlement: {fileID: 4300004, guid: 9e14b2038fdac35488bcd9be5327e876, type: 3}
-  MatSettlements: {fileID: 2100000, guid: a2b8a5fa44f2bc84aa0ea2c770bbca39, type: 2}
+  EditorController: {fileID: 1725879519}
   ValueColdPlain: 0
   ValueColdConiferous: 0.25
   ValueColdHill: 0.5
@@ -7379,7 +7378,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1188489479}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -285.495, y: 241, z: 0}
+  m_LocalPosition: {x: -259.995, y: 241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 13337815}
@@ -11607,9 +11606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedObject: {fileID: 0}
-  someObjects: {fileID: 0}
   settlementGameObject: {fileID: 0}
-  newSettlement: {fileID: 0}
   SettlementPlaceholderPrefab: {fileID: 1051912193723390, guid: c5799e6b64d03b64f8d4b34e3bfb6b74,
     type: 2}
   VillageNordicForestPrefab: {fileID: 1766475020224702, guid: 90154f3c340a2fe449793c6538923eff,

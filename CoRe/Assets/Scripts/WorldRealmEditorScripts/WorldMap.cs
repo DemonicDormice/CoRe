@@ -25,8 +25,8 @@ public class WorldMap : MonoBehaviour {
 	//Hardcoded unit with which the size of realm-tiles etc. will be determined
 	// TODO: Adminpanel to manipulate the world-size
 	// or world-size in dependend on active user numbers
-	static public readonly int numberColumns = DataControllerEditor.worldSizeX; // columns are X
-	static public readonly int numberRows = DataControllerEditor.worldSizeY; // rows are Y
+	static public readonly int numberColumns = 1; //DataControllerEditor.worldSizeX; // columns are X
+	static public readonly int numberRows = 1; //DataControllerEditor.worldSizeY; // rows are Y
 
 	//Now we set the climate zones of the world/realms and how they are distributed
 	//in percent. In follows: cold, warm, mediterranean, desert, tropic, desert,

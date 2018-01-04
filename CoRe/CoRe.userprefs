@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs">
     <Files>
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="783" Column="35" />
-      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="194" Column="1" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmEditor.cs" Line="812" Column="40" />
+      <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap.cs" Line="339" Column="50" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\RealmMap_Continent.cs" Line="45" Column="10" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\WorldMap.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WorldRealmEditorScripts\DataControllerEditor.cs" Line="1" Column="1" />
